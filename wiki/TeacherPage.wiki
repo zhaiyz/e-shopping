@@ -1,8 +1,8 @@
-#summary 指导老师专页.
+#summary 指导老师专页
 
 = Introduction =
 
-指导都是专页
+指导老师专页
 
 
 = Details =
