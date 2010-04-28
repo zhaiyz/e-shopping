@@ -13,7 +13,7 @@ public class DBUtil {
 	/* 数据库驱动 */
 	private final String DBDRIVER = "org.gjt.mm.mysql.Driver";
 	/* 数据库URL */
-	private final String DBURL = "jdbc:mysql://localhost/test";
+	private final String DBURL = "jdbc:mysql://localhost/shopping";
 	/* 登录名 */
 	private final String DBUSER = "root";
 	/* 密码 */
