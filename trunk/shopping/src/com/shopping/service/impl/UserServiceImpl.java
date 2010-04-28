@@ -14,8 +14,8 @@ public class UserServiceImpl implements UserService {
 		return userDao.addUser(user);
 	}
 
-	public List<UserVo> findAllUser() {
-		return userDao.findAllUser();
+	public List<UserVo> findAllUser(int start, int limit) {
+		return userDao.findAllUser(start, limit);
 	}
 
 	public UserVo findUserById(int id) {

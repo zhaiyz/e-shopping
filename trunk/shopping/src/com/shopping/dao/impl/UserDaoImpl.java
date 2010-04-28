@@ -17,8 +17,8 @@ public class UserDaoImpl implements UserDao {
 
 	public Boolean addUser(UserVo user) {
 		Boolean flag = false;
-		String sql = "INSERT INTO User (user_name, user_password, gender, grade"
-				+ " blance, prompt, answer, favor, payed, user_state, reg_datetime,"
+		String sql = "INSERT INTO user (user_name, user_password, gender, grade,"
+				+ " balance, prompt, answer, favor, payed, user_state, reg_datetime,"
 				+ " email, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?)";
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
@@ -33,8 +33,9 @@ public class UserDaoImpl implements UserDao {
 			pstmt.setString(7, user.getAnswer());
 			pstmt.setString(8, user.getFavor());
 			pstmt.setFloat(9, user.getPayed());
-			pstmt.setString(10, user.getEmail());
-			pstmt.setString(11, user.getPhone());
+			pstmt.setInt(10, user.getUserState());
+			pstmt.setString(11, user.getEmail());
+			pstmt.setString(12, user.getPhone());
 			if (pstmt.executeUpdate() == 1) {
 				flag = true;
 			}
@@ -47,9 +48,10 @@ public class UserDaoImpl implements UserDao {
 		return flag;
 	}
 
-	public List<UserVo> findAllUser() {
+	public List<UserVo> findAllUser(int start, int limit) {
 		List<UserVo> list = new ArrayList<UserVo>();
-		String sql = "SELECT * FROM user WHERE 1 = 1";
+		String sql = "SELECT * FROM user WHERE 1 = 1 LIMIT " + start + ", "
+				+ limit;
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
 		try {
@@ -120,9 +122,9 @@ public class UserDaoImpl implements UserDao {
 
 	public Boolean modifyUser(UserVo user) {
 		Boolean flag = false;
-		String sql = "UPDATE user SET (user_password = ?, gender = ?, grade = ?, balance = ?,"
-				+ "prompt = ?, answer = ?, favor = ?, payed = ?, user_state = ?, email = ?, phone = ?)"
-				+ "WHERE user_id = ?";
+		String sql = "UPDATE user SET user_password = ?, gender = ?, grade = ?, balance = ?,"
+				+ "prompt = ?, answer = ?, favor = ?, payed = ?, user_state = ?, email = ?, phone = ?"
+				+ " WHERE user_id = ?";
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
 		try {

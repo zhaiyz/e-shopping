@@ -37,11 +37,15 @@ public interface UserDao {
 	public Boolean modifyUser(UserVo user);
 
 	/**
-	 * 查询出所有的User
+	 * 分页查询所有的用户
 	 * 
-	 * @return List 所有的User
+	 * @param start
+	 *            开始位置
+	 * @param limit
+	 *            偏移量
+	 * @return list 查询到的所有用户
 	 */
-	public List<UserVo> findAllUser();
+	public List<UserVo> findAllUser(int start, int limit);
 
 	/**
 	 * 按id查询出User
