@@ -33,4 +33,8 @@ public class UserServiceImpl implements UserService {
 	public Boolean isLogin(UserVo user) {
 		return userDao.isLogin(user);
 	}
+
+	public Boolean findByName(String name) {
+		return userDao.findByName(name);
+	}
 }

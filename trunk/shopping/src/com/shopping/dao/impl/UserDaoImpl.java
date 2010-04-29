@@ -195,4 +195,26 @@ public class UserDaoImpl implements UserDao {
 		}
 		return flag;
 	}
+
+	public Boolean findByName(String name) {
+		Boolean flag = false;
+		String sql = "SELECT * FROM user WHERE user_name = ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setString(1, name);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				flag = true;
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return flag;
+	}
 }
