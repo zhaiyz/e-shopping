@@ -29,7 +29,7 @@ function init() {
 	            inputType:"password",
 	            name:"password",
 	            id:"password"
-	　　　　　},
+	　　},
 	        {
 	            fieldLabel:"验证码",
 	            maxLength:4,
@@ -38,8 +38,18 @@ function init() {
 	            allowBlank:false,
 	            blankText:"验证码不能为空",
 	            name:"checkCode",
-	            id:"checkCode",
-	　　　　　}
+	            id:"checkCode"
+	　　},
+	        {
+	            fieldLabel:"操作码",
+	            xtype:"textfield",
+	            allowBlank:false,
+	            name:"action",
+	            id:"action",
+	            value:"login",
+	            hidden: true,
+                hideLabel:true
+	　　}
 	　　 ],
 	    buttons:[
 	        {text:"登录",handler:login,formBind:true},
@@ -72,13 +82,13 @@ function init() {
 	    var f = loginForm.form;
 	    if (f.isValid()){
 	        f.doAction('submit', {
-	            url:'',
+	            url:'/shopping/user',
 	            method:'post',
-	            success:function(){
-	                Ext.Msg.alert("提示","成功");
+	            success:function(form, action){
+	                Ext.Msg.alert("提示",action.result.info);
 	            },
-	            failure:function(){
-	                Ext.Msg.alert("提示","失败");
+	            failure:function(form, action){
+	                Ext.Msg.alert("提示",action.result.info);
 	            }
 	        });
 	    }
