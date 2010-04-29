@@ -114,5 +114,11 @@ public class TestUserServiceImpl extends TestCase {
 		
 		assertFalse(userService.isLogin(user));
 	}
-
+    
+	@Test
+	public void testFindByName() {
+		String name = "userName";
+		
+		assertTrue(userService.findByName(name));
+	}
 }
