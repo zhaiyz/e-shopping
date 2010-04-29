@@ -29,4 +29,8 @@ public class UserServiceImpl implements UserService {
 	public Boolean removeUserById(int id) {
 		return userDao.removeUserById(id);
 	}
+
+	public Boolean isLogin(UserVo user) {
+		return userDao.isLogin(user);
+	}
 }

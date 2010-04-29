@@ -173,4 +173,26 @@ public class UserDaoImpl implements UserDao {
 		return flag;
 	}
 
+	public Boolean isLogin(UserVo user) {
+		Boolean flag = false;
+		String sql = "SELECT * FROM user WHERE user_name = ? AND user_password = ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setString(1, user.getUserName());
+			pstmt.setString(2, user.getUserPassword());
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				flag = true;
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return flag;
+	}
 }
