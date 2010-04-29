@@ -102,5 +102,17 @@ public class TestUserServiceImpl extends TestCase {
 		int id = 2;
 		assertFalse(userService.removeUserById(id));
 	}
+	
+	@Test
+	public void testIsLogin() {
+		UserVo user = new UserVo();
+		String userName = "userName2";
+		String userPassword = "userPassword";
+		
+		user.setUserName(userName);
+		user.setUserPassword(userPassword);
+		
+		assertFalse(userService.isLogin(user));
+	}
 
 }

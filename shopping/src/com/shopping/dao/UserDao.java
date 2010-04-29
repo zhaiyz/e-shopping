@@ -55,4 +55,13 @@ public interface UserDao {
 	 * @return UserVo 一个UserVo对象
 	 */
 	public UserVo findUserById(int id);
+
+	/**
+	 * 判断用户是否存在
+	 * 
+	 * @param user
+	 *            UserVo对象
+	 * @return Boolean 是否存在此用户
+	 */
+	public Boolean isLogin(UserVo user);
 }
