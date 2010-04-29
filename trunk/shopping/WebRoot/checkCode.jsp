@@ -42,7 +42,7 @@
 					.nextInt(110), 20 + random.nextInt(110)));
 			g.drawString(rand, 13 * i + 6, 16);
 		}
-		session.setAttribute("rand", sRand);
+		session.setAttribute("checkCode", sRand);
 		g.dispose();
 		ImageIO.write(image, "JPEG", os);
 		os.flush();
