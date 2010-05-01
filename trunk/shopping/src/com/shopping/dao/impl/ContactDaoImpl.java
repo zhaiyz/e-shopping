@@ -12,7 +12,7 @@ import com.shopping.vo.ContactVo;
 
 public class ContactDaoImpl implements ContactDao {
 
-	public boolean addContactDao(ContactVo contact) {
+	public boolean addContact(ContactVo contact) {
 		boolean flag = false;
 		String sql = "INSERT INTO contact (order_id, name, postcode, address, telphone, freetime) "
 				+ "VALUES (?, ?, ?, ?, ?, ?)";
