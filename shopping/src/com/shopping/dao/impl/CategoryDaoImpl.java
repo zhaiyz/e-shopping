@@ -14,7 +14,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
 	public boolean addCategory(CategoryVo category) {
 		boolean flag = false;
-		String sql = "INSERT INTO category (cat_name,cat_desc,cat_datetime) VALUES (?,?,NOW())";
+		String sql = "INSERT INTO category (cat_name, cat_desc, cat_datetime) VALUES (?, ?, NOW())";
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
 		try {
@@ -35,7 +35,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
 	public List<CategoryVo> findAllCategory(int start, int limit) {
 		List<CategoryVo> list = new ArrayList<CategoryVo>();
-		String sql = "SELECT * FROM category WHERE 1 = 1 LIMIT" + start + ","
+		String sql = "SELECT * FROM category WHERE 1 = 1 LIMIT " + start + ","
 				+ limit;
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
@@ -115,13 +115,14 @@ public class CategoryDaoImpl implements CategoryDao {
 
 	public boolean modifyCategory(CategoryVo category) {
 		boolean flag = false;
-		String sql = "UPDATE category SET cat_name = ?, cat_desc = ?";
+		String sql = "UPDATE category SET cat_name = ?, cat_desc = ? WHERE cat_id = ?";
 		PreparedStatement pst = null;
 		DBUtil dbc = new DBUtil();
 		try {
 			pst = dbc.getConnection().prepareStatement(sql);
 			pst.setString(1, category.getCatName());
 			pst.setString(2, category.getCatDesc());
+			pst.setInt(3, category.getCatId());
 			if (pst.executeUpdate() == 0 || pst.executeUpdate() == 1) {
 				flag = true;
 			}

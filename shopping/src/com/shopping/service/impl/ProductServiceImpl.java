@@ -35,8 +35,8 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.modifyProduct(product);
 	}
 
-	public boolean removeProduct(int proId) {
-		return productDao.removeProduct(proId);
+	public boolean removeProductById(int proId) {
+		return productDao.removeProductById(proId);
 	}
 
 }

@@ -31,7 +31,7 @@ public interface ProductDao {
 	 *            商品ID
 	 * @return 删除是否成功
 	 */
-	public boolean removeProduct(int proId);
+	public boolean removeProductById(int proId);
 
 	/**
 	 * 分页查询所有商品

@@ -36,7 +36,7 @@ public class ItemDaoImpl implements ItemDao{
 
 	public List<ItemVo> findAllItem(int categoryId, int start, int limit) {
 		List<ItemVo> list = new ArrayList<ItemVo>();
-		String sql = "SELECT * FROM item WHERE cat_id = ? and 1 = 1 LIMIT" + start + ","
+		String sql = "SELECT * FROM item WHERE cat_id = ? and 1 = 1 LIMIT " + start + ","
 				+ limit;
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
@@ -64,7 +64,7 @@ public class ItemDaoImpl implements ItemDao{
 
 	public List<ItemVo> findAllItem(int start, int limit) {
 		List<ItemVo> list = new ArrayList<ItemVo>();
-		String sql = "SELECT * FROM item WHERE 1 = 1 LIMIT" + start + ","
+		String sql = "SELECT * FROM item WHERE 1 = 1 LIMIT " + start + ","
 				+ limit;
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
@@ -119,7 +119,8 @@ public class ItemDaoImpl implements ItemDao{
 
 	public boolean modifyItem(ItemVo item) {
 		boolean flag = false;
-		String sql = "UPDATE item SET cat_id = ?, item_name = ?, item_desc = ?";
+		String sql = "UPDATE item SET cat_id = ?, item_name = ?, item_desc = ?" +
+				" WHERE item_id = ?";
 		PreparedStatement pst = null;
 		DBUtil dbc = new DBUtil();
 		try {
@@ -127,6 +128,7 @@ public class ItemDaoImpl implements ItemDao{
 			pst.setInt(1, item.getCatId());
 			pst.setString(2, item.getItemName());
 			pst.setString(3, item.getItemDesc());
+			pst.setInt(4, item.getItemId());
 			if (pst.executeUpdate() == 0 || pst.executeUpdate() == 1) {
 				flag = true;
 			}
@@ -139,7 +141,7 @@ public class ItemDaoImpl implements ItemDao{
 		return flag;
 	}
 
-	public boolean removeItem(int itemId) {
+	public boolean removeItemById(int itemId) {
 		Boolean flag = false;
 		String sql = "DELETE FROM item WHERE item_id = ?";
 		PreparedStatement pstmt = null;
