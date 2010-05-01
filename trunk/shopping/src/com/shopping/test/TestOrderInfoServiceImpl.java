@@ -2,6 +2,9 @@ package com.shopping.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 import com.shopping.service.OrderInfoService;
@@ -24,27 +27,40 @@ public class TestOrderInfoServiceImpl {
 
 	@Test
 	public void testFindAllOrderInfo() {
-		fail("Not yet implemented");
+		List<OrderInfoVo> list = new ArrayList<OrderInfoVo>();
+		list = service.findAllOrderInfo(1, 2);
+		
+		assertNotNull(list);
 	}
 
 	@Test
 	public void testFindOrderInfoById() {
-		fail("Not yet implemented");
+		OrderInfoVo info = new OrderInfoVo();
+		info = service.findOrderInfoById(1);
+		assertNotNull(info);
 	}
 
 	@Test
 	public void testFindOrderInfoByOrderId() {
-		fail("Not yet implemented");
+		OrderInfoVo info = new OrderInfoVo();
+		info = service.findOrderInfoById(1);
+		assertNotNull(info);		
 	}
 
 	@Test
 	public void testModifyOrderInfo() {
-		fail("Not yet implemented");
+		OrderInfoVo orderInfo = new OrderInfoVo();
+		orderInfo.setOrderId(1);
+		orderInfo.setPrice(10.0f);
+		orderInfo.setProId(1);
+		orderInfo.setAmount(1);
+		
+		assertTrue(service.modifyOrderInfo(orderInfo));
 	}
 
 	@Test
 	public void testRemoveOrderInfoById() {
-		fail("Not yet implemented");
+		assertFalse(service.removeOrderInfoById(1));
 	}
 
 }
