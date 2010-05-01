@@ -6,32 +6,45 @@ package com.shopping.vo;
 import java.util.Date;
 
 public class UserVo {
+	
 	/** 用户ID */
 	private int userId;
+	
 	/** 用户登录名 */
 	private String userName;
+	
 	/** 用户登录密码 */
 	private String userPassword;
+	
 	/** 用户性别 */
 	private int gender;
+	
 	/** 用户等级 */
 	private int grade;
+	
 	/** 账户余额 */
 	private float balance;
+	
 	/** 密码提示 */
 	private String prompt;
+	
 	/** 密码答案 */
 	private String answer;
+	
 	/** 爱好 */
 	private String favor;
+	
 	/** 消费额 */
 	private float payed;
+	
 	/** 用户状态，0：可登录;1：不可登录 */
 	private int userState;
 	/** 注册时间 */
 	private Date regDatetime;
+	
 	/** 用户邮箱 */
 	private String email;
+	
 	/** 电话 */
 	private String phone;
 
