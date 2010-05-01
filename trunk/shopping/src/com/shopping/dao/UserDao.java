@@ -1,5 +1,5 @@
 /**
- * Userֵ�������Ӧ��DAO�ӿ�
+ * @author hanxue_lang@foxmail.com
  */
 package com.shopping.dao;
 
@@ -10,66 +10,52 @@ import com.shopping.vo.UserVo;
 public interface UserDao {
 
 	/**
-	 * �û�ע���ʱ������û�
-	 * 
+	 * 添加用户，主要是用户注册
 	 * @param user
-	 *            UserVo һ��UserVo����
-	 * @return Boolean ��4�ж��Ƿ���ӳɹ�
+	 * @return boolean 是否注册成功
 	 */
 	public boolean addUser(UserVo user);
 
 	/**
-	 * ���û�id4ɾ��һ���û�
-	 * 
+	 * 按ID删除一个用户
 	 * @param id
-	 *            int �û���id
-	 * @return Boolean ��4�ж��Ƿ�ɾ��ɹ�
+	 * @return boolean 是否删除成功
 	 */
 	public boolean removeUserById(int id);
 
 	/**
-	 * �޸�һ���û�����Ϣ
-	 * 
+	 * 修改用户
 	 * @param user
-	 *            UserVo һ��UserVo����
-	 * @return Boolean ��4�ж��Ƿ��޸ĳɹ�
+	 * @return boolean 是否修改成功
 	 */
 	public boolean modifyUser(UserVo user);
 
 	/**
-	 * ��ҳ��ѯ���е��û�
-	 * 
-	 * @param start
-	 *            ��ʼλ��
-	 * @param limit
-	 *            ƫ��
-	 * @return list ��ѯ���������û�
+	 * 查询所有用户
+	 * @param start 开始位置
+	 * @param limit 偏移量
+	 * @return list 符合条件的用户
 	 */
 	public List<UserVo> findAllUser(int start, int limit);
 
 	/**
-	 * ��id��ѯ��User
-	 * 
+	 * 按ID查询用户
 	 * @param id
-	 *            int �û���id
-	 * @return UserVo һ��UserVo����
+	 * @return UserVo
 	 */
 	public UserVo findUserById(int id);
 
 	/**
-	 * �ж��û��Ƿ����
-	 * 
+	 * 判断是否登录成功
 	 * @param user
-	 *            UserVo����
-	 * @return Boolean �Ƿ���ڴ��û�
+	 * @return boolean 是否登录成功
 	 */
 	public boolean isLogin(UserVo user);
 
 	/**
-	 * ���û����ѯ�û�
-	 * 
+	 * 按姓名查询用户
 	 * @param name
-	 * @return Boolean �Ƿ���ڴ��û�����û�
+	 * @return boolean 是否存在些用户名的用户
 	 */
 	public boolean findByName(String name);
 }
