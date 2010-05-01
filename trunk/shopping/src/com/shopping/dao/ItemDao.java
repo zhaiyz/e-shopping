@@ -59,7 +59,7 @@ public interface ItemDao {
 	 *            商品小类的ID
 	 * @return 表示删除是否成功
 	 */
-	public boolean removeItem(int itemId);
+	public boolean removeItemById(int itemId);
 
 	/**
 	 * 编辑产品小类

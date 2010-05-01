@@ -16,7 +16,7 @@ public class ProductDaoImp implements ProductDao {
 		boolean flag = false;
 		String sql = "INSERT INTO product (item_id, pro_name, imageurl, pro_desc, "
 				+ "pro_datetime, pru_price, ori_price, dis_price, stock, sales, "
-				+ "recommendation) VALUES (?,?,?,?,NOW(),?,?,?,?,?)";
+				+ "recommendation) VALUES (?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
 		try {
@@ -30,6 +30,7 @@ public class ProductDaoImp implements ProductDao {
 			pstmt.setFloat(7, product.getDisPrice());
 			pstmt.setInt(8, product.getStock());
 			pstmt.setInt(9, product.getSales());
+			pstmt.setInt(10, product.getRecommendation());
 			if (pstmt.executeUpdate() == 1) {
 				flag = true;
 			}
@@ -44,7 +45,7 @@ public class ProductDaoImp implements ProductDao {
 
 	public List<ProductVo> findAllProduct(int itemId, int start, int limit) {
 		List<ProductVo> list = new ArrayList<ProductVo>();
-		String sql = "SELECT * FROM product WHERE item_id = ? and 1 = 1 LIMIT"
+		String sql = "SELECT * FROM product WHERE item_id = ? and 1 = 1 LIMIT "
 				+ start + "," + limit;
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
@@ -80,7 +81,7 @@ public class ProductDaoImp implements ProductDao {
 
 	public List<ProductVo> findAllProduct(int start, int limit) {
 		List<ProductVo> list = new ArrayList<ProductVo>();
-		String sql = "SELECT * FROM product WHERE 1 = 1 LIMIT" + start + ","
+		String sql = "SELECT * FROM product WHERE 1 = 1 LIMIT " + start + ","
 				+ limit;
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
@@ -186,7 +187,7 @@ public class ProductDaoImp implements ProductDao {
 		boolean flag = false;
 		String sql = "UPDATE product SET item_id = ?, pro_name = ?, imageurl = ?, "
 				+ "pro_desc = ?, pru_price = ?, ori_price = ?, dis_price = ?,stock = ?,"
-				+ " sales = ?,recommendation = ?";
+				+ " sales = ?,recommendation = ? WHERE pro_id = ?";
 		PreparedStatement pst = null;
 		DBUtil dbc = new DBUtil();
 		try {
@@ -201,6 +202,7 @@ public class ProductDaoImp implements ProductDao {
 			pst.setInt(8, product.getStock());
 			pst.setInt(9, product.getSales());
 			pst.setInt(10, product.getRecommendation());
+			pst.setInt(11, product.getProId());
 			if (pst.executeUpdate() == 0 || pst.executeUpdate() == 1) {
 				flag = true;
 			}
@@ -213,7 +215,7 @@ public class ProductDaoImp implements ProductDao {
 		return flag;
 	}
 
-	public boolean removeProduct(int proId) {
+	public boolean removeProductById(int proId) {
 		boolean flag = false;
 		String sql = "DELETE FROM product WHERE pro_id = ?";
 		PreparedStatement pstmt = null;

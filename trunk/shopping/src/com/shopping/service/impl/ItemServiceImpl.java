@@ -31,8 +31,8 @@ public class ItemServiceImpl implements ItemService {
 		return itemDao.modifyItem(item);
 	}
 
-	public boolean removeItem(int itemId) {
-		return itemDao.removeItem(itemId);
+	public boolean removeItemById(int itemId) {
+		return itemDao.removeItemById(itemId);
 	}
 
 }
