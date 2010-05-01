@@ -4,23 +4,23 @@
 package com.shopping.vo;
 
 /**
- * 订单详细信息
+ * 璁㈠崟璇︾粏淇℃伅
  */
 public class OrderInfoVo {
 
-	/** 订单详细表ID */
+	/** 璁㈠崟璇︾粏琛↖D */
 	private int infoId;
 
-	/** 订单ID */
+	/** 璁㈠崟ID */
 	private int orderId;
 
-	/** 商品ID */
+	/** 鍟嗗搧ID */
 	private int proId;
 
-	/** 商品数量 */
+	/** 鍟嗗搧鏁伴噺 */
 	private int amount;
 
-	/** 商品总价 */
+	/** 鍟嗗搧鎬讳环 */
 	private float price;
 
 	public int getInfoId() {
