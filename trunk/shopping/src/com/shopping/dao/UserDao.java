@@ -64,9 +64,10 @@ public interface UserDao {
 	 * @return Boolean 是否存在此用户
 	 */
 	public Boolean isLogin(UserVo user);
-	
+
 	/**
 	 * 按用户名查询用户
+	 * 
 	 * @param name
 	 * @return Boolean 是否存在此用户名的用户
 	 */
