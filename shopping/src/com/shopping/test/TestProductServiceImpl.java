@@ -78,7 +78,7 @@ public class TestProductServiceImpl extends TestCase {
 	@Test
 	public void testModifyProduct() {
 		ProductVo product = new ProductVo();
-		int pro_id = 2;
+		int proId = 2;
 		int itemId = 1;
 		String proName = "proName2";
 		String proDesc = "proDesc2";
@@ -93,6 +93,7 @@ public class TestProductServiceImpl extends TestCase {
 
 		int recommendation = 1;
 
+		product.setProId(proId);
 		product.setItemId(itemId);
 		product.setProName(proName);
 		product.setImageUrl(imageUrl);
@@ -112,7 +113,7 @@ public class TestProductServiceImpl extends TestCase {
 	public void testRemoveProductById() {
 		int proId = 2;
 		
-		assertTrue(service.removeProductById(proId));
+		assertFalse(service.removeProductById(proId));
 	}
 
 }
