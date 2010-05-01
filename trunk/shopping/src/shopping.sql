@@ -48,7 +48,7 @@ CREATE TABLE product
     imageurl VARCHAR(50) NOT NULL,
     pro_desc MEDIUMTEXT NOT NULL,
     pro_datetime DATETIME NOT NULL,
-    pru_price FLOAT(10) NOT NULL,
+    pur_price FLOAT(10) NOT NULL,
     ori_price FLOAT(10) NOT NULL,
     dis_price FLOAT(10) NOT NULL,
     stock INT(10) NOT NULL DEFAULT 0,
