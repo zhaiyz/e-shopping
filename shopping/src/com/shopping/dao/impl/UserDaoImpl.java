@@ -1,5 +1,5 @@
 /**
- * UserDaoµÄÊµÏÖÀà
+ * UserDaoï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½
  */
 package com.shopping.dao.impl;
 
@@ -70,7 +70,7 @@ public class UserDaoImpl implements UserDao {
 				user.setFavor(rs.getString("favor"));
 				user.setPayed(rs.getFloat("payed"));
 				user.setUserState(rs.getInt("user_state"));
-				user.setRegDatetime(rs.getString("reg_datetime"));
+				user.setRegDatetime(rs.getDate("reg_datetime"));
 				user.setEmail(rs.getString("email"));
 				user.setPhone(rs.getString("phone"));
 				list.add(user);
@@ -106,7 +106,7 @@ public class UserDaoImpl implements UserDao {
 				user.setFavor(rs.getString("favor"));
 				user.setPayed(rs.getFloat("payed"));
 				user.setUserState(rs.getInt("user_state"));
-				user.setRegDatetime(rs.getString("reg_datetime"));
+				user.setRegDatetime(rs.getDate("reg_datetime"));
 				user.setEmail(rs.getString("email"));
 				user.setPhone(rs.getString("phone"));
 			}
