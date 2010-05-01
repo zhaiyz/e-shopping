@@ -1,6 +1,8 @@
-#Sat May 01 12:08:45 CST 2010
+#Sat May 01 13:10:52 CST 2010
 eclipse.preferences.version=1
+encoding//src/com/shopping/dao=UTF-8
 encoding//src/com/shopping/dao/ContactDao.java=UTF-8
+encoding//src/com/shopping/dao/UserDao.java=UTF-8
 encoding//src/com/shopping/dao/impl/UserDaoImpl.java=UTF-8
 encoding//src/com/shopping/vo/CategoryVo.java=UTF-8
 encoding//src/com/shopping/vo/ContactVo.java=UTF-8

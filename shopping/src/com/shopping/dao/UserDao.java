@@ -1,5 +1,5 @@
 /**
- * UserÖµ¶ÔÏóËù¶ÔÓ¦µÄDAO½Ó¿Ú
+ * UserÖµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½DAOï¿½Ó¿ï¿½
  */
 package com.shopping.dao;
 
@@ -10,66 +10,66 @@ import com.shopping.vo.UserVo;
 public interface UserDao {
 
 	/**
-	 * ÓÃ»§×¢²áµÄÊ±ºò£¬Ìí¼ÓÓÃ»§
+	 * ï¿½Ã»ï¿½×¢ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
 	 * 
 	 * @param user
-	 *            UserVo Ò»¸öUserVo¶ÔÏó
-	 * @return Boolean ÓÃÀ´ÅĞ¶ÏÊÇ·ñÌí¼Ó³É¹¦
+	 *            UserVo Ò»ï¿½ï¿½UserVoï¿½ï¿½ï¿½ï¿½
+	 * @return Boolean ï¿½ï¿½4ï¿½Ğ¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ó³É¹ï¿½
 	 */
-	public Boolean addUser(UserVo user);
+	public boolean addUser(UserVo user);
 
 	/**
-	 * °´ÓÃ»§idÀ´É¾³ıÒ»¸öÓÃ»§
+	 * ï¿½ï¿½ï¿½Ã»ï¿½id4É¾ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ã»ï¿½
 	 * 
 	 * @param id
-	 *            int ÓÃ»§µÄid
-	 * @return Boolean ÓÃÀ´ÅĞ¶ÏÊÇ·ñÉ¾³ı³É¹¦
+	 *            int ï¿½Ã»ï¿½ï¿½ï¿½id
+	 * @return Boolean ï¿½ï¿½4ï¿½Ğ¶ï¿½ï¿½Ç·ï¿½É¾ï¿½ï¿½É¹ï¿½
 	 */
-	public Boolean removeUserById(int id);
+	public boolean removeUserById(int id);
 
 	/**
-	 * ĞŞ¸ÄÒ»¸öÓÃ»§µÄĞÅÏ¢
+	 * ï¿½Ş¸ï¿½Ò»ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * 
 	 * @param user
-	 *            UserVo Ò»¸öUserVo¶ÔÏó
-	 * @return Boolean ÓÃÀ´ÅĞ¶ÏÊÇ·ñĞŞ¸Ä³É¹¦
+	 *            UserVo Ò»ï¿½ï¿½UserVoï¿½ï¿½ï¿½ï¿½
+	 * @return Boolean ï¿½ï¿½4ï¿½Ğ¶ï¿½ï¿½Ç·ï¿½ï¿½Ş¸Ä³É¹ï¿½
 	 */
-	public Boolean modifyUser(UserVo user);
+	public boolean modifyUser(UserVo user);
 
 	/**
-	 * ·ÖÒ³²éÑ¯ËùÓĞµÄÓÃ»§
+	 * ï¿½ï¿½Ò³ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ğµï¿½ï¿½Ã»ï¿½
 	 * 
 	 * @param start
-	 *            ¿ªÊ¼Î»ÖÃ
+	 *            ï¿½ï¿½Ê¼Î»ï¿½ï¿½
 	 * @param limit
-	 *            Æ«ÒÆÁ¿
-	 * @return list ²éÑ¯µ½µÄËùÓĞÓÃ»§
+	 *            Æ«ï¿½ï¿½
+	 * @return list ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
 	 */
 	public List<UserVo> findAllUser(int start, int limit);
 
 	/**
-	 * °´id²éÑ¯³öUser
+	 * ï¿½ï¿½idï¿½ï¿½Ñ¯ï¿½ï¿½User
 	 * 
 	 * @param id
-	 *            int ÓÃ»§µÄid
-	 * @return UserVo Ò»¸öUserVo¶ÔÏó
+	 *            int ï¿½Ã»ï¿½ï¿½ï¿½id
+	 * @return UserVo Ò»ï¿½ï¿½UserVoï¿½ï¿½ï¿½ï¿½
 	 */
 	public UserVo findUserById(int id);
 
 	/**
-	 * ÅĞ¶ÏÓÃ»§ÊÇ·ñ´æÔÚ
+	 * ï¿½Ğ¶ï¿½ï¿½Ã»ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param user
-	 *            UserVo¶ÔÏó
-	 * @return Boolean ÊÇ·ñ´æÔÚ´ËÓÃ»§
+	 *            UserVoï¿½ï¿½ï¿½ï¿½
+	 * @return Boolean ï¿½Ç·ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Ã»ï¿½
 	 */
-	public Boolean isLogin(UserVo user);
+	public boolean isLogin(UserVo user);
 
 	/**
-	 * °´ÓÃ»§Ãû²éÑ¯ÓÃ»§
+	 * ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½Ã»ï¿½
 	 * 
 	 * @param name
-	 * @return Boolean ÊÇ·ñ´æÔÚ´ËÓÃ»§ÃûµÄÓÃ»§
+	 * @return Boolean ï¿½Ç·ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
 	 */
-	public Boolean findByName(String name);
+	public boolean findByName(String name);
 }

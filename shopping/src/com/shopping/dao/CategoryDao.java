@@ -55,13 +55,13 @@ public interface CategoryDao {
 	 * @return 表示删除操作是否成功
 	 */
 	public boolean removeCategoryById(int catId);
-	
+
 	/**
 	 * 修改商品大类的属性
+	 * 
 	 * @param category
-	 * 	商品大类的对象
-	 * @return
-	 * 	返回boolean型，表示修改是否成功
+	 *            商品大类的对象
+	 * @return 返回boolean型，表示修改是否成功
 	 */
 	public boolean modifyCategory(CategoryVo category);
 }
