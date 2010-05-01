@@ -1,7 +1,6 @@
 package com.shopping.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,13 +25,11 @@ public class UserServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
-		PrintWriter out = response.getWriter();
-
 		// 取得操作码
 		String action = request.getParameter("action");
 
-		String json = "";
-
+		String path = "";
+		String error = "";
 		// 根据操作码进行相应的操作
 		if ("login".equals(action)) {
 			String userName = request.getParameter("username");
@@ -47,16 +44,26 @@ public class UserServlet extends HttpServlet {
 				user.setUserPassword(userPassword);
 
 				if (ServiceFactory.getUserServiceInstance().isLogin(user)) {
-					json += "{success:true,info:'登录成功!'}";
+					// 登录成功，把userName放入session
+					request.getSession().setAttribute("userName", userName);
+					path = "index.jsp";
 				} else {
-					json += "{success:false,info:'用户名或密码错误!'}";
+					// 登录失败
+					path = "user/login.jsp";
+					error = "用户名或密码错误";
 				}
 			} else {
-				json += "{success:false,info:'验证码错误!'}";
+				// 验证码错误
+				path = "user/login.jsp";
+				error = "验证码错误";
 			}
 		}
 
-		out.print(json);
+		// 把error放入到request入
+		request.setAttribute("error", error);
+
+		// 根据path进行跳转
+		request.getRequestDispatcher(path).forward(request, response);
 	}
 
 }
