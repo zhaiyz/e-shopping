@@ -16,7 +16,7 @@ import com.shopping.vo.UserVo;
 public class UserDaoImpl implements UserDao {
 
 	public boolean addUser(UserVo user) {
-		Boolean flag = false;
+		boolean flag = false;
 		String sql = "INSERT INTO user (user_name, user_password, gender, grade,"
 				+ " balance, prompt, answer, favor, payed, user_state, reg_datetime,"
 				+ " email, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?)";
@@ -121,7 +121,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public boolean modifyUser(UserVo user) {
-		Boolean flag = false;
+		boolean flag = false;
 		String sql = "UPDATE user SET user_password = ?, gender = ?, grade = ?, balance = ?,"
 				+ "prompt = ?, answer = ?, favor = ?, payed = ?, user_state = ?, email = ?, phone = ?"
 				+ " WHERE user_id = ?";
@@ -154,7 +154,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public boolean removeUserById(int id) {
-		Boolean flag = false;
+		boolean flag = false;
 		String sql = "DELETE FROM user WHERE user_id = ?";
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
@@ -174,7 +174,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public boolean isLogin(UserVo user) {
-		Boolean flag = false;
+		boolean flag = false;
 		String sql = "SELECT * FROM user WHERE user_name = ? AND user_password = ?";
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
@@ -197,7 +197,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public boolean findByName(String name) {
-		Boolean flag = false;
+		boolean flag = false;
 		String sql = "SELECT * FROM user WHERE user_name = ?";
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
