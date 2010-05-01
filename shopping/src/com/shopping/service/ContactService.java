@@ -9,42 +9,42 @@ import com.shopping.vo.ContactVo;
  */
 public interface ContactService {
 	/**
-	 * Ìí¼ÓÒ»¸ö¼ÄËÍµØÖ·
+	 * ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Íµï¿½Ö·
 	 * 
 	 * @param contact
-	 * @return boolean ÊÇ·ñÌí¼Ó³É¹¦
+	 * @return boolean ï¿½Ç·ï¿½ï¿½ï¿½Ó³É¹ï¿½
 	 */
-	public boolean addContactDao(ContactVo contact);
+	public boolean addContact(ContactVo contact);
 
 	/**
-	 * °´IDÉ¾³ý¼ÄËÍµØÖ·
+	 * ï¿½ï¿½IDÉ¾ï¿½ï¿½ï¿½ï¿½Íµï¿½Ö·
 	 * 
 	 * @param id
-	 * @return boolean ÊÇ·ñÉ¾³ý³É¹¦
+	 * @return boolean ï¿½Ç·ï¿½É¾ï¿½ï¿½É¹ï¿½
 	 */
 	public boolean removeContactById(int id);
 
 	/**
-	 * ÐÞ¸Ä¼ÄËÍµØÖ·
+	 * ï¿½Þ¸Ä¼ï¿½ï¿½Íµï¿½Ö·
 	 * 
 	 * @param contact
-	 * @return boolean ÊÇ·ñÐÞ¸Ä³É¹¦
+	 * @return boolean ï¿½Ç·ï¿½ï¿½Þ¸Ä³É¹ï¿½
 	 */
 	public boolean modifyContact(ContactVo contact);
 
 	/**
-	 * ²éÑ¯³öÈ«²¿ÁªÏµµØÖ·
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½È«ï¿½ï¿½jÏµï¿½ï¿½Ö·
 	 * 
 	 * @param start
-	 *            int ¿ªÊ¼Î»ÖÃ
+	 *            int ï¿½ï¿½Ê¼Î»ï¿½ï¿½
 	 * @param limit
-	 *            int Æ«ÒÆÁ¿
-	 * @return list ·ûºÏÌõ¼þµÄContact¼ÇÂ¼
+	 *            int Æ«ï¿½ï¿½
+	 * @return list ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Contactï¿½ï¿½Â¼
 	 */
 	public List<ContactVo> findAllContact(int start, int limit);
 
 	/**
-	 * °´ID²éÑ¯Contact
+	 * ï¿½ï¿½IDï¿½ï¿½Ñ¯Contact
 	 * 
 	 * @param id
 	 * @return ContactVo
@@ -52,11 +52,11 @@ public interface ContactService {
 	public ContactVo findContactById(int id);
 
 	/**
-	 * °´OrderId²éÑ¯³öÏàÓ¦µÄContact¼ÇÂ¼
+	 * ï¿½ï¿½OrderIdï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Contactï¿½ï¿½Â¼
 	 * 
 	 * @param id
-	 *            orderId ¶©µ¥ID
-	 * @return ContactVo ÏàÓ¦¶©µ¥IDµÄ¶©µ¥¼ÄËÍµØÖ·
+	 *            orderId ï¿½ï¿½ï¿½ï¿½ID
+	 * @return ContactVo ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½IDï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½Ö·
 	 */
 	public ContactVo findContactByOrderId(int id);
 }
