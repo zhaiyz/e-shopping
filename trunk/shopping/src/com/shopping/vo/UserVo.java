@@ -1,22 +1,37 @@
 /**
- * User值对象
+ * User值锟斤拷锟斤拷
  */
 package com.shopping.vo;
 
+import java.util.Date;
+
 public class UserVo {
 	private int userId;
+
 	private String userName;
+
 	private String userPassword;
+
 	private int gender;
+
 	private int grade;
+
 	private float balance;
+
 	private String prompt;
+
 	private String answer;
+
 	private String favor;
+
 	private float payed;
+
 	private int userState;
-	private String regDatetime;
+
+	private Date regDatetime;
+
 	private String email;
+
 	private String phone;
 
 	public int getUserId() {
@@ -107,14 +122,6 @@ public class UserVo {
 		this.userState = userState;
 	}
 
-	public String getRegDatetime() {
-		return regDatetime;
-	}
-
-	public void setRegDatetime(String regDatetime) {
-		this.regDatetime = regDatetime;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -129,5 +136,13 @@ public class UserVo {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public Date getRegDatetime() {
+		return regDatetime;
+	}
+
+	public void setRegDatetime(Date regDatetime) {
+		this.regDatetime = regDatetime;
 	}
 }
