@@ -21,7 +21,7 @@ public class OrderInfoVo {
 	private int amount;
 
 	/** 商品总价 */
-	private float privce;
+	private float price;
 
 	public int getInfoId() {
 		return infoId;
@@ -55,11 +55,11 @@ public class OrderInfoVo {
 		this.amount = amount;
 	}
 
-	public float getPrivce() {
-		return privce;
+	public float getPrice() {
+		return price;
 	}
 
-	public void setPrivce(float privce) {
-		this.privce = privce;
+	public void setPrice(float price) {
+		this.price = price;
 	}
 }
