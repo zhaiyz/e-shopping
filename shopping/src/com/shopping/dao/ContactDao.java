@@ -18,7 +18,7 @@ public interface ContactDao {
 	 * @param contact
 	 * @return boolean 是否添加成功
 	 */
-	public boolean addContactDao(ContactVo contact);
+	public boolean addContact(ContactVo contact);
 
 	/**
 	 * 按ID删除寄送地址

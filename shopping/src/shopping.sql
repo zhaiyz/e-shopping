@@ -62,7 +62,7 @@ CREATE TABLE myorder
 (
     order_id INT(10) NOT NULL AUTO_INCREMENT,
     user_id INT(10) NOT NULL,
-    con_id INT(10) NOT NULL,
+	con_id INT(10),
     order_num VARCHAR(32) NOT NULL,
     order_datetime DATETIME NOT NULL,
     payment TINYINT(1) NOT NULL DEFAULT 0,

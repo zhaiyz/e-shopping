@@ -11,8 +11,8 @@ public class ContactServiceImpl implements ContactService {
 
 	private ContactDao dao = new ContactDaoImpl();
 
-	public boolean addContactDao(ContactVo contact) {
-		return dao.addContactDao(contact);
+	public boolean addContact(ContactVo contact) {
+		return dao.addContact(contact);
 	}
 
 	public List<ContactVo> findAllContact(int start, int limit) {
