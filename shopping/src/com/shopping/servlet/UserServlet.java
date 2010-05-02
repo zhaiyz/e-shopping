@@ -57,6 +57,50 @@ public class UserServlet extends HttpServlet {
 				path = "user/login.jsp";
 				error = "验证码错误";
 			}
+		} else if ("register".equals(action)) {
+			UserVo user = new UserVo();
+
+			String userName = request.getParameter("username");
+			String password = request.getParameter("password");
+
+			user.setUserName(userName);
+			user.setUserPassword(password);
+
+			if (!"none".equals(request.getParameter("prompt"))) {
+				String prompt = request.getParameter("prompt");
+				String answer = request.getParameter("answer");
+
+				user.setPrompt(prompt);
+				user.setAnswer(answer);
+			}
+
+			if (request.getParameter("email") != null) {
+				String email = request.getParameter("eamil");
+
+				user.setEmail(email);
+			}
+			if (request.getParameter("phone") != null) {
+				String phone = request.getParameter("phone");
+
+				user.setPhone(phone);
+			}
+			
+			int gender = Integer.parseInt(request.getParameter("gender"));
+			
+			user.setGender(gender);
+			
+			user.setGrade(0);
+			user.setBalance(0.0f);
+			user.setPayed(0.0f);
+			user.setUserState(0);
+			
+			if (ServiceFactory.getUserServiceInstance().addUser(user)) {
+				request.getSession().setAttribute("userName", userName);
+				path="index.jsp";
+			} else {
+				error = "注册失败!";
+				path="/user/register.jsp";
+			}
 		}
 
 		// 把error放入到request入

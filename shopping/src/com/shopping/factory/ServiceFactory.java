@@ -1,6 +1,10 @@
 package com.shopping.factory;
 
+import com.shopping.service.CategoryService;
+import com.shopping.service.ItemService;
 import com.shopping.service.UserService;
+import com.shopping.service.impl.CategoryServiceImpl;
+import com.shopping.service.impl.ItemServiceImpl;
 import com.shopping.service.impl.UserServiceImpl;
 
 public class ServiceFactory {
@@ -12,5 +16,23 @@ public class ServiceFactory {
 	 */
 	public static UserService getUserServiceInstance() {
 		return new UserServiceImpl();
+	}
+
+	/**
+	 * 取得CategoryService接口的实例
+	 * 
+	 * @return
+	 */
+	public static CategoryService getCategoryServiceInstance() {
+		return new CategoryServiceImpl();
+	}
+
+	/**
+	 * 取得ItemService接口实例
+	 * 
+	 * @return
+	 */
+	public static ItemService getItemServiceInstance() {
+		return new ItemServiceImpl();
 	}
 }

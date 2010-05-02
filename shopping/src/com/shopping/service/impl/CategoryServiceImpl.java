@@ -35,4 +35,8 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryDao.removeCategoryById(catId);
 	}
 
+	public List<CategoryVo> findAllCategory() {
+		return categoryDao.findAllCategory();
+	}
+
 }

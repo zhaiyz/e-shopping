@@ -163,12 +163,13 @@ public class ItemDaoImpl implements ItemDao {
 
 	public List<ItemVo> findItemByCategoryId(int catId) {
 		List<ItemVo> list = new ArrayList<ItemVo>();
-		String sql = "SELECT FROM item WHERE cat_id = ? ";
+		String sql = "SELECT * FROM item WHERE cat_id = ? ";
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		DBUtil dbc = new DBUtil();
 		try {
 			pst = dbc.getConnection().prepareStatement(sql);
+			pst.setInt(1, catId);
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				ItemVo item = new ItemVo();
@@ -186,7 +187,7 @@ public class ItemDaoImpl implements ItemDao {
 		} finally {
 			dbc.close();
 		}
-		return null;
+		return list;
 	}
 
 }

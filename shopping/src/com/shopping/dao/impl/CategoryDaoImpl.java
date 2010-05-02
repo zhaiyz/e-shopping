@@ -155,4 +155,30 @@ public class CategoryDaoImpl implements CategoryDao {
 		return flag;
 	}
 
+	public List<CategoryVo> findAllCategory() {
+		List<CategoryVo> list = new ArrayList<CategoryVo>();
+		String sql = "SELECT * FROM category WHERE 1 = 1";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				CategoryVo category = new CategoryVo();
+				category.setCatId(rs.getInt("cat_id"));
+				category.setCatName(rs.getString("cat_name"));
+				category.setCatDesc(rs.getString("cat_desc"));
+				category.setCatDatetime(rs.getDate("cat_datetime"));
+				list.add(category);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return list;
+	}
+
 }
