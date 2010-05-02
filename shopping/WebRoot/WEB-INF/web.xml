@@ -9,10 +9,34 @@
 		<servlet-name>userServlet</servlet-name>
 		<servlet-class>com.shopping.servlet.UserServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<description>页面跳转控制</description>
+		<display-name>页面跳转控制</display-name>
+		<servlet-name>forwardServlet</servlet-name>
+		<servlet-class>
+			com.shopping.servlet.ForwardServlet
+		</servlet-class>
+	</servlet>
+	<servlet>
+		<description>商品小类Servlet</description>
+		<display-name>商品小类Servlet</display-name>
+		<servlet-name>itemServlet</servlet-name>
+		<servlet-class>com.shopping.servlet.ItemServlet</servlet-class>
+	</servlet>
+
+
 
 	<servlet-mapping>
 		<servlet-name>userServlet</servlet-name>
 		<url-pattern>/user</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>forwardServlet</servlet-name>
+		<url-pattern>/forward</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>itemServlet</servlet-name>
+		<url-pattern>/item</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
