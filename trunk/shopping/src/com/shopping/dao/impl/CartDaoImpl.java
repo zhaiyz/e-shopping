@@ -91,11 +91,12 @@ public class CartDaoImpl implements CartDao {
 
 	public List<CartVo> findCartByUserId(int id) {
 		List<CartVo> list = new ArrayList<CartVo>();
-		String sql = "SELECT * FROM cart WHERE user_id = id";
+		String sql = "SELECT * FROM cart WHERE user_id = ?";
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
 		try {
 			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				CartVo cart = new CartVo();

@@ -15,7 +15,7 @@ public class TestContactServiceImpl {
 
 	private ContactService service = new ContactServiceImpl();
 	@Test
-	public void testAddContactDao() {
+	public void testAddContact() {
 		ContactVo contact = new ContactVo();
 		contact.setOrderId(1);
 		contact.setName("abc");
@@ -67,7 +67,7 @@ public class TestContactServiceImpl {
 
 	@Test
 	public void testRemoveContactById() {
-		assertTrue(service.removeContactById(1));
+		assertFalse(service.removeContactById(2));
 	}
 
 }
