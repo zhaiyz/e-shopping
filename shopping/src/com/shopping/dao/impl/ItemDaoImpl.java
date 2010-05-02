@@ -10,7 +10,7 @@ import com.shopping.dao.ItemDao;
 import com.shopping.util.DBUtil;
 import com.shopping.vo.ItemVo;
 
-public class ItemDaoImpl implements ItemDao{
+public class ItemDaoImpl implements ItemDao {
 
 	public boolean addItem(ItemVo item) {
 		boolean flag = false;
@@ -36,8 +36,8 @@ public class ItemDaoImpl implements ItemDao{
 
 	public List<ItemVo> findAllItem(int categoryId, int start, int limit) {
 		List<ItemVo> list = new ArrayList<ItemVo>();
-		String sql = "SELECT * FROM item WHERE cat_id = ? and 1 = 1 LIMIT " + start + ","
-				+ limit;
+		String sql = "SELECT * FROM item WHERE cat_id = ? and 1 = 1 LIMIT "
+				+ start + "," + limit;
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
 		try {
@@ -119,8 +119,8 @@ public class ItemDaoImpl implements ItemDao{
 
 	public boolean modifyItem(ItemVo item) {
 		boolean flag = false;
-		String sql = "UPDATE item SET cat_id = ?, item_name = ?, item_desc = ?" +
-				" WHERE item_id = ?";
+		String sql = "UPDATE item SET cat_id = ?, item_name = ?, item_desc = ?"
+				+ " WHERE item_id = ?";
 		PreparedStatement pst = null;
 		DBUtil dbc = new DBUtil();
 		try {
@@ -159,6 +159,34 @@ public class ItemDaoImpl implements ItemDao{
 			dbc.close();
 		}
 		return flag;
+	}
+
+	public List<ItemVo> findItemByCategoryId(int catId) {
+		List<ItemVo> list = new ArrayList<ItemVo>();
+		String sql = "SELECT FROM item WHERE cat_id = ? ";
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pst = dbc.getConnection().prepareStatement(sql);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				ItemVo item = new ItemVo();
+				item.setItemId(rs.getInt("item_id"));
+				item.setCatId(rs.getInt("cat_id"));
+				item.setItemName(rs.getString("item_name"));
+				item.setItemDesc(rs.getString("item_desc"));
+				item.setItemDatetime(rs.getDate("item_datetime"));
+				list.add(item);
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return null;
 	}
 
 }

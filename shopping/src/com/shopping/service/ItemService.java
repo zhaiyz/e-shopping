@@ -25,6 +25,15 @@ public interface ItemService {
 	public ItemVo findById(int itemId);
 
 	/**
+	 * 按商品大类ID查询商品小类，不分页
+	 * 
+	 * @param catId
+	 *            商品大类ID
+	 * @return 查询出的商品小类集合
+	 */
+	public List<ItemVo> findItemByCategoryId(int catId);
+
+	/**
 	 * 分页查询商品小类
 	 * 
 	 * @param categoryId

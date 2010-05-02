@@ -35,4 +35,8 @@ public class ItemServiceImpl implements ItemService {
 		return itemDao.removeItemById(itemId);
 	}
 
+	public List<ItemVo> findItemByCategoryId(int catId) {
+		return itemDao.findItemByCategoryId(catId);
+	}
+
 }

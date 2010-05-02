@@ -66,7 +66,7 @@ public class TestItemServiceImpl extends TestCase {
 	@Test
 	public void testModifyItem() {
 		ItemVo item = new ItemVo();
-        
+
 		int itemId = 2;
 		int catId = 1;
 		String itemName = "itemName2";
@@ -83,8 +83,16 @@ public class TestItemServiceImpl extends TestCase {
 	@Test
 	public void testRemoveItemById() {
 		int id = 2;
-		
+
 		assertTrue(service.removeItemById(id));
+	}
+
+	@Test
+	public void testFindItemByCategoryId() {
+		List<ItemVo> list = new ArrayList<ItemVo>();
+		list = service.findItemByCategoryId(1);
+
+		assertNull(list);
 	}
 
 }
