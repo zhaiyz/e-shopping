@@ -61,4 +61,11 @@ public interface CategoryService {
 	 * @return 返回boolean型，表示修改是否成功
 	 */
 	public boolean modifyCategory(CategoryVo category);
+
+	/**
+	 * 查询所有大类
+	 * 
+	 * @return 所有商品大类
+	 */
+	public List<CategoryVo> findAllCategory();
 }
