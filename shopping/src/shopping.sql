@@ -106,6 +106,17 @@ CREATE TABLE admin
     PRIMARY KEY (admin_id)
 );
 
+DROP TABLE IF EXISTS cart;
+CREATE TABLE cart
+(
+    cart_id INT(10) NOT NULL AUTO_INCREMENT,
+    user_id INT(10) NOT NULL,
+    pro_id INT(10) NOT NULL,
+    pro_amount INT(10) NOT NULL,
+    add_datetime DATETIME NOT NULL,
+    PRIMARY KEY (cart_id)
+);
+
 ALTER TABLE item ADD CONSTRAINT FK_1 FOREIGN KEY(cat_id) REFERENCES category(cat_id);
 
 ALTER TABLE product ADD CONSTRAINT FK_2 FOREIGN KEY(item_id) REFERENCES item(item_id);
@@ -119,4 +130,8 @@ ALTER TABLE orderinfo ADD CONSTRAINT FK_5 FOREIGN KEY(order_id) REFERENCES myord
 ALTER TABLE orderinfo ADD CONSTRAINT FK_6 FOREIGN KEY(pro_id) REFERENCES product(pro_id);
 
 ALTER TABLE contact ADD CONSTRAINT FK_7 FOREIGN KEY(order_id) REFERENCES myorder(order_id);
+
+ALTER TABLE cart ADD CONSTRAINT FK_8 FOREIGN KEY(user_id) REFERENCES user(user_id);
+
+ALTER TABLE cart ADD CONSTRAINT FK_9 FOREIGN KEY(pro_id) REFERENCES product(pro_id);
 
