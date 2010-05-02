@@ -15,7 +15,7 @@ public class ProductDaoImp implements ProductDao {
 	public boolean addProduct(ProductVo product) {
 		boolean flag = false;
 		String sql = "INSERT INTO product (item_id, pro_name, imageurl, pro_desc, "
-				+ "pro_datetime, pru_price, ori_price, dis_price, stock, sales, "
+				+ "pro_datetime, pur_price, ori_price, dis_price, stock, sales, "
 				+ "recommendation) VALUES (?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
@@ -61,7 +61,7 @@ public class ProductDaoImp implements ProductDao {
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
 				product.setProDatetime(rs.getDate("pro_datetime"));
-				product.setPurPrice(rs.getFloat("pru_price"));
+				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
 				product.setStock(rs.getInt("stock"));
@@ -96,7 +96,7 @@ public class ProductDaoImp implements ProductDao {
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
 				product.setProDatetime(rs.getDate("pro_datetime"));
-				product.setPurPrice(rs.getFloat("pru_price"));
+				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
 				product.setStock(rs.getInt("stock"));
@@ -131,7 +131,7 @@ public class ProductDaoImp implements ProductDao {
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
 				product.setProDatetime(rs.getDate("pro_datetime"));
-				product.setPurPrice(rs.getFloat("pru_price"));
+				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
 				product.setStock(rs.getInt("stock"));
@@ -166,7 +166,7 @@ public class ProductDaoImp implements ProductDao {
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
 				product.setProDatetime(rs.getDate("pro_datetime"));
-				product.setPurPrice(rs.getFloat("pru_price"));
+				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
 				product.setStock(rs.getInt("stock"));
@@ -186,7 +186,7 @@ public class ProductDaoImp implements ProductDao {
 	public boolean modifyProduct(ProductVo product) {
 		boolean flag = false;
 		String sql = "UPDATE product SET item_id = ?, pro_name = ?, imageurl = ?, "
-				+ "pro_desc = ?, pru_price = ?, ori_price = ?, dis_price = ?,stock = ?,"
+				+ "pro_desc = ?, pur_price = ?, ori_price = ?, dis_price = ?,stock = ?,"
 				+ " sales = ?,recommendation = ? WHERE pro_id = ?";
 		PreparedStatement pst = null;
 		DBUtil dbc = new DBUtil();
