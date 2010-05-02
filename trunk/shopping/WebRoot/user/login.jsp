@@ -44,7 +44,7 @@
 						</td>
 						<td>
 							<input type="text" name="checkCode" />
-							<img src="../checkCode.jsp" />
+							<img src="<%=request.getContextPath()%>/checkCode.jsp" />
 						</td>
 					</tr>
 					<tr>
