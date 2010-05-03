@@ -1,4 +1,4 @@
-#Sat May 01 17:56:28 CST 2010
+#Mon May 03 09:33:51 CST 2010
 eclipse.preferences.version=1
 encoding//src/com/shopping/dao=UTF-8
 encoding//src/com/shopping/dao/AdminDao.java=gbk
@@ -8,10 +8,19 @@ encoding//src/com/shopping/dao/OrderInfoDao.java=gbk
 encoding//src/com/shopping/dao/UserDao.java=gbk
 encoding//src/com/shopping/dao/impl/UserDaoImpl.java=UTF-8
 encoding//src/com/shopping/factory/ServiceFactory.java=gbk
+encoding//src/com/shopping/service/CartService.java=UTF-8
+encoding//src/com/shopping/service/CategoryService.java=UTF-8
+encoding//src/com/shopping/service/ContactService.java=UTF-8
+encoding//src/com/shopping/service/ItemService.java=UTF-8
+encoding//src/com/shopping/service/ProductService.java=UTF-8
 encoding//src/com/shopping/service/UserService.java=gbk
+encoding//src/com/shopping/service/impl/CartServiceImpl.java=UTF-8
+encoding//src/com/shopping/servlet/ForwardServlet.java=UTF-8
+encoding//src/com/shopping/servlet/ItemServlet.java=UTF-8
 encoding//src/com/shopping/servlet/UserServlet.java=gbk
 encoding//src/com/shopping/util/DBUtil.java=gbk
 encoding//src/com/shopping/vo/AdminVo.java=gbk
+encoding//src/com/shopping/vo/CartVo.java=UTF-8
 encoding//src/com/shopping/vo/CategoryVo.java=UTF-8
 encoding//src/com/shopping/vo/ContactVo.java=UTF-8
 encoding//src/com/shopping/vo/ItemVo.java=gbk

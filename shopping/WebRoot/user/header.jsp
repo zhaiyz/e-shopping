@@ -59,9 +59,10 @@
                     <%
                         //首先是取得所有的大类
                         List<CategoryVo> listc = new ArrayList<CategoryVo>();
-                        if(request.getAttribute("category") != null) {
-                            listc = (List<CategoryVo>)request.getAttribute("category");
-                        }
+                  //      if(request.getAttribute("category") != null) {
+                  //          listc = (List<CategoryVo>)request.getAttribute("category");
+                  //      }
+                        listc = ServiceFactory.getCategoryServiceInstance().findAllCategory();
                         
                         //循环输出大类
                         Iterator<CategoryVo> iteratorc = listc.iterator();
@@ -99,4 +100,4 @@
             <!-- 左侧导航条结束 -->
             
             <!-- 正文内容开始 -->
-                <td colspan="2">
+                <td colspan="2" width="80%">
