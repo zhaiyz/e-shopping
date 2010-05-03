@@ -23,6 +23,13 @@
 		<servlet-name>itemServlet</servlet-name>
 		<servlet-class>com.shopping.servlet.ItemServlet</servlet-class>
 	</servlet>
+  <servlet>
+    <description>商品Servlet</description>
+    <display-name>商品Servlet</display-name>
+    <servlet-name>productServlet</servlet-name>
+    <servlet-class>com.shopping.servlet.ProductServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -38,6 +45,20 @@
 		<servlet-name>itemServlet</servlet-name>
 		<url-pattern>/item</url-pattern>
 	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>productServlet</servlet-name>
+    <url-pattern>/product</url-pattern>
+  </servlet-mapping>
+  
+  <filter>
+	<filter-name>login</filter-name>
+	<filter-class>com.shopping.filter.LoginFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+	<filter-name>login</filter-name>
+	<url-pattern>/product</url-pattern>
+  </filter-mapping>
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

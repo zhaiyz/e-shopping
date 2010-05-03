@@ -13,12 +13,18 @@
     <c:if test="${!empty pm.datas}">
         <c:forEach items="${pm.datas}" var="pro">
             <tr align="center">
-                <td><img src="<%=request.getContextPath()%>/images/${pro.imageUrl}" width="80" height="60"></td>
+                <td>
+                    <a href="/shopping/product?action=show&id=${pro.proId}">
+                        <img src="<%=request.getContextPath()%>/images/${pro.imageUrl}" title="${pro.proDesc}" width="80" height="60" />
+                    </a>
+                </td>
                 <td>${pro.proName}</td>
                 <td>${pro.oriPrice}</td>
                 <td>${pro.disPrice}</td>
                 <td>
-                       详细信息|加入到购物车
+                    <a href="/shopping/product?action=show&id=${pro.proId}">详细信息</a>
+                       |
+                    <a href="/shopping/product?action=buy&id=${pro.proId}">加入到购物车</a>
                 </td>
             </tr>
         </c:forEach>
