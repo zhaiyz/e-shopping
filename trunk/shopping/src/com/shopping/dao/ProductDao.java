@@ -74,4 +74,11 @@ public interface ProductDao {
 	 * @return 商品对象
 	 */
 	public ProductVo findProductByName(String proName);
+
+	/**
+	 * 按商品小类id获得商品总数
+	 * 
+	 * @return 该小类下所有商品的数量
+	 */
+	public int getTotalNumber(int id);
 }

@@ -116,7 +116,7 @@ public class ProductDaoImp implements ProductDao {
 
 	public ProductVo findProductById(int proId) {
 		ProductVo product = new ProductVo();
-		String sql = "SELECT * FROM product WHERE pro_id = ? and 1 = 1";
+		String sql = "SELECT * FROM product WHERE pro_id = ?";
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		DBUtil dbc = new DBUtil();
@@ -233,6 +233,29 @@ public class ProductDaoImp implements ProductDao {
 			dbc.close();
 		}
 		return flag;
+	}
+
+	public int getTotalNumber(int id) {
+		int total = 0;
+		String sql = "SELECT COUNT(*) FROM product WHERE item_id = ?";
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pst = dbc.getConnection().prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				total = rs.getInt(1);
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return total;
 	}
 
 }

@@ -39,11 +39,11 @@ public class ForwardServlet extends HttpServlet {
 		} else if ("index".equals(page)) {
 			path = "/homepage.jsp";
 			
-			//查询出所有的大类
-			List<CategoryVo> listc = new ArrayList<CategoryVo>();
-			listc = ServiceFactory.getCategoryServiceInstance().findAllCategory();
-			
-			request.setAttribute("category", listc);
+			//查询出所有的大类，这是一个悲剧，而且只是开始
+//			List<CategoryVo> listc = new ArrayList<CategoryVo>();
+//			listc = ServiceFactory.getCategoryServiceInstance().findAllCategory();
+//			
+//			request.setAttribute("category", listc);
 		}
 
 		request.getRequestDispatcher(path).forward(request, response);

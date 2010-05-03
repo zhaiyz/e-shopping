@@ -39,4 +39,8 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.removeProductById(proId);
 	}
 
+	public int getTotalNumber(int id) {
+		return productDao.getTotalNumber(id);
+	}
+
 }
