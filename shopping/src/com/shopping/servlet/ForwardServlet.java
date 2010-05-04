@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.shopping.vo.CategoryVo;
 import com.shopping.factory.ServiceFactory;
+import com.shopping.vo.CartVo;
 
 public class ForwardServlet extends HttpServlet {
 
@@ -25,7 +25,7 @@ public class ForwardServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// 获得页面转发命令
 		String page = request.getParameter("page");
-		
+
 		// 跳转到的页面地址
 		String path = "";
 
@@ -35,15 +35,24 @@ public class ForwardServlet extends HttpServlet {
 			path = "user/register.jsp";
 		} else if ("logout".equals(page)) {
 			request.getSession().removeAttribute("userName");
-			path ="/index.jsp";
+			path = "/index.jsp";
 		} else if ("index".equals(page)) {
 			path = "/homepage.jsp";
-			
-			//查询出所有的大类，这是一个悲剧，而且只是开始
-//			List<CategoryVo> listc = new ArrayList<CategoryVo>();
-//			listc = ServiceFactory.getCategoryServiceInstance().findAllCategory();
-//			
-//			request.setAttribute("category", listc);
+
+			// 查询出所有的大类，这是一个悲剧，而且只是开始
+			// List<CategoryVo> listc = new ArrayList<CategoryVo>();
+			// listc =
+			// ServiceFactory.getCategoryServiceInstance().findAllCategory();
+			//			
+			// request.setAttribute("category", listc);
+		} else if ("cart".equals(page)) {
+			// 获得用户主键
+			int userId = (Integer) request.getSession().getAttribute("userId");
+
+			List<CartVo> list = new ArrayList<CartVo>();
+			list = ServiceFactory.getCartServiceInstance().findCartByUserId(userId);
+			request.setAttribute("cart", list);
+			path = "user/cart.jsp";
 		}
 
 		request.getRequestDispatcher(path).forward(request, response);

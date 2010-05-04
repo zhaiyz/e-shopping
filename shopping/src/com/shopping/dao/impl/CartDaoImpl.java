@@ -9,6 +9,7 @@ import java.util.List;
 import com.shopping.dao.CartDao;
 import com.shopping.util.DBUtil;
 import com.shopping.vo.CartVo;
+import com.shopping.vo.ProductVo;
 
 public class CartDaoImpl implements CartDao {
 
@@ -20,7 +21,7 @@ public class CartDaoImpl implements CartDao {
 		DBUtil dbc = new DBUtil();
 		try {
 			pstmt = dbc.getConnection().prepareStatement(sql);
-			pstmt.setInt(1, cart.getCartId());
+			pstmt.setInt(1, cart.getUserId());
 			pstmt.setInt(2, cart.getProId());
 			pstmt.setInt(3, cart.getProAmount());
 			if (pstmt.executeUpdate() == 1) {
@@ -179,5 +180,88 @@ public class CartDaoImpl implements CartDao {
 			dbc.close();
 		}
 		return flag;
+	}
+
+	public boolean findProIdByUserIdAndProId(int userId, int proId) {
+		boolean flag = false;
+		String sql = "SELECT * FROM cart WHERE user_id = ? AND pro_id = ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, userId);
+			pstmt.setInt(2, proId);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				flag = true;
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return flag;
+	}
+
+	public CartVo findCartByUserIdAndProId(int userId, int proId) {
+		CartVo cart = new CartVo();
+		String sql = "SELECT * FROM cart WHERE user_id = ? AND pro_id = ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, userId);
+			pstmt.setInt(2, proId);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				cart.setCartId(rs.getInt("cart_id"));
+				cart.setUserId(rs.getInt("user_id"));
+				cart.setProId(rs.getInt("pro_id"));
+				cart.setProAmount(rs.getInt("pro_amount"));
+				cart.setAddDatetime(rs.getDate("add_datetime"));
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return cart;
+	}
+
+	public ProductVo findProductByCatId(int id) {
+		ProductVo product = new ProductVo();
+		String sql = "SELECT * FROM product WHERE pro_id = ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				product.setProId(rs.getInt("pro_id"));
+				product.setItemId(rs.getInt("item_id"));
+				product.setProName(rs.getString("pro_name"));
+				product.setImageUrl(rs.getString("imageurl"));
+				product.setProDesc(rs.getString("pro_desc"));
+				product.setProDatetime(rs.getDate("pro_datetime"));
+				product.setPurPrice(rs.getFloat("pur_price"));
+				product.setOriPrice(rs.getFloat("ori_price"));
+				product.setDisPrice(rs.getFloat("dis_price"));
+				product.setStock(rs.getInt("stock"));
+				product.setSales(rs.getInt("sales"));
+				product.setRecommendation(rs.getInt("recommendation"));
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return product;
 	}
 }

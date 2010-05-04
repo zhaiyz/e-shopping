@@ -217,4 +217,39 @@ public class UserDaoImpl implements UserDao {
 		}
 		return flag;
 	}
+
+	public UserVo findUserByName(String name) {
+		UserVo user = new UserVo();
+		String sql = "SELECT * FROM user WHERE user_name = ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setString(1, name);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				user.setUserId(rs.getInt("user_id"));
+				user.setUserName(rs.getString("user_name"));
+				user.setUserPassword(rs.getString("user_password"));
+				user.setGender(rs.getInt("gender"));
+				user.setGrade(rs.getInt("grade"));
+				user.setBalance(rs.getFloat("balance"));
+				user.setPrompt(rs.getString("prompt"));
+				user.setAnswer(rs.getString("answer"));
+				user.setFavor(rs.getString("favor"));
+				user.setPayed(rs.getFloat("payed"));
+				user.setUserState(rs.getInt("user_state"));
+				user.setRegDatetime(rs.getDate("reg_datetime"));
+				user.setEmail(rs.getString("email"));
+				user.setPhone(rs.getString("phone"));
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return user;
+	}
 }

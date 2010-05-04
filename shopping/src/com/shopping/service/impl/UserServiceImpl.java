@@ -37,4 +37,8 @@ public class UserServiceImpl implements UserService {
 	public Boolean findByName(String name) {
 		return userDao.findByName(name);
 	}
+
+	public UserVo findUserByName(String name) {
+		return userDao.findUserByName(name);
+	}
 }

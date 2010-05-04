@@ -6,13 +6,21 @@ import com.shopping.dao.CartDao;
 import com.shopping.dao.impl.CartDaoImpl;
 import com.shopping.service.CartService;
 import com.shopping.vo.CartVo;
+import com.shopping.vo.ProductVo;
 
 public class CartServiceImpl implements CartService {
 
 	private CartDao dao = new CartDaoImpl();
 
 	public boolean addCart(CartVo cart) {
-		return dao.addCart(cart);
+		if (dao.findProIdByUserIdAndProId(cart.getUserId(), cart.getProId())) {
+			CartVo c = new CartVo();
+			c = dao.findCartByUserIdAndProId(cart.getUserId(), cart.getProId());
+			c.setProAmount(c.getProAmount() + cart.getProAmount());
+			return dao.modifyCart(c);
+		} else {
+			return dao.addCart(cart);
+		}
 	}
 
 	public List<CartVo> findAllCart(int start, int limit) {
@@ -37,6 +45,10 @@ public class CartServiceImpl implements CartService {
 
 	public boolean removeCartById(int id) {
 		return dao.removeCartById(id);
+	}
+
+	public ProductVo findProductByCatId(int id) {
+		return dao.findProductByCatId(id);
 	}
 
 }
