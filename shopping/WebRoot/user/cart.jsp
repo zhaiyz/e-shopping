@@ -20,7 +20,7 @@
             list = (List<CartVo>)request.getAttribute("cart");
             float allTotal = 0.0f;
             
-            Iterator iterator = list.iterator();
+            Iterator<CartVo> iterator = list.iterator();
             while(iterator.hasNext()) {
                 CartVo cart = new CartVo();
                 cart = (CartVo)iterator.next();
@@ -31,20 +31,28 @@
         %>
         <tr align="center">
             <td><%=product.getProName()%></td>
-            <td><%=cart.getProAmount()%></td>
-            <td><%=product.getDisPrice()%></td>
-            <td><%=total%></td>
+            <td>
+                <input type="text" name="<%=cart.getCartId()%>" value="<%=cart.getProAmount()%>" size="5"/>
+            </td>
+            <td><%=product.getDisPrice()%>元</td>
+            <td><%=total%>元</td>
             <td><%=cart.getAddDatetime()%></td>
             <td>
-                  删除
+                <a href="/shopping/cart?action=delete&id=<%=cart.getCartId()%>">
+                      删除
+                </a>
             </td>
         </tr>
         <%
             }
         %>
         <tr>
-            <td colspan="6" align="right">
-                  总价格为:<%=allTotal%>
+            <td colspan="3" align="center">
+                <input type="submit" value="更新购物车" />
+            </td>
+            
+            <td colspan="3" align="right">
+                  总价格为:<%=allTotal%>元
             </td>
         </tr>
     </table>

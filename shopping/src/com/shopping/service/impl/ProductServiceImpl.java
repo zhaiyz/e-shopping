@@ -43,4 +43,12 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getTotalNumber(id);
 	}
 
+	public List<ProductVo> findProductByLike(String name, int start, int limit) {
+		return productDao.findProductByLike(name, start, limit);
+	}
+
+	public int getTotalProductByLike(String name) {
+		return productDao.getTotalProductByLike(name);
+	}
+
 }

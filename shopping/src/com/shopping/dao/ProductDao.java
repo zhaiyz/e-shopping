@@ -81,4 +81,22 @@ public interface ProductDao {
 	 * @return 该小类下所有商品的数量
 	 */
 	public int getTotalNumber(int id);
+
+	/**
+	 * 按商品名称进行模糊查询并分页
+	 * 
+	 * @param name
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List<ProductVo> findProductByLike(String name, int start, int limit);
+
+	/**
+	 * 取得按商品名称进行模糊查询所得到的记录总数，用于分页
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public int getTotalProductByLike(String name);
 }
