@@ -37,9 +37,12 @@
 		<servlet-name>cartServlet</servlet-name>
 		<servlet-class>com.shopping.servlet.CartServlet</servlet-class>
 	</servlet>
-
-
-
+	<servlet>
+		<description>订单Servlet</description>
+		<display-name>订单Servlet</display-name>
+		<servlet-name>orderServlet</servlet-name>
+		<servlet-class>com.shopping.servlet.OrderServlet</servlet-class>
+	</servlet>
 
 
 	<servlet-mapping>
@@ -62,6 +65,10 @@
 		<servlet-name>cartServlet</servlet-name>
 		<url-pattern>/cart</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>orderServlet</servlet-name>
+		<url-pattern>/order</url-pattern>
+	</servlet-mapping>
 
 	<filter>
 		<filter-name>login</filter-name>
@@ -71,7 +78,7 @@
 		<filter-name>encoding</filter-name>
 		<filter-class>com.shopping.filter.EncodingFilter</filter-class>
 	</filter>
-	
+
 	<filter-mapping>
 		<filter-name>encoding</filter-name>
 		<url-pattern>/*</url-pattern>
