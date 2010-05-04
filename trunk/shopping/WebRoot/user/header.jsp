@@ -34,7 +34,8 @@
                 %>
                 </td>
                 <td align="right" style="vertical-align:bottom">
-                    <form action="/shopping/search" method="get">
+                    <form action="/shopping/product" method="post">
+                        <input type="hidden" name="action" value="search" />
                         <table>
                             <tr>
                                 <td>

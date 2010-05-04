@@ -2,7 +2,7 @@
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file = "header.jsp" %>
 <center>
-<form action="/shopping/product" method="get">
+<form action="/shopping/product" method="post">
 <input type="hidden" name="action" value="buy">
 <input type="hidden" name="id" value="${pro.proId}">
 <table>

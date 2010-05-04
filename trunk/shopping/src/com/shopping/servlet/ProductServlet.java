@@ -1,6 +1,8 @@
 package com.shopping.servlet;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.shopping.factory.ServiceFactory;
+import com.shopping.util.PageModel;
 import com.shopping.vo.CartVo;
 import com.shopping.vo.ProductVo;
 
@@ -63,6 +66,42 @@ public class ProductServlet extends HttpServlet {
 				request.setAttribute("cart", list);
 				path = "user/cart.jsp";
 			}
+		} else if ("search".equals(action)) {
+			// 取得关键字
+			String key = "";
+			try {
+				key = URLDecoder.decode(request.getParameter("keyword"),
+						"utf-8");
+			} catch (UnsupportedEncodingException e) {
+				key = request.getParameter("keyword");
+			}
+
+			List<ProductVo> list = new ArrayList<ProductVo>();
+
+			int offset = 0;
+			int limit = 5;
+			int total = 0;
+
+			try {
+				offset = Integer.parseInt(request.getParameter("pager.offset"));
+			} catch (NumberFormatException e) {
+				// e.printStackTrace();
+			}
+
+			list = ServiceFactory.getProductServiceInstance()
+					.findProductByLike(key, offset, limit);
+			total = ServiceFactory.getProductServiceInstance()
+					.getTotalProductByLike(key);
+
+			PageModel pm = new PageModel();
+			pm.setTotal(total);
+			pm.setDatas(list);
+
+			path = "user/search.jsp";
+
+			// 把关键字也放在request里面
+			request.setAttribute("key", key);
+			request.setAttribute("pm", pm);
 		}
 
 		// 根据path进行跳转

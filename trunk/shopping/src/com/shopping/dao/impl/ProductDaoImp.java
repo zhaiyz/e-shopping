@@ -258,4 +258,62 @@ public class ProductDaoImp implements ProductDao {
 		return total;
 	}
 
+	public List<ProductVo> findProductByLike(String name, int start, int limit) {
+		List<ProductVo> list = new ArrayList<ProductVo>();
+		String sql = "SELECT * FROM product WHERE pro_name LIKE ? LIMIT "
+				+ start + "," + limit;
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setString(1, "%" + name + "%");
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductVo product = new ProductVo();
+				product.setProId(rs.getInt("pro_id"));
+				product.setItemId(rs.getInt("item_id"));
+				product.setProName(rs.getString("pro_name"));
+				product.setImageUrl(rs.getString("imageurl"));
+				product.setProDesc(rs.getString("pro_desc"));
+				product.setProDatetime(rs.getDate("pro_datetime"));
+				product.setPurPrice(rs.getFloat("pur_price"));
+				product.setOriPrice(rs.getFloat("ori_price"));
+				product.setDisPrice(rs.getFloat("dis_price"));
+				product.setStock(rs.getInt("stock"));
+				product.setSales(rs.getInt("sales"));
+				product.setRecommendation(rs.getInt("recommendation"));
+				list.add(product);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return list;
+	}
+
+	public int getTotalProductByLike(String name) {
+		int total = 0;
+		String sql = "SELECT COUNT(*) FROM product WHERE pro_name LIKE ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setString(1, "%" + name + "%");
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				total = rs.getInt(1);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return total;
+	}
+
 }
