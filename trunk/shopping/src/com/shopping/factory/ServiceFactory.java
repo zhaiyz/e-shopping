@@ -1,9 +1,11 @@
 package com.shopping.factory;
 
+import com.shopping.service.CartService;
 import com.shopping.service.CategoryService;
 import com.shopping.service.ItemService;
 import com.shopping.service.ProductService;
 import com.shopping.service.UserService;
+import com.shopping.service.impl.CartServiceImpl;
 import com.shopping.service.impl.CategoryServiceImpl;
 import com.shopping.service.impl.ItemServiceImpl;
 import com.shopping.service.impl.ProductServiceImpl;
@@ -45,5 +47,14 @@ public class ServiceFactory {
 	 */
 	public static ProductService getProductServiceInstance() {
 		return new ProductServiceImpl();
+	}
+
+	/**
+	 * 取得CartService接口实例
+	 * 
+	 * @return
+	 */
+	public static CartService getCartServiceInstance() {
+		return new CartServiceImpl();
 	}
 }

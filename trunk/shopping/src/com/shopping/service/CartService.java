@@ -3,6 +3,7 @@ package com.shopping.service;
 import java.util.List;
 
 import com.shopping.vo.CartVo;
+import com.shopping.vo.ProductVo;
 
 /**
  * CartService
@@ -66,4 +67,12 @@ public interface CartService {
 	 * @return 是否删除成功
 	 */
 	public boolean removeByUserId(int id);
+
+	/**
+	 * 按商品的id查询出此条记录的商品信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public ProductVo findProductByCatId(int id);
 }

@@ -24,7 +24,7 @@
                 <td>
                     <a href="/shopping/product?action=show&id=${pro.proId}">详细信息</a>
                        |
-                    <a href="/shopping/product?action=buy&id=${pro.proId}">加入到购物车</a>
+                    <a href="/shopping/product?action=buy&id=${pro.proId}&amount=1">加入到购物车</a>
                 </td>
             </tr>
         </c:forEach>

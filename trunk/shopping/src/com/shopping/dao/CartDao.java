@@ -3,6 +3,7 @@ package com.shopping.dao;
 import java.util.List;
 
 import com.shopping.vo.CartVo;
+import com.shopping.vo.ProductVo;
 
 public interface CartDao {
 
@@ -64,4 +65,29 @@ public interface CartDao {
 	 * @return 是否删除成功
 	 */
 	public boolean removeByUserId(int id);
+
+	/**
+	 * 通过用户主键和商品主键查询在此用户下的购物车中是否存在此商品
+	 * 
+	 * @param userId
+	 * @param proId
+	 * @return
+	 */
+	public boolean findProIdByUserIdAndProId(int userId, int proId);
+
+	/**
+	 * 通过用户主键和商品主键查询在当前用户下的一条购物车记录
+	 * 
+	 * @param userId
+	 * @param proId
+	 * @return
+	 */
+	public CartVo findCartByUserIdAndProId(int userId, int proId);
+	
+	/**
+	 * 按商品的id查询出此条记录的商品信息
+	 * @param id
+	 * @return
+	 */
+	public ProductVo findProductByCatId(int id);
 }

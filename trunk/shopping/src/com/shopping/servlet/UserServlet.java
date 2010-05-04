@@ -46,6 +46,10 @@ public class UserServlet extends HttpServlet {
 				if (ServiceFactory.getUserServiceInstance().isLogin(user)) {
 					// µÇÂ¼³É¹¦£¬°ÑuserName·ÅÈësession
 					request.getSession().setAttribute("userName", userName);
+					request.getSession().setAttribute(
+							"userId",
+							ServiceFactory.getUserServiceInstance()
+									.findUserByName(userName).getUserId());
 					path = "index.jsp";
 				} else {
 					// µÇÂ¼Ê§°Ü
@@ -84,22 +88,22 @@ public class UserServlet extends HttpServlet {
 
 				user.setPhone(phone);
 			}
-			
+
 			int gender = Integer.parseInt(request.getParameter("gender"));
-			
+
 			user.setGender(gender);
-			
+
 			user.setGrade(0);
 			user.setBalance(0.0f);
 			user.setPayed(0.0f);
 			user.setUserState(0);
-			
+
 			if (ServiceFactory.getUserServiceInstance().addUser(user)) {
 				request.getSession().setAttribute("userName", userName);
-				path="index.jsp";
+				path = "index.jsp";
 			} else {
 				error = "×¢²áÊ§°Ü!";
-				path="/user/register.jsp";
+				path = "/user/register.jsp";
 			}
 		}
 

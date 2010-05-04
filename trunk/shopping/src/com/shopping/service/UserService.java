@@ -67,4 +67,12 @@ public interface UserService {
 	 * @return Boolean 是否存在此用户名的用户
 	 */
 	public Boolean findByName(String name);
+	
+	/**
+	 * 通过用户名查询出用户所有的信息
+	 * 
+	 * @param name
+	 * @return 一个用户对象
+	 */
+	public UserVo findUserByName(String name);
 }

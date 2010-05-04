@@ -1,11 +1,10 @@
-#Mon May 03 09:33:51 CST 2010
+#Mon May 03 16:10:05 CST 2010
 eclipse.preferences.version=1
 encoding//src/com/shopping/dao=UTF-8
 encoding//src/com/shopping/dao/AdminDao.java=gbk
 encoding//src/com/shopping/dao/ContactDao.java=UTF-8
 encoding//src/com/shopping/dao/MyOrderDao.java=gbk
 encoding//src/com/shopping/dao/OrderInfoDao.java=gbk
-encoding//src/com/shopping/dao/UserDao.java=gbk
 encoding//src/com/shopping/dao/impl/UserDaoImpl.java=UTF-8
 encoding//src/com/shopping/factory/ServiceFactory.java=gbk
 encoding//src/com/shopping/service/CartService.java=UTF-8
