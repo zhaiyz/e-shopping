@@ -50,9 +50,12 @@ public class ForwardServlet extends HttpServlet {
 			int userId = (Integer) request.getSession().getAttribute("userId");
 
 			List<CartVo> list = new ArrayList<CartVo>();
-			list = ServiceFactory.getCartServiceInstance().findCartByUserId(userId);
+			list = ServiceFactory.getCartServiceInstance().findCartByUserId(
+					userId);
 			request.setAttribute("cart", list);
 			path = "user/cart.jsp";
+		} else if ("order".equals(page)) {
+			path = "/user/info.jsp";
 		}
 
 		request.getRequestDispatcher(path).forward(request, response);

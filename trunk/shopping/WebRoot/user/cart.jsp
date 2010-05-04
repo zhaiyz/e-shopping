@@ -55,6 +55,13 @@
                   总价格为:<%=allTotal%>元
             </td>
         </tr>
+        <tr>
+            <td colspan="6" align="center">
+                <a href="/shopping/forward?page=order">
+                      确认购买
+                </a>
+            </td>
+        </tr>
     </table>
 </form>
 <%@ include file = "footer.jsp" %>

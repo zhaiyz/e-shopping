@@ -1,10 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8"%>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<title>出错啦!</title>
-	</head>
-	<body>
+<%@ include file = "user/header.jsp" %>
 		<center>
 		    出错啦!!!<br>
 		    <%
@@ -16,5 +11,4 @@
 		        }
 		    %>
 		</center>
-	</body>
-</html>
+<%@ include file = "user/footer.jsp" %>
