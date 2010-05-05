@@ -43,6 +43,13 @@
 		<servlet-name>orderServlet</servlet-name>
 		<servlet-class>com.shopping.servlet.OrderServlet</servlet-class>
 	</servlet>
+  <servlet>
+    <description>订单明细Servlet</description>
+    <display-name>订单明细Servlet</display-name>
+    <servlet-name>orderInfoServlet</servlet-name>
+    <servlet-class>com.shopping.servlet.OrderInfoServlet</servlet-class>
+  </servlet>
+
 
 
 	<servlet-mapping>
@@ -69,6 +76,10 @@
 		<servlet-name>orderServlet</servlet-name>
 		<url-pattern>/order</url-pattern>
 	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>orderInfoServlet</servlet-name>
+    <url-pattern>/info</url-pattern>
+  </servlet-mapping>
 
 	<filter>
 		<filter-name>login</filter-name>

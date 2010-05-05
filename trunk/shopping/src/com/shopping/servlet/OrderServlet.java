@@ -212,7 +212,7 @@ public class OrderServlet extends HttpServlet {
 				path = "error.jsp";
 
 				// 操作成功
-				request.setAttribute("op_error", "货到付款的方式，操作成功啦！");
+				request.setAttribute("op_error", "生成订单，操作成功啦！");
 
 			}
 		} else if ("pay".equals(action)) {
@@ -267,11 +267,16 @@ public class OrderServlet extends HttpServlet {
 				// 寄送信息内容
 				ContactVo contact = new ContactVo();
 				int orderId = order.getOrderId();
-				String name = request.getSession().getAttribute("name").toString();
-				String address = request.getSession().getAttribute("address").toString();
-				String postcode = request.getSession().getAttribute("post").toString();
-				String telphone = request.getSession().getAttribute("telphone").toString();
-				int freetime = Integer.parseInt(request.getSession().getAttribute("freetime").toString());
+				String name = request.getSession().getAttribute("name")
+						.toString();
+				String address = request.getSession().getAttribute("address")
+						.toString();
+				String postcode = request.getSession().getAttribute("post")
+						.toString();
+				String telphone = request.getSession().getAttribute("telphone")
+						.toString();
+				int freetime = Integer.parseInt(request.getSession()
+						.getAttribute("freetime").toString());
 
 				contact.setOrderId(orderId);
 				contact.setName(name);
@@ -339,7 +344,7 @@ public class OrderServlet extends HttpServlet {
 				path = "error.jsp";
 
 				// 操作成功
-				request.setAttribute("op_error", "货到付款的方式，操作成功啦！");
+				request.setAttribute("op_error", "生成订单，操作成功啦！");
 
 			} else {
 				// 如果密码输出错误，跳转到提示页面
@@ -349,6 +354,34 @@ public class OrderServlet extends HttpServlet {
 				request.setAttribute("op_error", "密码输入错误!");
 			}
 
+		} else if ("show".equals(action)) {
+			// 查询出当前用户所有的订单并显示
+			List<MyOrderVo> list = new ArrayList<MyOrderVo>();
+
+			// 取得当前用户主键
+			int userId = (Integer) request.getSession().getAttribute("userId");
+
+			list = ServiceFactory.getOrderServiceInstance().findOrderByUserId(
+					userId);
+
+			// 把结果全部放入到request中
+			request.setAttribute("order", list);
+			path = "user/order.jsp";
+		} else if ("confirm".equals(action)) {
+			path = "/order?action=show";
+			
+			//取得订单主键
+			int id = Integer.parseInt(request.getParameter("id"));
+			
+			//通过主键取得订单内容
+			MyOrderVo order = new MyOrderVo();
+			order = ServiceFactory.getOrderServiceInstance().findMyOrderById(id);
+			
+			//设置成已收货
+			order.setOrderState(2);
+			
+			//更新此订单
+			ServiceFactory.getOrderServiceInstance().modifyMyOrder(order);
 		}
 
 		// 根据path进行跳转

@@ -35,4 +35,8 @@ public class MyOrderServiceImpl implements MyOrderService {
 		return dao.findOrderByOrderNum(orderNum);
 	}
 
+	public List<MyOrderVo> findOrderByUserId(int id) {
+		return dao.findOrderByUserId(id);
+	}
+
 }

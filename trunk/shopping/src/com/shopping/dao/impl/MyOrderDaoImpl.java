@@ -21,7 +21,7 @@ public class MyOrderDaoImpl implements MyOrderDao {
 		try {
 			pstmt = dbc.getConnection().prepareStatement(sql);
 			pstmt.setInt(1, order.getUserId());
-//			pstmt.setInt(2, order.getConId());
+			// pstmt.setInt(2, order.getConId());
 			pstmt.setString(2, order.getOrderNum());
 			pstmt.setInt(3, order.getPayment());
 			pstmt.setInt(4, order.getPost());
@@ -178,6 +178,38 @@ public class MyOrderDaoImpl implements MyOrderDao {
 			dbc.close();
 		}
 		return order;
+	}
+
+	public List<MyOrderVo> findOrderByUserId(int id) {
+		List<MyOrderVo> list = new ArrayList<MyOrderVo>();
+		String sql = "SELECT * FROM myorder WHERE user_id = ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				MyOrderVo order = new MyOrderVo();
+				order.setOrderId(rs.getInt("order_id"));
+				order.setUserId(rs.getInt("user_id"));
+				order.setConId(rs.getInt("con_id"));
+				order.setOrderNum(rs.getString("order_num"));
+				order.setOrderDatetime(rs.getDate("order_datetime"));
+				order.setPayment(rs.getInt("payment"));
+				order.setPost(rs.getInt("post"));
+				order.setTotalPrice(rs.getFloat("total_price"));
+				order.setOrderState(rs.getInt("order_state"));
+				list.add(order);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return list;
 	}
 
 }
