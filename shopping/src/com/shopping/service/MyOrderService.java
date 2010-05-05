@@ -59,4 +59,12 @@ public interface MyOrderService {
 	 * @return
 	 */
 	public MyOrderVo findOrderByOrderNum(String orderNum);
+
+	/**
+	 * 通过用户主键查询出当前用户所有的订单
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public List<MyOrderVo> findOrderByUserId(int id);
 }
