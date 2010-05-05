@@ -2,12 +2,18 @@ package com.shopping.factory;
 
 import com.shopping.service.CartService;
 import com.shopping.service.CategoryService;
+import com.shopping.service.ContactService;
 import com.shopping.service.ItemService;
+import com.shopping.service.MyOrderService;
+import com.shopping.service.OrderInfoService;
 import com.shopping.service.ProductService;
 import com.shopping.service.UserService;
 import com.shopping.service.impl.CartServiceImpl;
 import com.shopping.service.impl.CategoryServiceImpl;
+import com.shopping.service.impl.ContactServiceImpl;
 import com.shopping.service.impl.ItemServiceImpl;
+import com.shopping.service.impl.MyOrderServiceImpl;
+import com.shopping.service.impl.OrderInfoServiceImpl;
 import com.shopping.service.impl.ProductServiceImpl;
 import com.shopping.service.impl.UserServiceImpl;
 
@@ -56,5 +62,32 @@ public class ServiceFactory {
 	 */
 	public static CartService getCartServiceInstance() {
 		return new CartServiceImpl();
+	}
+
+	/**
+	 * 取得OrderService接口实例
+	 * 
+	 * @return
+	 */
+	public static MyOrderService getOrderServiceInstance() {
+		return new MyOrderServiceImpl();
+	}
+
+	/**
+	 * 取得ContactService接口实例
+	 * 
+	 * @return
+	 */
+	public static ContactService getContactServiceInstance() {
+		return new ContactServiceImpl();
+	}
+
+	/**
+	 * 取得OrderInfoService接口实例
+	 * 
+	 * @return
+	 */
+	public static OrderInfoService getOrderInfoServiceInstance() {
+		return new OrderInfoServiceImpl();
 	}
 }
