@@ -70,11 +70,12 @@ public class ContactDaoImpl implements ContactDao {
 
 	public ContactVo findContactById(int id) {
 		ContactVo contact = new ContactVo();
-		String sql = "SELECT * FROM contact WHERE con_id = id";
+		String sql = "SELECT * FROM contact WHERE con_id = ?";
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
 		try {
 			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				contact.setConId(rs.getInt("con_id"));
@@ -97,11 +98,12 @@ public class ContactDaoImpl implements ContactDao {
 
 	public ContactVo findContactByOrderId(int id) {
 		ContactVo contact = new ContactVo();
-		String sql = "SELECT * FROM contact WHERE order_id = id";
+		String sql = "SELECT * FROM contact WHERE order_id = ?";
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
 		try {
 			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				contact.setConId(rs.getInt("con_id"));

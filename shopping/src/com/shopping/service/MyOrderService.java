@@ -51,4 +51,12 @@ public interface MyOrderService {
 	 * @return 相应ID的MyOrder记录
 	 */
 	public MyOrderVo findMyOrderById(int id);
+
+	/**
+	 * 通过订单号查询出订单
+	 * 
+	 * @param orderNum
+	 * @return
+	 */
+	public MyOrderVo findOrderByOrderNum(String orderNum);
 }

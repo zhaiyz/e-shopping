@@ -31,4 +31,8 @@ public class MyOrderServiceImpl implements MyOrderService {
 		return dao.removeMyOrderById(id);
 	}
 
+	public MyOrderVo findOrderByOrderNum(String orderNum) {
+		return dao.findOrderByOrderNum(orderNum);
+	}
+
 }
