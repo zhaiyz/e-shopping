@@ -47,7 +47,8 @@ public class CategoryDaoImpl implements CategoryDao {
 				category.setCatId(rs.getInt("cat_id"));
 				category.setCatName(rs.getString("cat_name"));
 				category.setCatDesc(rs.getString("cat_desc"));
-				category.setCatDatetime(rs.getDate("cat_datetime"));
+				category.setCatDatetime(rs.getString("cat_datetime").substring(
+						0, 19));
 				list.add(category);
 			}
 			rs.close();
@@ -74,7 +75,8 @@ public class CategoryDaoImpl implements CategoryDao {
 				category.setCatId(rs.getInt("cat_id"));
 				category.setCatName(rs.getString("cat_name"));
 				category.setCatDesc(rs.getString("cat_desc"));
-				category.setCatDatetime(rs.getDate("cat_datetime"));
+				category.setCatDatetime(rs.getString("cat_datetime").substring(
+						0, 19));
 			}
 			rs.close();
 			pst.close();
@@ -101,7 +103,8 @@ public class CategoryDaoImpl implements CategoryDao {
 				category.setCatId(rs.getInt("cat_id"));
 				category.setCatName(rs.getString("cat_name"));
 				category.setCatDesc(rs.getString("cat_desc"));
-				category.setCatDatetime(rs.getDate("cat_datetime"));
+				category.setCatDatetime(rs.getString("cat_datetime").substring(
+						0, 19));
 			}
 			rs.close();
 			pst.close();
@@ -168,7 +171,8 @@ public class CategoryDaoImpl implements CategoryDao {
 				category.setCatId(rs.getInt("cat_id"));
 				category.setCatName(rs.getString("cat_name"));
 				category.setCatDesc(rs.getString("cat_desc"));
-				category.setCatDatetime(rs.getDate("cat_datetime"));
+				category.setCatDatetime(rs.getString("cat_datetime").substring(
+						0, 19));
 				list.add(category);
 			}
 			rs.close();
@@ -179,6 +183,78 @@ public class CategoryDaoImpl implements CategoryDao {
 			dbc.close();
 		}
 		return list;
+	}
+
+	public List<CategoryVo> findCategoryByLike(String key, int start, int limit) {
+		List<CategoryVo> list = new ArrayList<CategoryVo>();
+		String sql = "SELECT * FROM category WHERE cat_name LIKE ? LIMIT "
+				+ start + "," + limit;
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setString(1, "%" + key + "%");
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				CategoryVo category = new CategoryVo();
+				category.setCatId(rs.getInt("cat_id"));
+				category.setCatName(rs.getString("cat_name"));
+				category.setCatDesc(rs.getString("cat_desc"));
+				category.setCatDatetime(rs.getString("cat_datetime").substring(
+						0, 19));
+				list.add(category);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return list;
+	}
+
+	public int getTotalNum() {
+		int total = 0;
+		String sql = "SELECT COUNT(*) FROM category WHERE 1 = 1";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				total = rs.getInt(1);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return total;
+	}
+
+	public int getTotalNumByLike(String key) {
+		int total = 0;
+		String sql = "SELECT COUNT(*) FROM category WHERE cat_name LIKE ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setString(1, "%" + key + "%");
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				total = rs.getInt(1);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return total;
 	}
 
 }

@@ -3,6 +3,8 @@ package com.shopping.dao.impl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -195,7 +197,13 @@ public class MyOrderDaoImpl implements MyOrderDao {
 				order.setUserId(rs.getInt("user_id"));
 				order.setConId(rs.getInt("con_id"));
 				order.setOrderNum(rs.getString("order_num"));
-				order.setOrderDatetime(rs.getDate("order_datetime"));
+				try {
+					order.setOrderDatetime(new SimpleDateFormat(
+							"yyyy-MM-dd HH:mm:ss").parse(rs
+							.getString("order_datetime")));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 				order.setPayment(rs.getInt("payment"));
 				order.setPost(rs.getInt("post"));
 				order.setTotalPrice(rs.getFloat("total_price"));

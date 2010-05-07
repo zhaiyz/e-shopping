@@ -9,14 +9,14 @@ Ext.ux.TabCloseMenu = function(){
         if(!menu){ // create context menu on first right click 
             menu = new Ext.menu.Menu([{ 
                 id: tabs.id + '-close', 
-                icon:'resources/images/default/s.gif',
+                icon:'../resources/images/default/s.gif',
                 text: '关闭标签', 
                 handler : function(){ 
                     tabs.remove(ctxItem); 
                 } 
             },{ 
                 id: tabs.id + '-close-others', 
-                icon:'resources/images/default/s.gif',
+                icon:'../resources/images/default/s.gif',
                 text: '关闭其他标签', 
                 handler : function(){ 
                     tabs.items.each(function(item){ 
@@ -27,7 +27,7 @@ Ext.ux.TabCloseMenu = function(){
                 } 
             },{ 
                 id: tabs.id + '-close-all',
-                icon:'resources/images/default/s.gif', 
+                icon:'../resources/images/default/s.gif', 
                 text: '关闭全部标签', 
                 handler : function(){ 
                     tabs.items.each(function(item){ 
