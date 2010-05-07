@@ -39,4 +39,16 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryDao.findAllCategory();
 	}
 
+	public List<CategoryVo> findCategoryByLike(String key, int start, int limit) {
+		return categoryDao.findCategoryByLike(key, start, limit);
+	}
+
+	public int getTotalNum() {
+		return categoryDao.getTotalNum();
+	}
+
+	public int getTotalNumByLike(String key) {
+		return categoryDao.getTotalNumByLike(key);
+	}
+
 }

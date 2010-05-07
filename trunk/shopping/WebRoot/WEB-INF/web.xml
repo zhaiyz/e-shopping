@@ -43,12 +43,23 @@
 		<servlet-name>orderServlet</servlet-name>
 		<servlet-class>com.shopping.servlet.OrderServlet</servlet-class>
 	</servlet>
-  <servlet>
-    <description>订单明细Servlet</description>
-    <display-name>订单明细Servlet</display-name>
-    <servlet-name>orderInfoServlet</servlet-name>
-    <servlet-class>com.shopping.servlet.OrderInfoServlet</servlet-class>
-  </servlet>
+	<servlet>
+		<description>订单明细Servlet</description>
+		<display-name>订单明细Servlet</display-name>
+		<servlet-name>orderInfoServlet</servlet-name>
+		<servlet-class>
+			com.shopping.servlet.OrderInfoServlet
+		</servlet-class>
+	</servlet>
+	<servlet>
+		<description>商品大类Servlet</description>
+		<display-name>商品大类Servlet</display-name>
+		<servlet-name>categoryServlet</servlet-name>
+		<servlet-class>
+			com.shopping.servlet.CategoryServlet
+		</servlet-class>
+	</servlet>
+
 
 
 
@@ -76,10 +87,14 @@
 		<servlet-name>orderServlet</servlet-name>
 		<url-pattern>/order</url-pattern>
 	</servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>orderInfoServlet</servlet-name>
-    <url-pattern>/info</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>orderInfoServlet</servlet-name>
+		<url-pattern>/info</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>categoryServlet</servlet-name>
+		<url-pattern>/category</url-pattern>
+	</servlet-mapping>
 
 	<filter>
 		<filter-name>login</filter-name>

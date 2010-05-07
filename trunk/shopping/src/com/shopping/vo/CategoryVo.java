@@ -1,6 +1,5 @@
 package com.shopping.vo;
 
-import java.util.Date;
 
 /**
  * @author Domili
@@ -17,13 +16,13 @@ public class CategoryVo {
 	private String catDesc;
 
 	/** 产品大类创建时间 */
-	private Date catDatetime;
+	private String catDatetime;
 
-	public Date getCatDatetime() {
+	public String getCatDatetime() {
 		return catDatetime;
 	}
 
-	public void setCatDatetime(Date catDatetime) {
+	public void setCatDatetime(String catDatetime) {
 		this.catDatetime = catDatetime;
 	}
 

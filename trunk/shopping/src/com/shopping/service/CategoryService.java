@@ -68,4 +68,29 @@ public interface CategoryService {
 	 * @return 所有商品大类
 	 */
 	public List<CategoryVo> findAllCategory();
+
+	/**
+	 * 取得商品大类总数
+	 * 
+	 * @return
+	 */
+	public int getTotalNum();
+
+	/**
+	 * 按条件进行查询，是在名称字段上的查询
+	 * 
+	 * @param key
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List<CategoryVo> findCategoryByLike(String key, int start, int limit);
+
+	/**
+	 * 按条件查询出总数
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public int getTotalNumByLike(String key);
 }
