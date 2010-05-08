@@ -5,12 +5,13 @@
 		<title>管理员首页</title>
 		<link rel="stylesheet" type="text/css" href="../resources/css/ext-all.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/ext-patch.css" />
-		<!--
+		
 		<script type="text/javascript" src="../js/ext-base.js"></script>
 		<script type="text/javascript" src="../js/ext-all.js"></script>
-		-->
+		<!--
 		<script type="text/javascript" src="../js/ext-base-debug.js"></script>
 		<script type="text/javascript" src="../js/ext-all-debug.js"></script>
+		-->
 		<script type="text/javascript" src="../js/ext-lang-zh_CN.js"></script>
 		
 		<script type="text/javascript" src="../js/SearchField.js"></script>
