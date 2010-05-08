@@ -117,6 +117,18 @@ CREATE TABLE cart
     PRIMARY KEY (cart_id)
 );
 
+DROP TABLE IF EXISTS card;
+CREATE TABLE card
+(
+	card_id INT(10) NOT NULL AUTO_INCREMENT,
+	card_no VARCHAR(32) NOT NULL,
+	card_password VARCHAR(32) NOT NULL,
+	card_value FLOAT(10) NOT NULL,
+	card_datetime DATETIME NOT NULL,
+	card_flag TINYINT(1) NOT NULL DEFAULT 0,
+	PRIMARY KEY (card_id)
+);
+
 ALTER TABLE item ADD CONSTRAINT FK_1 FOREIGN KEY(cat_id) REFERENCES category(cat_id);
 
 ALTER TABLE product ADD CONSTRAINT FK_2 FOREIGN KEY(item_id) REFERENCES item(item_id);
