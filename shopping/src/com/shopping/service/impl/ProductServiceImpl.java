@@ -51,4 +51,8 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getTotalProductByLike(name);
 	}
 
+	public int getTotalNum() {
+		return productDao.getTotalNum();
+	}
+
 }

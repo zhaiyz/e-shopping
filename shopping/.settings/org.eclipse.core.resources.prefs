@@ -1,4 +1,4 @@
-#Thu May 06 22:19:13 CST 2010
+#Sat May 08 21:26:42 CST 2010
 eclipse.preferences.version=1
 encoding//WebRoot/js/SearchField.js=UTF-8
 encoding//WebRoot/js/init.js=UTF-8
@@ -30,4 +30,5 @@ encoding//src/com/shopping/vo/ContactVo.java=UTF-8
 encoding//src/com/shopping/vo/ItemVo.java=gbk
 encoding//src/com/shopping/vo/MyOrderVo.java=UTF-8
 encoding//src/com/shopping/vo/OrderInfoVo.java=gbk
+encoding//src/com/shopping/vo/ProductVo.java=UTF-8
 encoding//src/com/shopping/vo/UserVo.java=UTF-8
