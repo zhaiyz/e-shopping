@@ -50,6 +50,7 @@ public class UserServlet extends HttpServlet {
 							"userId",
 							ServiceFactory.getUserServiceInstance()
 									.findUserByName(userName).getUserId());
+					
 					path = "index.jsp";
 				} else {
 					// µÇÂ¼Ê§°Ü
@@ -100,10 +101,34 @@ public class UserServlet extends HttpServlet {
 
 			if (ServiceFactory.getUserServiceInstance().addUser(user)) {
 				request.getSession().setAttribute("userName", userName);
+			//	UserVo userV = new UserVo();
+				user = ServiceFactory.getUserServiceInstance().findUserByName(userName);
+				request.getSession().setAttribute("userId", user.getUserId());
 				path = "index.jsp";
 			} else {
 				error = "×¢²áÊ§°Ü!";
 				path = "/user/register.jsp";
+			}
+		}else if("userUpdate".equals(action)){
+			int id = (Integer)request.getSession().getAttribute("userId");
+			UserVo user = ServiceFactory.getUserServiceInstance().findUserById(id);
+			String userPassword = request.getParameter("password");
+			int gender = Integer.parseInt(request.getParameter("gender"));
+			String prompt = request.getParameter("prompt");
+			String answer = request.getParameter("answer");
+			String email = request.getParameter("email");
+			String phone = request.getParameter("phone");
+			user.setAnswer(answer);
+			user.setEmail(email);
+			user.setGender(gender);
+			user.setPhone(phone);
+			user.setPrompt(prompt);
+			user.setUserPassword(userPassword);
+			if(ServiceFactory.getUserServiceInstance().modifyUser(user)){
+				path = "index.jsp";
+			}else{
+				error = "¸öÈËÐÅÏ¢ÐÞ¸ÄÊ§°Ü£¡";
+				path = "/user/personal.jsp";
 			}
 		}
 
