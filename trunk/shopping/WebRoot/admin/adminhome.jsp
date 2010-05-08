@@ -5,14 +5,14 @@
 		<title>管理员首页</title>
 		<link rel="stylesheet" type="text/css" href="../resources/css/ext-all.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/ext-patch.css" />
-		
+		<!--
 		<script type="text/javascript" src="../js/ext-base.js"></script>
 		<script type="text/javascript" src="../js/ext-all.js"></script>
-		<!--
+		-->
 		<script type="text/javascript" src="../js/ext-base-debug.js"></script>
 		<script type="text/javascript" src="../js/ext-all-debug.js"></script>
-		-->
 		<script type="text/javascript" src="../js/ext-lang-zh_CN.js"></script>
+		
 		<script type="text/javascript" src="../js/SearchField.js"></script>
 		<script type="text/javascript" src="../js/tabCloseMenu.js"></script>
 		<script type="text/javascript">
@@ -35,7 +35,7 @@
                         text: "商品管理",
                         expanded: true,
                         children: [
-                            {id: "category.jsp", text: "商品大类", icon:'../resources/images/Icon_021.ico', height: 15, leaf: true},
+                            {id: "category.jsp", text: "商品大类", icon:'../resources/images/Icon_021.ico', leaf: true},
                             {id: "item.jsp", text: "商品小类", icon:'../resources/images/Icon_021.ico', leaf: true},
                             {id: "product.jsp", text: "具体商品", icon:'../resources/images/Icon_021.ico', leaf: true}
                         ]

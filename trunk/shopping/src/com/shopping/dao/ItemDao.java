@@ -27,13 +27,13 @@ public interface ItemDao {
 	 * @return 商品小类的对象
 	 */
 	public ItemVo findById(int itemId);
-	
+
 	/**
 	 * 按商品大类ID查询商品小类，不分页
+	 * 
 	 * @param catId
-	 * 商品大类ID
-	 * @return
-	 * 查询出的商品小类集合
+	 *            商品大类ID
+	 * @return 查询出的商品小类集合
 	 */
 	public List<ItemVo> findItemByCategoryId(int catId);
 
@@ -78,4 +78,44 @@ public interface ItemDao {
 	 * @return 修改是否成功
 	 */
 	public boolean modifyItem(ItemVo item);
+
+	/**
+	 * 查询出小类的总数
+	 * 
+	 * @return
+	 */
+	public int getTotalNum();
+
+	/**
+	 * 按条件查询出小类的总数
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public int getTotalNum(String name);
+
+	/**
+	 * 按条件查询小类
+	 * 
+	 * @param name
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List<ItemVo> findItemByLike(String name, int start, int limit);
+
+	/**
+	 * 取得一个商品大类下面小类的总数
+	 * 
+	 * @param catId
+	 * @return
+	 */
+	public int getTotalNum(int id);
+
+	/**
+	 * 查询出所有小类
+	 * 
+	 * @return
+	 */
+	public List<ItemVo> findAllItem();
 }

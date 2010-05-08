@@ -99,4 +99,11 @@ public interface ProductDao {
 	 * @return
 	 */
 	public int getTotalProductByLike(String name);
+
+	/**
+	 * 获得商品总数
+	 * 
+	 * @return
+	 */
+	public int getTotalNum();
 }

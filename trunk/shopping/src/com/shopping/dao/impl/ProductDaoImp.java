@@ -60,7 +60,7 @@ public class ProductDaoImp implements ProductDao {
 				product.setProName(rs.getString("pro_name"));
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
-				product.setProDatetime(rs.getDate("pro_datetime"));
+				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
 				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
@@ -95,7 +95,7 @@ public class ProductDaoImp implements ProductDao {
 				product.setProName(rs.getString("pro_name"));
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
-				product.setProDatetime(rs.getDate("pro_datetime"));
+				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
 				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
@@ -130,7 +130,7 @@ public class ProductDaoImp implements ProductDao {
 				product.setProName(rs.getString("pro_name"));
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
-				product.setProDatetime(rs.getDate("pro_datetime"));
+				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
 				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
@@ -165,7 +165,7 @@ public class ProductDaoImp implements ProductDao {
 				product.setProName(rs.getString("pro_name"));
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
-				product.setProDatetime(rs.getDate("pro_datetime"));
+				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
 				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
@@ -275,7 +275,7 @@ public class ProductDaoImp implements ProductDao {
 				product.setProName(rs.getString("pro_name"));
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
-				product.setProDatetime(rs.getDate("pro_datetime"));
+				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
 				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
@@ -302,6 +302,27 @@ public class ProductDaoImp implements ProductDao {
 		try {
 			pstmt = dbc.getConnection().prepareStatement(sql);
 			pstmt.setString(1, "%" + name + "%");
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				total = rs.getInt(1);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return total;
+	}
+
+	public int getTotalNum() {
+		int total = 0;
+		String sql = "SELECT COUNT(*) FROM product";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				total = rs.getInt(1);

@@ -1,6 +1,5 @@
 package com.shopping.vo;
 
-import java.util.Date;
 
 /**
  * @author Administrator 商品VO类
@@ -23,7 +22,7 @@ public class ProductVo {
 	private String proDesc;
 
 	/** 商品添加时间 */
-	private Date proDatetime;
+	private String proDatetime;
 
 	/** 商品进价 */
 	private float purPrice;
@@ -73,14 +72,6 @@ public class ProductVo {
 
 	public void setOriPrice(float oriPrice) {
 		this.oriPrice = oriPrice;
-	}
-
-	public Date getProDatetime() {
-		return proDatetime;
-	}
-
-	public void setProDatetime(Date proDatetime) {
-		this.proDatetime = proDatetime;
 	}
 
 	public String getProDesc() {
@@ -137,5 +128,13 @@ public class ProductVo {
 
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+
+	public String getProDatetime() {
+		return proDatetime;
+	}
+
+	public void setProDatetime(String proDatetime) {
+		this.proDatetime = proDatetime;
 	}
 }

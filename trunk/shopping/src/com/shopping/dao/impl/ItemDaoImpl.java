@@ -50,6 +50,8 @@ public class ItemDaoImpl implements ItemDao {
 				item.setCatId(rs.getInt("cat_id"));
 				item.setItemName(rs.getString("item_name"));
 				item.setItemDesc(rs.getString("item_desc"));
+				item.setItemDatetime(rs.getString("item_datetime").substring(0,
+						19));
 				list.add(item);
 			}
 			rs.close();
@@ -77,6 +79,8 @@ public class ItemDaoImpl implements ItemDao {
 				item.setCatId(rs.getInt("cat_id"));
 				item.setItemName(rs.getString("item_name"));
 				item.setItemDesc(rs.getString("item_desc"));
+				item.setItemDatetime(rs.getString("item_datetime").substring(0,
+						19));
 				list.add(item);
 			}
 			rs.close();
@@ -104,7 +108,8 @@ public class ItemDaoImpl implements ItemDao {
 				item.setCatId(rs.getInt("item_id"));
 				item.setItemName(rs.getString("item_name"));
 				item.setItemDesc(rs.getString("item_desc"));
-				item.setItemDatetime(rs.getDate("item_datetime"));
+				item.setItemDatetime(rs.getString("item_datetime").substring(0,
+						19));
 			}
 			rs.close();
 			pst.close();
@@ -177,11 +182,138 @@ public class ItemDaoImpl implements ItemDao {
 				item.setCatId(rs.getInt("cat_id"));
 				item.setItemName(rs.getString("item_name"));
 				item.setItemDesc(rs.getString("item_desc"));
-				item.setItemDatetime(rs.getDate("item_datetime"));
+				item.setItemDatetime(rs.getString("item_datetime").substring(0,
+						19));
 				list.add(item);
 			}
 			rs.close();
 			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return list;
+	}
+
+	public int getTotalNum() {
+		int total = 0;
+		String sql = "SELECT COUNT(*) FROM item";
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pst = dbc.getConnection().prepareStatement(sql);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				total = rs.getInt(1);
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return total;
+	}
+
+	public int getTotalNum(String name) {
+		int total = 0;
+		String sql = "SELECT COUNT(*) FROM item WHERE item_name LIKE ?";
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pst = dbc.getConnection().prepareStatement(sql);
+			pst.setString(1, "%" + name + "%");
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				total = rs.getInt(1);
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return total;
+	}
+
+	public List<ItemVo> findItemByLike(String name, int start, int limit) {
+		List<ItemVo> list = new ArrayList<ItemVo>();
+		String sql = "SELECT * FROM item WHERE item_name LIKE ? LIMIT " + start
+				+ "," + limit;
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setString(1, "%" + name + "%");
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ItemVo item = new ItemVo();
+				item.setItemId(rs.getInt("item_id"));
+				item.setCatId(rs.getInt("cat_id"));
+				item.setItemName(rs.getString("item_name"));
+				item.setItemDesc(rs.getString("item_desc"));
+				item.setItemDatetime(rs.getString("item_datetime").substring(0,
+						19));
+				list.add(item);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return list;
+	}
+
+	public int getTotalNum(int id) {
+		int total = 0;
+		String sql = "SELECT COUNT(*) FROM item WHERE cat_id = ?";
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pst = dbc.getConnection().prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				total = rs.getInt(1);
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return total;
+	}
+
+	public List<ItemVo> findAllItem() {
+		List<ItemVo> list = new ArrayList<ItemVo>();
+		String sql = "SELECT * FROM item WHERE 1 = 1";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ItemVo item = new ItemVo();
+				item.setItemId(rs.getInt("item_id"));
+				item.setCatId(rs.getInt("cat_id"));
+				item.setItemName(rs.getString("item_name"));
+				item.setItemDesc(rs.getString("item_desc"));
+				item.setItemDatetime(rs.getString("item_datetime").substring(0,
+						19));
+				list.add(item);
+			}
+			rs.close();
+			pstmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

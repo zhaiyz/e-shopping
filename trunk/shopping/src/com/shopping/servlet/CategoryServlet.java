@@ -34,13 +34,6 @@ public class CategoryServlet extends HttpServlet {
 		// 获得操作命令
 		String action = request.getParameter("action");
 
-		// 获得分页参数
-		int start = 0;
-		int limit = 10;
-
-		start = Integer.parseInt(request.getParameter("start"));
-		limit = Integer.parseInt(request.getParameter("limit"));
-
 		// 定义要返回的json数据
 		String json = "";
 
@@ -49,6 +42,13 @@ public class CategoryServlet extends HttpServlet {
 
 		// 根据操作命令进行相应的操作
 		if ("list".equals(action)) {
+			// 获得分页参数
+			int start = 0;
+			int limit = 10;
+
+			start = Integer.parseInt(request.getParameter("start"));
+			limit = Integer.parseInt(request.getParameter("limit"));
+
 			// 取得查询所用的关键字
 			String key = request.getParameter("query");
 
@@ -75,6 +75,12 @@ public class CategoryServlet extends HttpServlet {
 			// 返回的字符串
 			json += "{total:" + total + ",list:" + JSONUtil.list2json(list)
 					+ "}";
+		} else if ("all".equals(action)) {
+			List<CategoryVo> list = new ArrayList<CategoryVo>();
+			list = ServiceFactory.getCategoryServiceInstance()
+					.findAllCategory();
+
+			json += "{list:" + JSONUtil.list2json(list) + "}";
 		}
 
 		out.println(json);

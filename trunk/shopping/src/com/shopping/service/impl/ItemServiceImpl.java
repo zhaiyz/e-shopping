@@ -39,4 +39,24 @@ public class ItemServiceImpl implements ItemService {
 		return itemDao.findItemByCategoryId(catId);
 	}
 
+	public int getTotalNum() {
+		return itemDao.getTotalNum();
+	}
+
+	public int getTotalNum(String name) {
+		return itemDao.getTotalNum(name);
+	}
+
+	public List<ItemVo> findItemByLike(String name, int start, int limit) {
+		return itemDao.findItemByLike(name, start, limit);
+	}
+
+	public int getTotalNum(int id) {
+		return itemDao.getTotalNum(id);
+	}
+
+	public List<ItemVo> findAllItem() {
+		return itemDao.findAllItem();
+	}
+
 }
