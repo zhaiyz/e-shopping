@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shopping.factory.ServiceFactory;
 import com.shopping.vo.CartVo;
+import com.shopping.vo.UserVo;
 
 public class ForwardServlet extends HttpServlet {
 
@@ -56,6 +57,11 @@ public class ForwardServlet extends HttpServlet {
 			path = "user/cart.jsp";
 		} else if ("order".equals(page)) {
 			path = "/user/info.jsp";
+		}else if("personal".equals(page)){
+			int id = (Integer)request.getSession().getAttribute("userId");
+			UserVo user = ServiceFactory.getUserServiceInstance().findUserById(id);
+			request.setAttribute("user", user);
+			path = "/user/personal.jsp";
 		}
 
 		request.getRequestDispatcher(path).forward(request, response);
