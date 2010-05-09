@@ -29,7 +29,7 @@ public interface CardDao {
 	 * 
 	 * @return 充值卡集合
 	 */
-	public List<CardVo> findAllCard();
+	public List<CardVo> findAllCard(int start, int limit);
 
 	/**
 	 * 删除充值卡
