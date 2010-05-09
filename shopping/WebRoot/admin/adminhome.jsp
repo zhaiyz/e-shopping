@@ -51,7 +51,7 @@
                         text: "订单管理",
                         expanded: true,
                         children: [
-                            {id: "order", text: "订单管理", leaf: true}
+                            {id: "order.jsp", text: "订单管理", leaf: true}
                         ]
                     })
                 });
@@ -64,7 +64,7 @@
                         text: "充值卡管理",
                         expended: true,
                         children: [
-                            {id: "card", text: "充值卡管理", leaf: true}
+                            {id: "card.jsp", text: "充值卡管理", leaf: true}
                         ]
                     })
                 });
