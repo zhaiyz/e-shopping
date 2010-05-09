@@ -59,6 +59,11 @@
 			com.shopping.servlet.CategoryServlet
 		</servlet-class>
 	</servlet>
+  <servlet>
+    <servlet-name>contactServlet</servlet-name>
+    <servlet-class>com.shopping.servlet.ContactServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -95,6 +100,10 @@
 		<servlet-name>categoryServlet</servlet-name>
 		<url-pattern>/category</url-pattern>
 	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>contactServlet</servlet-name>
+    <url-pattern>/contact</url-pattern>
+  </servlet-mapping>
 
 	<filter>
 		<filter-name>login</filter-name>

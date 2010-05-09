@@ -3,7 +3,6 @@
  */
 package com.shopping.vo;
 
-import java.util.Date;
 
 public class MyOrderVo {
 
@@ -20,7 +19,7 @@ public class MyOrderVo {
 	private String orderNum;
 
 	/** 订单生成时间 */
-	private Date orderDatetime;
+	private String orderDatetime;
 
 	/** 付费方式0:先付款后发货；1:货到付款 */
 	private int payment;
@@ -66,11 +65,12 @@ public class MyOrderVo {
 		this.orderNum = orderNum;
 	}
 
-	public Date getOrderDatetime() {
+	
+	public String getOrderDatetime() {
 		return orderDatetime;
 	}
 
-	public void setOrderDatetime(Date orderDatetime) {
+	public void setOrderDatetime(String orderDatetime) {
 		this.orderDatetime = orderDatetime;
 	}
 

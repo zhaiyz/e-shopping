@@ -1,6 +1,7 @@
 package com.shopping.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shopping.factory.ServiceFactory;
 import com.shopping.util.GetTotalPrice;
+import com.shopping.util.JSONUtil;
 import com.shopping.vo.CartVo;
 import com.shopping.vo.ContactVo;
 import com.shopping.vo.MyOrderVo;
@@ -30,11 +32,23 @@ public class OrderServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// 设置字符编码
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
+		PrintWriter out = response.getWriter();
+
 		// 取得命令参数
 		String action = request.getParameter("action");
 
 		// 定义跳转路径
 		String path = "";
+
+		// 定义一个返回到管理员页面的数据变量
+		String json = "";
+
+		// 定义一个用来判断是否进行页面跳转的变量，这个和别的不一样，这个默认为跳转，主要是因为这个页面，要进行跳转的有点多
+		boolean flag = true;
 
 		// 根据命令参数进行相应的操作
 		if ("add".equals(action)) {
@@ -369,22 +383,85 @@ public class OrderServlet extends HttpServlet {
 			path = "user/order.jsp";
 		} else if ("confirm".equals(action)) {
 			path = "/order?action=show";
-			
-			//取得订单主键
+
+			// 取得订单主键
 			int id = Integer.parseInt(request.getParameter("id"));
-			
-			//通过主键取得订单内容
+
+			// 通过主键取得订单内容
 			MyOrderVo order = new MyOrderVo();
-			order = ServiceFactory.getOrderServiceInstance().findMyOrderById(id);
-			
-			//设置成已收货
+			order = ServiceFactory.getOrderServiceInstance()
+					.findMyOrderById(id);
+
+			// 设置成已收货
 			order.setOrderState(2);
-			
-			//更新此订单
+
+			// 更新此订单
 			ServiceFactory.getOrderServiceInstance().modifyMyOrder(order);
+		} else if ("all".equals(action)) {
+			// 把所有的订单进行分页查询并输出到后台管理页面
+			// 获得分页参数
+			int start = 0;
+			int limit = 10;
+
+			// 订单总数
+			int total = 0;
+
+			try {
+				start = Integer.parseInt(request.getParameter("start"));
+			} catch (NumberFormatException e) {
+				start = 0;
+			}
+
+			try {
+				limit = Integer.parseInt(request.getParameter("limit"));
+			} catch (NumberFormatException e) {
+				limit = 10;
+			}
+
+			// 这个是个小关键，定义订单状态
+			int state = -1;
+
+			try {
+				state = Integer.parseInt(request.getParameter("state"));
+			} catch (NumberFormatException e) {
+				state = -1;
+			}
+
+			List<MyOrderVo> list = new ArrayList<MyOrderVo>();
+
+			if (state == -1) {
+				// 如果state为-1，那么就是分页查询出所有的订单
+
+				total = ServiceFactory.getOrderServiceInstance().getTotalNum();
+
+				list = ServiceFactory.getOrderServiceInstance().findAllMyOrder(
+						start, limit);
+
+				// 组织要返回的json
+				json += "{total:" + total + ",list:" + JSONUtil.list2json(list)
+						+ "}";
+			} else {
+				// 如果订单状态不是为-1，那么就按订单状态进行查询
+				total = ServiceFactory.getOrderServiceInstance().getTotalNum(
+						state);
+
+				list = ServiceFactory.getOrderServiceInstance()
+						.findOrderByState(state, start, limit);
+
+				// 组织要返回的json
+				json += "{total:" + total + ",list:" + JSONUtil.list2json(list)
+						+ "}";
+			}
+
+			// 这个不需要进行页面跳转
+			flag = false;
 		}
 
 		// 根据path进行跳转
-		request.getRequestDispatcher(path).forward(request, response);
+		if (flag) {
+			request.getRequestDispatcher(path).forward(request, response);
+		} else {
+			out.println(json);
+		}
 	}
 }

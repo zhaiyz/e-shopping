@@ -92,6 +92,116 @@
                     })
                 });
                 
+                //给这个数据框添加事件
+                proGrid.addListener('celldblclick',function(grid, rowIndex, columnIndex, e){
+                    var s=grid.getStore();
+                    var x=s.getAt(rowIndex);
+                    var win = new Ext.Window({
+                        title: '商品信息',
+                        width: 300,
+                        height: 470,
+                        modal: true,
+                        layout: 'form',
+                        bodyStyle: 'padding:10px 10px 10px 10px',
+                        labelWidth: 60,
+                        items: [
+                            new Ext.form.ComboBox({
+                                fieldLabel: '所属小类',
+	                            width: 150,
+	                        	mode: 'remote',
+	                        	readOnly: true,
+	                        	store: iStore,
+	                        	displayField:'itemName',
+	                       	 	valueField:'itemId',
+	                        	triggerAction: 'all'
+                            }).setValue(x.get("itemId")),
+                            new Ext.form.TextField({
+                                fieldLabel: '商品名称',
+                                width: 200,
+                                name: 'proName',
+                                value: x.get("proName")
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '商品图片',
+                                width: 200,
+                                name: 'imageUrl',
+                                value: x.get("imageUrl")
+                            }),
+                            new Ext.form.TextArea({
+                                fieldLabel: '商品介绍',
+                                width: 200,
+                                height:100,
+                                name: 'proDesc',
+                                value: x.get("proName")
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '商品进价',
+                                width: 200,
+                                name: 'purPrice',
+                                value: x.get("purPrice")
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '商品原价',
+                                width: 200,
+                                name: 'oriPrice',
+                                value: x.get("oriPrice")
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '商品会员价',
+                                width: 200,
+                                name: 'disPrice',
+                                value: x.get("disPrice")
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '商品库存',
+                                width: 200,
+                                name: 'stock',
+                                value: x.get("stock")
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '商品售量',
+                                width: 200,
+                                name: 'sales',
+                                value: x.get("sales")
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '是否推荐',
+                                width: 200,
+                                name: 'recommendation',
+                                value: x.get("recommendation")
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '上架时间',
+                                width: 200,
+                                name: 'proDatetime',
+                                readOnly: true,
+                                value: x.get("proDatetime").dateFormat('Y-m-d H:i:s')
+                            })
+                        ],
+                        buttons: [{
+                            text: '修改',
+                            icon: '../resources/images/Icon_007.ico',
+                            width: 85,
+                            height: 27
+                        },{
+                            text: '重置',
+                            icon: '../resources/images/Icon_106.ico',
+                            width: 85,
+                            height: 27
+                        },{
+                            text: '关闭',
+                            icon: '../resources/images/Icon_043.ico',
+                            width: 85,
+                            height: 27,
+                            handler: function(){
+                                win.close();
+                            }
+                        }]
+                    });
+                    
+                    win.show();  
+                });
+                
 	            //商品面板
 	            var proPane = new Ext.Panel({
 	                renderTo: "proPanel",
@@ -130,12 +240,209 @@
 	            
 	            //添加小类方法
 	            function addPro() {
-	               Ext.Msg.alert("提示","添加商品");
+	               var win = new Ext.Window({
+                        title: '商品信息',
+                        width: 300,
+                        height: 470,
+                        modal: true,
+                        layout: 'form',
+                        bodyStyle: 'padding:10px 10px 10px 10px',
+                        labelWidth: 60,
+                        items: [
+                            new Ext.form.ComboBox({
+                                fieldLabel: '所属小类',
+	                            width: 150,
+	                        	mode: 'remote',
+	                        	readOnly: true,
+	                        	store: iStore,
+	                        	displayField:'itemName',
+	                       	 	valueField:'itemId',
+	                        	triggerAction: 'all'
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '商品名称',
+                                width: 200,
+                                name: 'proName'
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '商品图片',
+                                width: 200,
+                                name: 'imageUrl'
+                            }),
+                            new Ext.form.TextArea({
+                                fieldLabel: '商品介绍',
+                                width: 200,
+                                height:100,
+                                name: 'proDesc'
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '商品进价',
+                                width: 200,
+                                name: 'purPrice'
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '商品原价',
+                                width: 200,
+                                name: 'oriPrice'
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '会员价',
+                                width: 200,
+                                name: 'disPrice'
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '商品库存',
+                                width: 200,
+                                name: 'stock'
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '商品售量',
+                                width: 200,
+                                name: 'sales'
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '是否推荐',
+                                width: 200,
+                                name: 'recommendation'
+                            })
+                        ],
+                        buttons: [{
+                            text: '添加',
+                            icon: '../resources/images/Icon_113.ico',
+                            width: 85,
+                            height: 27
+                        },{
+                            text: '重置',
+                            icon: '../resources/images/Icon_106.ico',
+                            width: 85,
+                            height: 27
+                        },{
+                            text: '关闭',
+                            icon: '../resources/images/Icon_043.ico',
+                            width: 85,
+                            height: 27,
+                            handler: function(){
+                                win.close();
+                            }
+                        }]
+                    });
+                    
+                    win.show(); 
 	            }
 	            
 	            //编辑小类方法
 	            function editPro() {
-	                Ext.Msg.alert("提示","编辑商品");
+	                var x = proGrid.getSelectionModel().getSelected();
+                    if (x == null) {
+                        Ext.MessageBox.alert('提示', '至少选择一行');
+                        return false;
+                    } else {
+                        //通过recordtoedit 取值了 比如说有id这个直接
+                        var win = new Ext.Window({
+                            title: '商品大类',
+                            width: 300,
+                            height: 470,
+                            modal: true,
+                            layout: 'form',
+                            bodyStyle: 'padding:10px 10px 10px 10px',
+                            labelWidth: 60,
+                            items: [
+                                new Ext.form.ComboBox({
+	                                fieldLabel: '所属小类',
+		                            width: 150,
+		                        	mode: 'remote',
+		                        	readOnly: true,
+		                        	store: iStore,
+		                        	displayField:'itemName',
+		                       	 	valueField:'itemId',
+		                        	triggerAction: 'all'
+	                            }).setValue(x.get("itemId")),
+	                            new Ext.form.TextField({
+	                                fieldLabel: '商品名称',
+	                                width: 200,
+	                                name: 'proName',
+	                                value: x.get("proName")
+	                            }),
+	                            new Ext.form.TextField({
+	                                fieldLabel: '商品图片',
+	                                width: 200,
+	                                name: 'imageUrl',
+	                                value: x.get("imageUrl")
+	                            }),
+	                            new Ext.form.TextArea({
+	                                fieldLabel: '商品介绍',
+	                                width: 200,
+	                                height:100,
+	                                name: 'proDesc',
+	                                value: x.get("proName")
+	                            }),
+	                            new Ext.form.TextField({
+	                                fieldLabel: '商品进价',
+	                                width: 200,
+	                                name: 'purPrice',
+	                                value: x.get("purPrice")
+	                            }),
+	                            new Ext.form.TextField({
+	                                fieldLabel: '商品原价',
+	                                width: 200,
+	                                name: 'oriPrice',
+	                                value: x.get("oriPrice")
+	                            }),
+	                            new Ext.form.TextField({
+	                                fieldLabel: '商品会员价',
+	                                width: 200,
+	                                name: 'disPrice',
+	                                value: x.get("disPrice")
+	                            }),
+	                            new Ext.form.TextField({
+	                                fieldLabel: '商品库存',
+	                                width: 200,
+	                                name: 'stock',
+	                                value: x.get("stock")
+	                            }),
+	                            new Ext.form.TextField({
+	                                fieldLabel: '商品售量',
+	                                width: 200,
+	                                name: 'sales',
+	                                value: x.get("sales")
+	                            }),
+	                            new Ext.form.TextField({
+	                                fieldLabel: '是否推荐',
+	                                width: 200,
+	                                name: 'recommendation',
+	                                value: x.get("recommendation")
+	                            }),
+	                            new Ext.form.TextField({
+	                                fieldLabel: '上架时间',
+	                                width: 200,
+	                                name: 'proDatetime',
+	                                readOnly: true,
+	                                value: x.get("proDatetime").dateFormat('Y-m-d H:i:s')
+	                            })
+	                        ],
+	                        buttons: [{
+	                            text: '修改',
+	                            icon: '../resources/images/Icon_007.ico',
+	                            width: 85,
+	                            height: 27
+	                        },{
+	                            text: '重置',
+	                            icon: '../resources/images/Icon_106.ico',
+	                            width: 85,
+	                            height: 27
+	                        },{
+	                            text: '关闭',
+	                            icon: '../resources/images/Icon_043.ico',
+	                            width: 85,
+	                            height: 27,
+	                            handler: function(){
+	                                win.close();
+	                            }
+	                        }]
+                        });
+                    
+                        win.show(); 
+                    } 
 	            }
 	            
 	            //删除小类方法

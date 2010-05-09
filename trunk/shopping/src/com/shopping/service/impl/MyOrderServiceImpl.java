@@ -39,4 +39,16 @@ public class MyOrderServiceImpl implements MyOrderService {
 		return dao.findOrderByUserId(id);
 	}
 
+	public int getTotalNum() {
+		return dao.getTotalNum();
+	}
+
+	public List<MyOrderVo> findOrderByState(int state, int start, int limit) {
+		return dao.findOrderByState(state, start, limit);
+	}
+
+	public int getTotalNum(int state) {
+		return dao.getTotalNum(state);
+	}
+
 }

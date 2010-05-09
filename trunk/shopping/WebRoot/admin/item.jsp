@@ -210,13 +210,13 @@
                             new Ext.form.TextField({
                                 fieldLabel: '小类名称',
                                 width: 200,
-                                name: 'itemName',
+                                name: 'itemName'
                             }),
                             new Ext.form.TextArea({
                                 fieldLabel: '小类说明',
                                 width: 200,
                                 height:120,
-                                name: 'itemDesc',
+                                name: 'itemDesc'
                             })
                         ],
                         buttons: [{
