@@ -30,4 +30,12 @@ public class CardServiceImpl implements CardService{
 		return dao.removeCard(cardId);
 	}
 
+	public boolean accountManage(CardVo card) {
+		return dao.accountManage(card);
+	}
+
+	public CardVo findCardByCardName(String cardNo, String cardPassword) {
+		return dao.findCardByCardName(cardNo, cardPassword);
+	}
+
 }

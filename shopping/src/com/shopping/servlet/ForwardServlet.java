@@ -62,6 +62,11 @@ public class ForwardServlet extends HttpServlet {
 			UserVo user = ServiceFactory.getUserServiceInstance().findUserById(id);
 			request.setAttribute("user", user);
 			path = "/user/personal.jsp";
+		}else if("account".equals(page)){
+			int id = (Integer)request.getSession().getAttribute("userId");
+			UserVo user = ServiceFactory.getUserServiceInstance().findUserById(id);
+			request.setAttribute("user", user);
+			path = "/user/account.jsp";
 		}
 
 		request.getRequestDispatcher(path).forward(request, response);

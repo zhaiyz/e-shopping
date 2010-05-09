@@ -129,4 +129,53 @@ public class CardDaoImpl implements CardDao {
 		return flag;
 	}
 
+	public boolean accountManage(CardVo card) {
+		boolean flag = false;
+		String sql = "SELECT * FROM card WHERE card_no = ? AND card_password = ?";
+		DBUtil dbc = new DBUtil();
+		try {
+			PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
+			pst.setString(1, card.getCardNo());
+			pst.setString(2, card.getCardPassword());
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				flag = true;
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return flag;
+	}
+
+	public CardVo findCardByCardName(String cardNo, String cardPassword) {
+		CardVo card = new CardVo();
+		String sql = "SELECT * FROM card WHERE card_no = ? AND card_password = ?";
+		DBUtil dbc = new DBUtil();
+		try {
+			PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
+			pst.setString(1, cardNo);
+			pst.setString(2, cardPassword);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				card.setCardId(rs.getInt("card_id"));
+				card.setCardNo(rs.getString("card_no"));
+				card.setCardPassword(rs.getString("card_password"));
+				card.setCardValue(rs.getFloat("card_value"));
+				card.setCardDateTime(rs.getDate("card_datetime"));
+				card.setCardFlag(rs.getInt("card_flag"));
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return card;
+	}
+
 }

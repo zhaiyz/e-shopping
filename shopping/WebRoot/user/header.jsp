@@ -28,7 +28,8 @@
                    <a href="/shopping/forward?page=personal">个人信息</a>|
                    <a href="/shopping/order?action=show">订单管理</a>|
                    <a href="/shopping/forward?page=cart">购物车</a>|
-                   <a href="/shopping/forward?page=logout">退出</a>
+                   <a href="/shopping/forward?page=account">账户</a>|
+                   <a href="/shopping/forward?page=logout">退出</a>                   
                 <%
                     }
                 %>
