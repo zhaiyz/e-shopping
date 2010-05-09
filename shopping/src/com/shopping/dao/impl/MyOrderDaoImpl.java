@@ -3,8 +3,6 @@ package com.shopping.dao.impl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +54,8 @@ public class MyOrderDaoImpl implements MyOrderDao {
 				order.setUserId(rs.getInt("user_id"));
 				order.setConId(rs.getInt("con_id"));
 				order.setOrderNum(rs.getString("order_num"));
-				order.setOrderDatetime(rs.getDate("order_datetime"));
+				order.setOrderDatetime(rs.getString("order_datetime")
+						.substring(0, 19));
 				order.setPayment(rs.getInt("payment"));
 				order.setPost(rs.getInt("post"));
 				order.setTotalPrice(rs.getFloat("total_price"));
@@ -87,7 +86,8 @@ public class MyOrderDaoImpl implements MyOrderDao {
 				order.setUserId(rs.getInt("user_id"));
 				order.setConId(rs.getInt("con_id"));
 				order.setOrderNum(rs.getString("order_num"));
-				order.setOrderDatetime(rs.getDate("order_datetime"));
+				order.setOrderDatetime(rs.getString("order_datetime")
+						.substring(0, 19));
 				order.setPayment(rs.getInt("payment"));
 				order.setPost(rs.getInt("post"));
 				order.setTotalPrice(rs.getFloat("total_price"));
@@ -166,7 +166,8 @@ public class MyOrderDaoImpl implements MyOrderDao {
 				order.setUserId(rs.getInt("user_id"));
 				order.setConId(rs.getInt("con_id"));
 				order.setOrderNum(rs.getString("order_num"));
-				order.setOrderDatetime(rs.getDate("order_datetime"));
+				order.setOrderDatetime(rs.getString("order_datetime")
+						.substring(0, 19));
 				order.setPayment(rs.getInt("payment"));
 				order.setPost(rs.getInt("post"));
 				order.setTotalPrice(rs.getFloat("total_price"));
@@ -197,13 +198,85 @@ public class MyOrderDaoImpl implements MyOrderDao {
 				order.setUserId(rs.getInt("user_id"));
 				order.setConId(rs.getInt("con_id"));
 				order.setOrderNum(rs.getString("order_num"));
-				try {
-					order.setOrderDatetime(new SimpleDateFormat(
-							"yyyy-MM-dd HH:mm:ss").parse(rs
-							.getString("order_datetime")));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
+				order.setOrderDatetime(rs.getString("order_datetime")
+						.substring(0, 19));
+				order.setPayment(rs.getInt("payment"));
+				order.setPost(rs.getInt("post"));
+				order.setTotalPrice(rs.getFloat("total_price"));
+				order.setOrderState(rs.getInt("order_state"));
+				list.add(order);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return list;
+	}
+
+	public int getTotalNum() {
+		int total = 0;
+		String sql = "SELECT COUNT(*) FROM myorder";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				total = rs.getInt(1);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return total;
+	}
+
+	public int getTotalNum(int state) {
+		int total = 0;
+		String sql = "SELECT COUNT(*) FROM myorder WHERE order_state = ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, state);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				total = rs.getInt(1);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return total;
+	}
+
+	public List<MyOrderVo> findOrderByState(int state, int start, int limit) {
+		List<MyOrderVo> list = new ArrayList<MyOrderVo>();
+		String sql = "SELECT * FROM myorder WHERE order_state = ? LIMIT "
+				+ start + ", " + limit;
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, state);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				MyOrderVo order = new MyOrderVo();
+				order.setOrderId(rs.getInt("order_id"));
+				order.setUserId(rs.getInt("user_id"));
+				order.setConId(rs.getInt("con_id"));
+				order.setOrderNum(rs.getString("order_num"));
+				order.setOrderDatetime(rs.getString("order_datetime")
+						.substring(0, 19));
 				order.setPayment(rs.getInt("payment"));
 				order.setPost(rs.getInt("post"));
 				order.setTotalPrice(rs.getFloat("total_price"));

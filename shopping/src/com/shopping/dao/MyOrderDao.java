@@ -71,4 +71,29 @@ public interface MyOrderDao {
 	 * @return
 	 */
 	public List<MyOrderVo> findOrderByUserId(int id);
+
+	/**
+	 * 查询出订单的数量
+	 * 
+	 * @return
+	 */
+	public int getTotalNum();
+
+	/**
+	 * 按订单状态进行查询订单数量
+	 * 
+	 * @param state
+	 * @return
+	 */
+	public int getTotalNum(int state);
+
+	/**
+	 * 按订单状态进行分页查询
+	 * 
+	 * @param state
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List<MyOrderVo> findOrderByState(int state, int start, int limit);
 }
