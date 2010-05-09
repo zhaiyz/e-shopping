@@ -37,8 +37,8 @@ public class CardDaoImpl implements CardDao {
 
 	public List<CardVo> findAllCard(int start, int limit) {
 		List<CardVo> list = new ArrayList<CardVo>();
-		String sql = "SELECT * FROM card WHERE card_flag = 0 AND 1 = 1 LIMIT "
-				+ start + "," + limit;
+		String sql = "SELECT * FROM card WHERE 1 = 1 LIMIT " + start + ","
+				+ limit;
 		DBUtil dbc = new DBUtil();
 		try {
 			PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
@@ -131,7 +131,7 @@ public class CardDaoImpl implements CardDao {
 
 	public boolean accountManage(CardVo card) {
 		boolean flag = false;
-		String sql = "SELECT * FROM card WHERE card_no = ? AND card_password = ?";
+		String sql = "SELECT * FROM card WHERE card_no = ? AND card_password = ? AND card_flag = 0";
 		DBUtil dbc = new DBUtil();
 		try {
 			PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
