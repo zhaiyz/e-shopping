@@ -48,4 +48,24 @@ public interface CardService {
 	 * @return 修改是否成功
 	 */
 	public boolean modifyCard(CardVo card);
+	
+	/**
+	 * 判断用户输入的卡号密码是否匹配
+	 * 
+	 * @param card
+	 * 
+	 * @return 是否匹配
+	 */
+	public boolean accountManage(CardVo card);
+	
+	/**
+	 * 按卡号、密码查询充值卡
+	 * 
+	 * @param cardNo
+	 *            卡号
+	 * @param cardPassword
+	 *            密码
+	 * @return 查询出的充值卡
+	 */
+	public CardVo findCardByCardName(String cardNo, String cardPassword);
 }
