@@ -16,6 +16,7 @@
 		
 		<script type="text/javascript" src="../js/SearchField.js"></script>
 		<script type="text/javascript" src="../js/tabCloseMenu.js"></script>
+		<script type="text/javascript" src="../js/FileUploadField.js"></script>
 		<script type="text/javascript">
             Ext.BLANK_IMAGE_URL='../resources/images/default/s.gif';
                     
