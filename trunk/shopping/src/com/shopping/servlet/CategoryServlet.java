@@ -81,6 +81,46 @@ public class CategoryServlet extends HttpServlet {
 					.findAllCategory();
 
 			json += "{list:" + JSONUtil.list2json(list) + "}";
+		} else if ("add".equals(action)) {
+			// 商品大类添加
+			String catName = request.getParameter("catName");
+			String catDesc = request.getParameter("catDesc");
+
+			CategoryVo category = new CategoryVo();
+			category.setCatName(catName);
+			category.setCatDesc(catDesc);
+
+			if (ServiceFactory.getCategoryServiceInstance().addCategory(
+					category)) {
+				json += "{success:true}";
+			} else {
+				json += "{success:false}";
+			}
+		} else if ("update".equals(action)) {
+			// 修改商品大类
+			int catId = Integer.parseInt(request.getParameter("catId"));
+			String catName = request.getParameter("catName");
+			String catDesc = request.getParameter("catDesc");
+
+			CategoryVo category = new CategoryVo();
+			category.setCatId(catId);
+			category.setCatName(catName);
+			category.setCatDesc(catDesc);
+
+			if (ServiceFactory.getCategoryServiceInstance().modifyCategory(
+					category)) {
+				json += "{success:true}";
+			} else {
+				json += "{success:false}";
+			}
+		} else if ("del".equals(action)) {
+			int catId = Integer.parseInt(request.getParameter("catId"));
+			
+			if (ServiceFactory.getCategoryServiceInstance().removeCategoryById(catId)) {
+				json += "{success:true}";
+			} else {
+				json += "{success:false}";
+			}
 		}
 
 		out.println(json);
