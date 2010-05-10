@@ -55,4 +55,12 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getTotalNum();
 	}
 
+	public List<ProductVo> getNewProduct() {
+		return productDao.getNewProduct();
+	}
+
+	public List<ProductVo> getRecommenProduct() {
+		return productDao.getRecommenProduct();
+	}
+
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shopping.factory.ServiceFactory;
 import com.shopping.vo.CartVo;
+import com.shopping.vo.ProductVo;
 import com.shopping.vo.UserVo;
 
 public class ForwardServlet extends HttpServlet {
@@ -38,6 +39,12 @@ public class ForwardServlet extends HttpServlet {
 			request.getSession().removeAttribute("userName");
 			path = "/index.jsp";
 		} else if ("index".equals(page)) {
+			List<ProductVo> recommenList = new ArrayList<ProductVo>();
+			List<ProductVo> newProductList = new ArrayList<ProductVo>();
+			recommenList = ServiceFactory.getProductServiceInstance().getRecommenProduct();
+			newProductList = ServiceFactory.getProductServiceInstance().getNewProduct();
+			request.setAttribute("recommenList", recommenList);
+			request.setAttribute("newProductList", newProductList);
 			path = "/homepage.jsp";
 
 			// 查询出所有的大类，这是一个悲剧，而且只是开始
