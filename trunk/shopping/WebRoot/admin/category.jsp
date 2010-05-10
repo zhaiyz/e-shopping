@@ -119,7 +119,7 @@
                                     method: 'post',
                                     success: function(response, options){
                                         var obj = Ext.util.JSON.decode(response.responseText);
-                                        if (obj == true) {
+                                        if (obj.success == true) {
                                             Ext.Msg.alert("提示","修改商品大类成功");
                                             store.load();
                                             win.close();
@@ -217,7 +217,7 @@
                                     method: 'post',
                                     success: function(response, options) {
                                         var obj = Ext.util.JSON.decode(response.responseText);
-                                        if (obj == true) { 
+                                        if (obj.success == true) { 
                                             Ext.Msg.alert("提示","添加商品大类成功");
                                             store.load();
                                             win.close();
@@ -318,7 +318,7 @@
                                         method: 'post',
                                         success: function(response, options){
                                             var obj = Ext.util.JSON.decode(response.responseText);
-                                            if (obj == true) {
+                                            if (obj.success == true) {
                                                 Ext.Msg.alert("提示","修改商品大类成功");
                                                 store.load();
                                                 win.close();
@@ -373,7 +373,7 @@
                                     },
                                     success: function(response, options) {
                                         var obj = Ext.util.JSON.decode(response.responseText);
-                                        if (obj == true) {
+                                        if (obj.success == true) {
                                             Ext.Msg.alert("提示","删除商品大类成功");
                                             store.load();
                                         } else {

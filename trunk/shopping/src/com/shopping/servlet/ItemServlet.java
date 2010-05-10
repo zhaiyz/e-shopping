@@ -161,6 +161,55 @@ public class ItemServlet extends HttpServlet {
 
 			// 这个是不进行跳转的
 			flag = false;
+		} else if ("add".equals(action)) {
+			int catId = Integer.parseInt(request.getParameter("catId"));
+			String itemName = request.getParameter("itemName");
+			String itemDesc = request.getParameter("itemDesc");
+
+			ItemVo item = new ItemVo();
+			item.setCatId(catId);
+			item.setItemName(itemName);
+			item.setItemDesc(itemDesc);
+
+			if (ServiceFactory.getItemServiceInstance().addItem(item)) {
+				json += "{success:true}";
+			} else {
+				json += "{success:false}";
+			}
+
+			// 这个也是不进行跳转的
+			flag = false;
+		} else if ("update".equals(action)) {
+			int itemId = Integer.parseInt(request.getParameter("itemId"));
+			int catId = Integer.parseInt(request.getParameter("catId"));
+			String itemName = request.getParameter("itemName");
+			String itemDesc = request.getParameter("itemDesc");
+
+			ItemVo item = new ItemVo();
+			item.setItemId(itemId);
+			item.setCatId(catId);
+			item.setItemName(itemName);
+			item.setItemDesc(itemDesc);
+
+			if (ServiceFactory.getItemServiceInstance().modifyItem(item)) {
+				json += "{success:true}";
+			} else {
+				json += "{success:false}";
+			}
+
+			// 这个也是不进行跳转的
+			flag = false;
+		} else if ("del".equals(action)) {
+			int itemId = Integer.parseInt(request.getParameter("itemId"));
+
+			if (ServiceFactory.getItemServiceInstance().removeItemById(itemId)) {
+				json += "{success:true}";
+			} else {
+				json += "{success:false}";
+			}
+
+			// 这个也是不进行跳转的
+			flag = false;
 		}
 
 		// 根据path进行跳转
