@@ -4,10 +4,11 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<title>管理员首页</title>
 	<body>
-	    <script type="text/javascript">
+		<script type="text/javascript">
 	        Ext.onReady(function(){
 	            //定义store里面的成员
 	            var Member = Ext.data.Record.create([
+	                {name: 'catId', type: 'int'},
                     {name: 'catName', type: 'string'},
                     {name: 'catDesc', type: 'string'},
                     {name: 'catDatetime', type: 'date' ,dateFormat:"Y-m-d H:i:s"}
@@ -72,10 +73,18 @@
                         bodyStyle: 'padding:10px 10px 10px 10px',
                         labelWidth: 60,
                         items: [
+                            new Ext.form.Hidden({
+                                fieldLabel: '大类主键',
+                                width: 200,
+                                name: 'catId',
+                                id: 'catId',
+                                value: x.get("catId")
+                            }),
                             new Ext.form.TextField({
                                 fieldLabel: '大类名称',
                                 width: 200,
                                 name: 'catName',
+                                id: 'catName',
                                 value: x.get("catName")
                             }),
                             new Ext.form.TextArea({
@@ -83,11 +92,13 @@
                                 width: 200,
                                 height:100,
                                 name: 'catDesc',
+                                id: 'catDesc',
                                 value: x.get("catDesc")
                             }),new Ext.form.TextField({
                                 fieldLabel: '创建时间',
                                 width: 200,
                                 name: 'catDatetime',
+                                id: 'catDatetime',
                                 readOnly: true,
                                 value: x.get("catDatetime").dateFormat('Y-m-d H:i:s')
                             })
@@ -96,12 +107,42 @@
                             text: '修改',
                             icon: '../resources/images/Icon_007.ico',
                             width: 85,
-                            height: 27
+                            height: 27,
+                            handler: function() {
+                                Ext.Ajax.request({
+                                    url: '/shopping/category?action=update',
+                                    params: {
+                                        catId: Ext.getCmp('catId').getValue(),
+                                        catName: Ext.getCmp('catName').getValue(),
+                                        catDesc: Ext.getCmp('catDesc').getValue()
+                                    },
+                                    method: 'post',
+                                    success: function(response, options){
+                                        var obj = Ext.util.JSON.decode(response.responseText);
+                                        if (obj == true) {
+                                            Ext.Msg.alert("提示","修改商品大类成功");
+                                            store.load();
+                                            win.close();
+                                        } else {
+                                            Ext.Msg.alert("提示","修改商品大类失败");
+                                            win.close();
+                                        }
+                                    },
+                                    failure: function(response, options) {
+                                        Ext.Msg.alert("提示","修改商品大类失败");
+                                        win.close();
+                                    }
+                                });
+                            }
                         },{
                             text: '重置',
                             icon: '../resources/images/Icon_106.ico',
                             width: 85,
-                            height: 27
+                            height: 27,
+                            handler: function() {
+                                Ext.getCmp('catName').setValue(x.get('catName'));
+                                Ext.getCmp('catDesc').setValue(x.get('catDesc'));
+                            }
                         },{
                             text: '关闭',
                             icon: '../resources/images/Icon_043.ico',
@@ -151,24 +192,55 @@
                                 fieldLabel: '大类名称',
                                 width: 200,
                                 name: 'catName',
+                                id: 'catName'
                             }),
                             new Ext.form.TextArea({
                                 fieldLabel: '大类说明',
                                 width: 200,
                                 height:120,
                                 name: 'catDesc',
+                                id: 'catDesc'
                             })
                         ],
                         buttons: [{
                             text: '添加',
                             icon: '../resources/images/Icon_113.ico',
                             width: 85,
-                            height: 27
+                            height: 27,
+                            handler: function() {
+                                Ext.Ajax.request({
+                                    url: '/shopping/category?action=add',
+                                    params: {
+                                        catName: Ext.getCmp('catName').getValue(),
+                                        catDesc: Ext.getCmp('catDesc').getValue()
+                                    },
+                                    method: 'post',
+                                    success: function(response, options) {
+                                        var obj = Ext.util.JSON.decode(response.responseText);
+                                        if (obj == true) { 
+                                            Ext.Msg.alert("提示","添加商品大类成功");
+                                            store.load();
+                                            win.close();
+                                        } else {
+                                            Ext.Msg.alert("提示","添加商品大类失败");
+                                            win.close();
+                                        }
+                                    },
+                                    failure: function(response, options) {
+                                        Ext.Msg.alert("提示","添加商品大类失败");
+                                        win.close();
+                                    }
+                                });
+                            }
                         },{
                             text: '重置',
                             icon: '../resources/images/Icon_106.ico',
                             width: 85,
-                            height: 27
+                            height: 27,
+                            handler: function (){
+                                Ext.getCmp('catName').setValue("");
+                                Ext.getCmp('catDesc').setValue("");
+                            }
                         },{
                             text: '关闭',
                             icon: '../resources/images/Icon_043.ico',
@@ -200,10 +272,18 @@
                             bodyStyle: 'padding:10px 10px 10px 10px',
                             labelWidth: 60,
                             items: [
+                                new Ext.form.Hidden({
+                                    fieldLabel: '大类主键',
+                                    width: 200,
+                                    name: 'catId',
+                                    id: 'catId',
+                                    value: x.get("catId")
+                                }),
                                 new Ext.form.TextField({
                                     fieldLabel: '大类名称',
                                     width: 200,
                                     name: 'catName',
+                                    id: 'catName',
                                     value: x.get("catName")
                                 }),
                                 new Ext.form.TextArea({
@@ -211,11 +291,13 @@
                                     width: 200,
                                     height:100,
                                     name: 'catDesc',
+                                    id: 'catDesc',
                                     value: x.get("catDesc")
                                 }),new Ext.form.TextField({
                                     fieldLabel: '创建时间',
                                     width: 200,
                                     name: 'catDatetime',
+                                    id: 'catDatetime',
                                     readOnly: true,
                                     value: x.get("catDatetime").dateFormat('Y-m-d H:i:s')
                                 })
@@ -224,12 +306,42 @@
                                 text: '修改',
                                 icon: '../resources/images/Icon_007.ico',
                                 width: 85,
-                                height: 27
+                                height: 27,
+                                handler: function() {
+                                    Ext.Ajax.request({
+                                        url: '/shopping/category?action=update',
+                                        params: {
+                                            catId: Ext.getCmp('catId').getValue(),
+                                            catName: Ext.getCmp('catName').getValue(),
+                                            catDesc: Ext.getCmp('catDesc').getValue()
+                                        },
+                                        method: 'post',
+                                        success: function(response, options){
+                                            var obj = Ext.util.JSON.decode(response.responseText);
+                                            if (obj == true) {
+                                                Ext.Msg.alert("提示","修改商品大类成功");
+                                                store.load();
+                                                win.close();
+                                            } else {
+                                                Ext.Msg.alert("提示","修改商品大类失败");
+                                                win.close();
+                                            }
+                                        },
+                                        failure: function(response, options) {
+                                            Ext.Msg.alert("提示","修改商品大类失败");
+                                            win.close();
+                                        }
+                                    });
+                                }
                             },{
                                 text: '重置',
                                 icon: '../resources/images/Icon_106.ico',
                                 width: 85,
-                                height: 27
+                                height: 27,
+                                handler: function() {
+                                    Ext.getCmp('catName').setValue(x.get('catName'));
+                                    Ext.getCmp('catDesc').setValue(x.get('catDesc'));
+                                }
                             },{
                                 text: '关闭',
                                 icon: '../resources/images/Icon_043.ico',
@@ -247,11 +359,38 @@
 	            
 	            //删除大类方法的实现
 	            function delCategory() {
-	                Ext.Msg.alert("提示","删除一个大类");
+	                var x = grid.getSelectionModel().getSelected();
+                    if (x == null) {
+                        Ext.MessageBox.alert('提示', '至少选择一行');
+                        return false;
+                    } else {
+                        Ext.MessageBox.confirm("提示","你确定要删除这个大类吗?",function(btn){
+                            if (btn == 'yes') {
+                                Ext.Ajax.request({
+                                    url: '/shopping/category?action=del',
+                                    params: {
+                                        catId: x.get("catId")
+                                    },
+                                    success: function(response, options) {
+                                        var obj = Ext.util.JSON.decode(response.responseText);
+                                        if (obj == true) {
+                                            Ext.Msg.alert("提示","删除商品大类成功");
+                                            store.load();
+                                        } else {
+                                            Ext.Msg.alert("提示","删除商品大类失败");
+                                        }
+                                    },
+                                    failure: function(response, options) {
+                                        Ext.Msg.alert("提示","删除商品大类失败");
+                                    }
+                                });
+                            }
+                        })
+                    }
 	            }
 	        });
 	    </script>
-	    <div id="panel"></div>
-	    <div id="grid" style="width:100%,height=100%"></div>
+		<div id="panel"></div>
+		<div id="grid" style="width: 100%, height = 100%"></div>
 	</body>
 </html>

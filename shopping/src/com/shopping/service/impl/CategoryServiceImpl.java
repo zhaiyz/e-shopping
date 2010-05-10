@@ -3,13 +3,16 @@ package com.shopping.service.impl;
 import java.util.List;
 
 import com.shopping.dao.CategoryDao;
+import com.shopping.dao.ItemDao;
 import com.shopping.dao.impl.CategoryDaoImpl;
+import com.shopping.dao.impl.ItemDaoImpl;
 import com.shopping.service.CategoryService;
 import com.shopping.vo.CategoryVo;
 
 public class CategoryServiceImpl implements CategoryService {
 
 	private CategoryDao categoryDao = new CategoryDaoImpl();
+	private ItemDao itemDao = new ItemDaoImpl();
 
 	public boolean addCategory(CategoryVo category) {
 		return categoryDao.addCategory(category);
@@ -32,7 +35,13 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	public boolean removeCategoryById(int catId) {
-		return categoryDao.removeCategoryById(catId);
+		if (itemDao.findItemByCategoryId(catId).size() == 0) {
+			// 如果此大类下面没有小类，那么可以删除
+			return categoryDao.removeCategoryById(catId);
+		} else {
+			// 如果此大类正面有小类，那么就不能删除
+			return false;
+		}
 	}
 
 	public List<CategoryVo> findAllCategory() {
