@@ -4,10 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<title>E网情深─网上商城</title>
-	<style>
-		.col_kx { OVERFLOW: hidden; WIDTH: 20px }
-	</style>	
+		<title>E网情深─网上商城</title>	
 	</head>
 	<body>
 		<%
@@ -20,7 +17,7 @@
 		 		<td>推荐商品</td>
 		 	</tr>
 		 	<tr>
-	<div id="header_demo" class="col_kx">
+	
 		 	<td  id="header_demo1" nowrap>
 		 	<marquee scrollamount=1 scrolldelay=3 valign=middle behavior="scroll" onmouseover=this.stop() onmouseout=this.start()>
 		 	
@@ -32,13 +29,9 @@
 	<img src="<%=request.getContextPath()%>/images/<%=product.getImageUrl() %>" title="<%=product.getProDesc() %>" width="120" height="120" border="0" />
 		 		</a>
 		 		
-		 	<% } %>
-		 	
+		 	<% } %>		 	
 		 	</marquee>
-		 	</td>
-		 	
-		 	<td id="header_demo2" nowrap></td>
-	</div>
+		 	</td>	
 		 	</tr>
 		 </table>
 	
@@ -53,10 +46,10 @@
         <th>会员价</th>
         <th>操作</th>
     		</tr>
-    		<tr align="center">
     		<% for(int i=0;i<newProductList.size();i++){
     			ProductVo product = newProductList.get(i);
     		%>
+    		<tr align="center">
     			<td>
                     <a href="/shopping/product?action=show&id=<%=product.getProId() %>">
                         <img src="<%=request.getContextPath()%>/images/<%=product.getImageUrl() %>" title="<%=product.getProDesc() %>" width="80" height="60" />
@@ -70,37 +63,9 @@
                        |
                     <a href="/shopping/product?action=buy&id=<%=product.getProId() %> &amount=1">加入到购物车</a>
                 </td>
-    		<%} %>
     		</tr>
-		 </table>
-		 
-		 
-<script>
-
-//滚动头条
-//滚动效果
-var header_demo = document.getElementById("header_demo");
-var header_demo1 = document.getElementById("header_demo1");
-var header_demo2 = document.getElementById("header_demo2");
-var speed=30; //数值越大滚动速度越慢
-header_demo2.innerHTML = header_demo1.innerHTML;
-
-//header_demo2.offsetWidth 总宽度
-//alert(header_demo2.offsetWidth +"-"+header_demo.scrollLeft);
-
-function Marquee(){
-if(header_demo2.offsetWidth-header_demo.scrollLeft<=0)
-header_demo.scrollLeft-=header_demo1.offsetWidth
-else{
-header_demo.scrollLeft++
-}
-}
-var MyMar = setInterval(Marquee,speed);
-header_demo.onmouseover = function(){clearInterval(MyMar)}
-header_demo.onmouseout = function(){MyMar = setInterval(Marquee,speed)}
-</script>
-		 
-		 
+    		<%} %>
+		 </table>		 
 	</body>
 </html>
 <%@ include file = "user/footer.jsp" %>
