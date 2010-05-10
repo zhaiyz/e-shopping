@@ -18,7 +18,7 @@
 		 	</tr>
 		 	<tr>
 	
-		 	<td  id="header_demo1" nowrap>
+		 	<td  id="header_demo1" style="border:1px solid blue;" nowrap>
 		 	<marquee scrollamount=1 scrolldelay=3 valign=middle behavior="scroll" onmouseover=this.stop() onmouseout=this.start()>
 		 	
 		 	<%for(int i=0;i<recommenList.size();i++){

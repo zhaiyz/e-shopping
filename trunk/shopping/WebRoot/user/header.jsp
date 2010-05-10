@@ -18,6 +18,7 @@
                     if (session.getAttribute("userName") == null) {
                     //没有登录时
                 %>
+                	<a href="/shopping/forward?page=index">首页</a>|
                     <a href="/shopping/forward?page=login">登录</a>|
                     <a href="/shopping/forward?page=register">注册</a>
                 <%
