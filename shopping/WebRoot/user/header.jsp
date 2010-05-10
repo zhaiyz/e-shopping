@@ -26,6 +26,7 @@
                     //已经登录时
                 %>
                       欢迎你&nbsp;<font color="red" size="6"><%=session.getAttribute("userName")%></font>|
+                   <a href="/shopping/forward?page=index">首页</a>|
                    <a href="/shopping/forward?page=personal">个人信息</a>|
                    <a href="/shopping/order?action=show">订单管理</a>|
                    <a href="/shopping/forward?page=cart">购物车</a>|
