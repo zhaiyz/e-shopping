@@ -96,10 +96,11 @@
                 proGrid.addListener('celldblclick',function(grid, rowIndex, columnIndex, e){
                     var s=grid.getStore();
                     var x=s.getAt(rowIndex);
+                    var flag = x.get("recommendation") == 0 ? false : true;
                     var win = new Ext.Window({
                         title: '商品信息',
                         width: 300,
-                        height: 470,
+                        height: 570,
                         modal: true,
                         layout: 'form',
                         bodyStyle: 'padding:10px 10px 10px 10px',
@@ -121,11 +122,19 @@
                                 name: 'proName',
                                 value: x.get("proName")
                             }),
-                            new Ext.form.TextField({
-                                fieldLabel: '商品图片',
-                                width: 200,
-                                name: 'imageUrl',
-                                value: x.get("imageUrl")
+                            new Ext.form.Label({
+                                fieldLabel: '商品图片'
+                            }),
+                            new Ext.BoxComponent({
+                                id: 'image',
+                                xtype: 'box',
+                                width: 260,
+                                height: 100,
+                                style: 'margin: 0px 0px 5px 5px',
+                                autoEl: {
+                                    tag: 'img',
+                                    src: '../images/' + x.get("imageUrl")
+                                }
                             }),
                             new Ext.form.TextArea({
                                 fieldLabel: '商品介绍',
@@ -136,39 +145,38 @@
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '商品进价',
-                                width: 200,
+                                width: 50,
                                 name: 'purPrice',
                                 value: x.get("purPrice")
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '商品原价',
-                                width: 200,
+                                width: 50,
                                 name: 'oriPrice',
                                 value: x.get("oriPrice")
                             }),
                             new Ext.form.TextField({
-                                fieldLabel: '商品会员价',
-                                width: 200,
+                                fieldLabel: '会员价',
+                                width: 50,
                                 name: 'disPrice',
                                 value: x.get("disPrice")
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '商品库存',
-                                width: 200,
+                                width: 50,
                                 name: 'stock',
                                 value: x.get("stock")
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '商品售量',
-                                width: 200,
+                                width: 50,
                                 name: 'sales',
                                 value: x.get("sales")
                             }),
-                            new Ext.form.TextField({
+                            new Ext.form.Checkbox({
                                 fieldLabel: '是否推荐',
-                                width: 200,
-                                name: 'recommendation',
-                                value: x.get("recommendation")
+                                boxLabel: '推荐',
+                                checked: flag
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '上架时间',
@@ -243,11 +251,12 @@
 	               var win = new Ext.Window({
                         title: '商品信息',
                         width: 300,
-                        height: 470,
+                        height: 430,
                         modal: true,
                         layout: 'form',
                         bodyStyle: 'padding:10px 10px 10px 10px',
                         labelWidth: 60,
+                        fileUpload: true,
                         items: [
                             new Ext.form.ComboBox({
                                 fieldLabel: '所属小类',
@@ -262,48 +271,58 @@
                             new Ext.form.TextField({
                                 fieldLabel: '商品名称',
                                 width: 200,
-                                name: 'proName'
+                                name: 'proName',
+                                id: 'proName'
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '商品图片',
                                 width: 200,
-                                name: 'imageUrl'
+                                inputType: 'file',
+                                name: 'imageUrl',
+                                id: 'imageUrl'
                             }),
                             new Ext.form.TextArea({
                                 fieldLabel: '商品介绍',
                                 width: 200,
                                 height:100,
-                                name: 'proDesc'
+                                name: 'proDesc',
+                                id: 'proDesc'
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '商品进价',
-                                width: 200,
-                                name: 'purPrice'
+                                width: 50,
+                                name: 'purPrice',
+                                id: 'purPrice'
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '商品原价',
-                                width: 200,
-                                name: 'oriPrice'
+                                width: 50,
+                                name: 'oriPrice',
+                                id: 'oriPrice'
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '会员价',
-                                width: 200,
-                                name: 'disPrice'
+                                width: 50,
+                                name: 'disPrice',
+                                id: 'disPrice'
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '商品库存',
-                                width: 200,
-                                name: 'stock'
+                                width: 50,
+                                name: 'stock',
+                                id: 'stock'
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '商品售量',
-                                width: 200,
-                                name: 'sales'
+                                width: 50,
+                                name: 'sales',
+                                id: 'sales'
                             }),
-                            new Ext.form.TextField({
+                            new Ext.form.Checkbox({
                                 fieldLabel: '是否推荐',
-                                width: 200,
-                                name: 'recommendation'
+                                boxLabel: '推荐',
+                                name: 'recommendation',
+                                id: 'recommendation'
                             })
                         ],
                         buttons: [{
@@ -337,17 +356,17 @@
                         Ext.MessageBox.alert('提示', '至少选择一行');
                         return false;
                     } else {
-                        //通过recordtoedit 取值了 比如说有id这个直接
-                        var win = new Ext.Window({
-                            title: '商品大类',
-                            width: 300,
-                            height: 470,
-                            modal: true,
-                            layout: 'form',
-                            bodyStyle: 'padding:10px 10px 10px 10px',
-                            labelWidth: 60,
-                            items: [
-                                new Ext.form.ComboBox({
+                        var flag = x.get("recommendation") == 0 ? false : true;
+	                    var win = new Ext.Window({
+	                        title: '商品信息',
+	                        width: 300,
+	                        height: 570,
+	                        modal: true,
+	                        layout: 'form',
+	                        bodyStyle: 'padding:10px 10px 10px 10px',
+	                        labelWidth: 60,
+	                        items: [
+	                            new Ext.form.ComboBox({
 	                                fieldLabel: '所属小类',
 		                            width: 150,
 		                        	mode: 'remote',
@@ -363,11 +382,19 @@
 	                                name: 'proName',
 	                                value: x.get("proName")
 	                            }),
-	                            new Ext.form.TextField({
-	                                fieldLabel: '商品图片',
-	                                width: 200,
-	                                name: 'imageUrl',
-	                                value: x.get("imageUrl")
+	                            new Ext.form.Label({
+	                                fieldLabel: '商品图片'
+	                            }),
+	                            new Ext.BoxComponent({
+	                                id: 'image',
+	                                xtype: 'box',
+	                                width: 260,
+	                                height: 100,
+	                                style: 'margin: 0px 0px 5px 5px',
+	                                autoEl: {
+	                                    tag: 'img',
+	                                    src: '../images/' + x.get("imageUrl")
+	                                }
 	                            }),
 	                            new Ext.form.TextArea({
 	                                fieldLabel: '商品介绍',
@@ -378,39 +405,38 @@
 	                            }),
 	                            new Ext.form.TextField({
 	                                fieldLabel: '商品进价',
-	                                width: 200,
+	                                width: 50,
 	                                name: 'purPrice',
 	                                value: x.get("purPrice")
 	                            }),
 	                            new Ext.form.TextField({
 	                                fieldLabel: '商品原价',
-	                                width: 200,
+	                                width: 50,
 	                                name: 'oriPrice',
 	                                value: x.get("oriPrice")
 	                            }),
 	                            new Ext.form.TextField({
-	                                fieldLabel: '商品会员价',
-	                                width: 200,
+	                                fieldLabel: '会员价',
+	                                width: 50,
 	                                name: 'disPrice',
 	                                value: x.get("disPrice")
 	                            }),
 	                            new Ext.form.TextField({
 	                                fieldLabel: '商品库存',
-	                                width: 200,
+	                                width: 50,
 	                                name: 'stock',
 	                                value: x.get("stock")
 	                            }),
 	                            new Ext.form.TextField({
 	                                fieldLabel: '商品售量',
-	                                width: 200,
+	                                width: 50,
 	                                name: 'sales',
 	                                value: x.get("sales")
 	                            }),
-	                            new Ext.form.TextField({
+	                            new Ext.form.Checkbox({
 	                                fieldLabel: '是否推荐',
-	                                width: 200,
-	                                name: 'recommendation',
-	                                value: x.get("recommendation")
+	                                boxLabel: '推荐',
+	                                checked: flag
 	                            }),
 	                            new Ext.form.TextField({
 	                                fieldLabel: '上架时间',
@@ -439,9 +465,9 @@
 	                                win.close();
 	                            }
 	                        }]
-                        });
-                    
-                        win.show(); 
+	                    });
+	                    
+	                    win.show(); 
                     } 
 	            }
 	            
