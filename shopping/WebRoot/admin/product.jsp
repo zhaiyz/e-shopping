@@ -66,12 +66,12 @@
                         new Ext.grid.RowNumberer({header:'序号',width:35}),
                         {header:"商品名称", dataIndex:"proName"},
                         {id: 'proDesc', header:"商品描述", dataIndex:"proDesc"},
-                        {header:"商品进价", dataIndex:"purPrice"},
-                        {header:"商品原价", dataIndex:"oriPrice"},
-                        {header:"商品会员价", dataIndex:"disPrice"},
-                        {header:"商品库存", dataIndex:"stock"},
-                        {header:"商品售量", dataIndex:"sales"},
-                        {header:"是否推荐", dataIndex:"recommendation"},
+                        {header:"商品进价", dataIndex:"purPrice", renderer: price},
+                        {header:"商品原价", dataIndex:"oriPrice", renderer: price},
+                        {header:"商品会员价", dataIndex:"disPrice", renderer: price},
+                        {header:"商品库存", dataIndex:"stock", renderer: stock},
+                        {header:"商品售量", dataIndex:"sales", renderer: stock},
+                        {header:"是否推荐", dataIndex:"recommendation", renderer: recommend},
                         {
                             header:"创建时间",
                             dataIndex:"proDatetime",
@@ -452,6 +452,22 @@
 	            
 	            function proStoreLoad(combo, record,index) {
 	                pStore.load({params:{itemId: record.get("itemId"), start: 0, limit: 10, query: null }});
+	            }
+	            
+	            function price(value) {
+	                return value + " 元";
+	            }
+	            
+	            function stock(value) {
+	                return value + " 件";
+	            }
+	            
+	            function recommend(value) {
+	                if (value == 0){
+	                    return "否"; 
+	                } else {
+	                    return "是";
+	                }
 	            }
 	        });
 	    </script>

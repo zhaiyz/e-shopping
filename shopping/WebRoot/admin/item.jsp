@@ -4,10 +4,11 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<title>管理员首页</title>
 	<body>
-	    <script type="text/javascript">
+		<script type="text/javascript">
 	        Ext.onReady(function(){
 	            //定义catStore里面的成员
 	            var catMember = Ext.data.Record.create([
+	                {name: 'itemId', type: 'int'},
 	                {name: 'catId', type: 'int'},
                     {name: 'catName', type: 'string'},
                     {name: 'catDesc', type: 'string'},
@@ -99,12 +100,14 @@
 	                        	store: catStore,
 	                        	displayField:'catName',
 	                       	 	valueField:'catId',
+	                       	 	id: 'catId',
 	                        	triggerAction: 'all'
                             }).setValue(x.get("catId")),
                             new Ext.form.TextField({
                                 fieldLabel: '小类名称',
                                 width: 200,
                                 name: 'itemName',
+                                id: 'itemName',
                                 value: x.get("itemName")
                             }),
                             new Ext.form.TextArea({
@@ -112,11 +115,13 @@
                                 width: 200,
                                 height:100,
                                 name: 'itemDesc',
+                                id: 'itemDesc',
                                 value: x.get("itemDesc")
                             }),new Ext.form.TextField({
                                 fieldLabel: '创建时间',
                                 width: 200,
                                 name: 'itemDatetime',
+                                id: 'itemDatetime',
                                 readOnly: true,
                                 value: x.get("itemDatetime").dateFormat('Y-m-d H:i:s')
                             })
@@ -125,12 +130,43 @@
                             text: '修改',
                             icon: '../resources/images/Icon_007.ico',
                             width: 85,
-                            height: 27
+                            height: 27,
+                            handler: function() {
+                                Ext.Ajax.request({
+                                    url: '/shopping/item?action=update',
+                                    params: {
+                                        itemId: x.get("itemId"),
+                                        catId: Ext.getCmp("catId").getValue(),
+                                        itemName: Ext.getCmp("itemName").getValue(),
+                                        itemDesc: Ext.getCmp("itemDesc").getValue()
+                                    },
+                                    success: function(response, options) {
+                                        var obj = Ext.util.JSON.decode(response.responseText);
+                                        if (obj.success == true) {
+                                            Ext.Msg.alert("提示","添加商品小类成功");
+                                            itemStore.load();
+                                            win.close();
+                                        } else {
+                                            Ext.Msg.alert("提示","添加商品小类失败");
+                                            win.close();
+                                        }
+                                    },
+                                    failure: function(response, options) {
+                                        Ext.Msg.alert("提示","添加商品小类失败");
+                                        win.close();
+                                    }
+                                });
+                            }
                         },{
                             text: '重置',
                             icon: '../resources/images/Icon_106.ico',
                             width: 85,
-                            height: 27
+                            height: 27,
+                            handler: function(){
+                                Ext.getCmp("catId").setValue(x.get("catId"));
+                                Ext.getCmp("itemName").setValue(x.get("itemName"));
+                                Ext.getCmp("itemDesc").setValue(x.get("itemDesc"));
+                            }
                         },{
                             text: '关闭',
                             icon: '../resources/images/Icon_043.ico',
@@ -204,31 +240,63 @@
 		                        store: catStore,
 		                        displayField:'catName',
 		                        valueField:'catId',
-		                        emptyText:'请选择一个大类',
+		                        id: 'catId',
 		                        triggerAction: 'all'
 	                        }),
                             new Ext.form.TextField({
                                 fieldLabel: '小类名称',
                                 width: 200,
-                                name: 'itemName'
+                                name: 'itemName',
+                                id: 'itemName'
                             }),
                             new Ext.form.TextArea({
                                 fieldLabel: '小类说明',
                                 width: 200,
                                 height:120,
-                                name: 'itemDesc'
+                                name: 'itemDesc',
+                                id: 'itemDesc'
                             })
                         ],
                         buttons: [{
                             text: '添加',
                             icon: '../resources/images/Icon_113.ico',
                             width: 85,
-                            height: 27
+                            height: 27,
+                            handler: function() {
+                                Ext.Ajax.request({
+                                    url: '/shopping/item?action=add',
+                                    params: {
+                                        catId: Ext.getCmp('catId').getValue(),
+                                        itemName: Ext.getCmp('itemName').getValue(),
+                                        itemDesc: Ext.getCmp('itemDesc').getValue()
+                                    },
+                                    success: function(response, options) {
+                                        var obj = Ext.util.JSON.decode(response.responseText);
+                                        if (obj.success == true) {
+                                            Ext.Msg.alert("提示","添加商品小类成功");
+                                            itemStore.load();
+                                            win.close();
+                                        } else {
+                                            Ext.Msg.alert("提示", "添加商品小类失败");
+                                            win.close();
+                                        }
+                                    },
+                                    failure: function(response, options) {
+                                        Ext.Msg.alert("提示", "添加商品小类失败");
+                                        win.close();
+                                    }
+                                });
+                            }
                         },{
                             text: '重置',
                             icon: '../resources/images/Icon_106.ico',
                             width: 85,
-                            height: 27
+                            height: 27,
+                            handler: function () {
+                                Ext.getCmp("catId").setValue("");
+                                Ext.getCmp("itemName").setValue("");
+                                Ext.getCmp("itemDesc").setValue("");
+                            }
                         },{
                             text: '关闭',
                             icon: '../resources/images/Icon_043.ico',
@@ -294,12 +362,43 @@
                                 text: '修改',
                                 icon: '../resources/images/Icon_007.ico',
                                 width: 85,
-                                height: 27
+                                height: 27,
+                                handler: function() {
+	                                Ext.Ajax.request({
+	                                    url: '/shopping/item?action=update',
+	                                    params: {
+	                                        itemId: x.get("itemId"),
+	                                        catId: Ext.getCmp("catId").getValue(),
+	                                        itemName: Ext.getCmp("itemName").getValue(),
+	                                        itemDesc: Ext.getCmp("itemDesc").getValue()
+	                                    },
+	                                    success: function(response, options) {
+	                                        var obj = Ext.util.JSON.decode(response.responseText);
+	                                        if (obj.success == true) {
+	                                            Ext.Msg.alert("提示","添加商品小类成功");
+	                                            itemStore.load();
+	                                            win.close();
+	                                        } else {
+	                                            Ext.Msg.alert("提示","添加商品小类失败");
+	                                            win.close();
+	                                        }
+	                                    },
+	                                    failure: function(response, options) {
+	                                        Ext.Msg.alert("提示","添加商品小类失败");
+	                                        win.close();
+	                                    }
+	                                });
+                                }
                             },{
                                 text: '重置',
                                 icon: '../resources/images/Icon_106.ico',
                                 width: 85,
-                                height: 27
+                                height: 27,
+                                handler: function(){
+	                                Ext.getCmp("catId").setValue(x.get("catId"));
+	                                Ext.getCmp("itemName").setValue(x.get("itemName"));
+	                                Ext.getCmp("itemDesc").setValue(x.get("itemDesc"));
+	                            }
                             },{
                                 text: '关闭',
                                 icon: '../resources/images/Icon_043.ico',
@@ -317,7 +416,34 @@
 	            
 	            //删除小类方法
 	            function delItem() {
-	                Ext.Msg.alert("提示","删除小类");
+	                var x = itemGrid.getSelectionModel().getSelected();
+                    if (x == null) {
+                        Ext.MessageBox.alert('提示', '至少选择一行');
+                        return false;
+                    } else {
+                        Ext.MessageBox.confirm("提示","你确定要删除这个小类吗?",function(btn){
+                            if (btn == 'yes') {
+                                Ext.Ajax.request({
+                                    url: '/shopping/item?action=del',
+                                    params: {
+                                        itemId: x.get("itemId")
+                                    },
+                                    success: function(response, options) {
+                                        var obj = Ext.util.JSON.decode(response.responseText);
+                                        if(obj.success = true) {
+                                            Ext.Msg.alert("提示","商品小类删除成功");
+                                            itemStore.load();
+                                        } else {
+                                            Ext.Msg.alert("提示","商品小类删除失败");
+                                        }
+                                    },
+                                    failure: function(response, options) {
+                                        Ext.Msg.alert("提示","商品小类删除失败");
+                                    }
+                                });
+                            }
+	                    });
+	                }
 	            }
 	            
 	            function itemStoreLoad(combo, record,index) {
@@ -325,7 +451,7 @@
 	            }
 	        });
 	    </script>
-	    <div id="itemPanel"></div>
-	    <div id="itemGrid"></div>
+		<div id="itemPanel"></div>
+		<div id="itemGrid"></div>
 	</body>
 </html>
