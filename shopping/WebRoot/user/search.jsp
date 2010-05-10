@@ -43,7 +43,7 @@
 	    items="${pm.total}" maxPageItems="5" maxIndexPages="5"
 	    export="currentPageNumber=pageNumber">
 	    <pg:param name="action" value="search" />
-	    <pg:param name="keyword" value="<%=URLEncoder.encode((String)request.getAttribute("key"),"utf-8")%>"/>
+	    <pg:param name="keyword" value='<%=URLEncoder.encode((String)request.getAttribute("key"),"utf-8")%>'/>
 		<pg:first>
 			<a href="${pageUrl}">首页</a>
 		</pg:first>
