@@ -337,4 +337,70 @@ public class ProductDaoImp implements ProductDao {
 		return total;
 	}
 
+	public List<ProductVo> getNewProduct() {
+		List<ProductVo> list = new ArrayList<ProductVo>();
+		String sql = "SELECT * FROM product ORDER BY pro_datetime DESC LIMIT 0, 10";
+		DBUtil dbc = new DBUtil();
+		try {
+			PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				ProductVo product = new ProductVo();
+				product.setProId(rs.getInt("pro_id"));
+				product.setItemId(rs.getInt("item_id"));
+				product.setProName(rs.getString("pro_name"));
+				product.setImageUrl(rs.getString("imageurl"));
+				product.setProDesc(rs.getString("pro_desc"));
+				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
+				product.setPurPrice(rs.getFloat("pur_price"));
+				product.setOriPrice(rs.getFloat("ori_price"));
+				product.setDisPrice(rs.getFloat("dis_price"));
+				product.setStock(rs.getInt("stock"));
+				product.setSales(rs.getInt("sales"));
+				product.setRecommendation(rs.getInt("recommendation"));
+				list.add(product);
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			dbc.close();
+		}
+		return list;
+	}
+
+	public List<ProductVo> getRecommenProduct() {
+		List<ProductVo> list = new ArrayList<ProductVo>();
+		String sql = "SELECT * FROM product ORDER BY recommendation DESC, pro_datetime DESC LIMIT 0, 10";
+		DBUtil dbc = new DBUtil();
+		try {
+			PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				ProductVo product = new ProductVo();
+				product.setProId(rs.getInt("pro_id"));
+				product.setItemId(rs.getInt("item_id"));
+				product.setProName(rs.getString("pro_name"));
+				product.setImageUrl(rs.getString("imageurl"));
+				product.setProDesc(rs.getString("pro_desc"));
+				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
+				product.setPurPrice(rs.getFloat("pur_price"));
+				product.setOriPrice(rs.getFloat("ori_price"));
+				product.setDisPrice(rs.getFloat("dis_price"));
+				product.setStock(rs.getInt("stock"));
+				product.setSales(rs.getInt("sales"));
+				product.setRecommendation(rs.getInt("recommendation"));
+				list.add(product);
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			dbc.close();
+		}
+		return list;
+	}
+
 }

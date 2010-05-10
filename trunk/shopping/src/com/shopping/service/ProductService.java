@@ -106,4 +106,19 @@ public interface ProductService {
 	 * @return
 	 */
 	public int getTotalNum();
+	
+	/**
+	 * 获得推荐商品
+	 * 
+	 * @return
+	 * 
+	 */
+	public List<ProductVo> getRecommenProduct();
+
+	/**
+	 * 获得新上架商品
+	 * 
+	 * @return
+	 */
+	public List<ProductVo> getNewProduct();
 }
