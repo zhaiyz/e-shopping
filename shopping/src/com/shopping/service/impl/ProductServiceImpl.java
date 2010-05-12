@@ -2,7 +2,11 @@ package com.shopping.service.impl;
 
 import java.util.List;
 
+import com.shopping.dao.CartDao;
+import com.shopping.dao.OrderInfoDao;
 import com.shopping.dao.ProductDao;
+import com.shopping.dao.impl.CartDaoImpl;
+import com.shopping.dao.impl.OrderInfoDaoImpl;
 import com.shopping.dao.impl.ProductDaoImp;
 import com.shopping.service.ProductService;
 import com.shopping.vo.ProductVo;
@@ -10,6 +14,8 @@ import com.shopping.vo.ProductVo;
 public class ProductServiceImpl implements ProductService {
 
 	private ProductDao productDao = new ProductDaoImp();
+	private OrderInfoDao infoDao = new OrderInfoDaoImpl();
+	private CartDao cartDao = new CartDaoImpl();
 
 	public boolean addProduct(ProductVo product) {
 		return productDao.addProduct(product);
@@ -36,7 +42,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	public boolean removeProductById(int proId) {
-		return productDao.removeProductById(proId);
+		// 先判断此商品是否被购买过，如果有，那么就不能删除，这种方式不好，但现在也只能这样了
+		if (infoDao.findOrderInfoByProId(proId) || cartDao.findCartByProId(proId)) {
+			return false;
+		} else {
+			return productDao.removeProductById(proId);
+		}
 	}
 
 	public int getTotalNumber(int id) {

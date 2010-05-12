@@ -1,6 +1,5 @@
-#Mon May 10 19:20:57 CST 2010
+#Wed May 12 20:02:00 CST 2010
 eclipse.preferences.version=1
-encoding//WebRoot/js/FileUploadField.js=UTF-8
 encoding//WebRoot/js/SearchField.js=UTF-8
 encoding//WebRoot/js/tabCloseMenu.js=UTF-8
 encoding//src/com/shopping/dao=UTF-8
@@ -21,6 +20,7 @@ encoding//src/com/shopping/servlet/CartServlet.java=UTF-8
 encoding//src/com/shopping/servlet/CategoryServlet.java=UTF-8
 encoding//src/com/shopping/servlet/ForwardServlet.java=UTF-8
 encoding//src/com/shopping/servlet/ItemServlet.java=UTF-8
+encoding//src/com/shopping/servlet/ProductServlet.java=UTF-8
 encoding//src/com/shopping/servlet/UserServlet.java=gbk
 encoding//src/com/shopping/util/DBUtil.java=gbk
 encoding//src/com/shopping/vo/AdminVo.java=gbk

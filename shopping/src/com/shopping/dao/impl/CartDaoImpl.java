@@ -247,7 +247,8 @@ public class CartDaoImpl implements CartDao {
 				product.setProName(rs.getString("pro_name"));
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
-				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
+				product.setProDatetime(rs.getString("pro_datetime").substring(
+						0, 19));
 				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
@@ -263,5 +264,27 @@ public class CartDaoImpl implements CartDao {
 			dbc.close();
 		}
 		return product;
+	}
+
+	public boolean findCartByProId(int id) {
+		boolean flag = false;
+		String sql = "SELECT * FROM cart WHERE pro_id = ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				flag = true;
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return flag;
 	}
 }

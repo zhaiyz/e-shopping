@@ -322,4 +322,33 @@ public class ItemDaoImpl implements ItemDao {
 		return list;
 	}
 
+	public ItemVo findItemByName(String name) {
+		ItemVo item = new ItemVo();
+		String sql = "SELECT * FROM item WHERE item_name = ?";
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pst = dbc.getConnection().prepareStatement(sql);
+			pst.setString(1, name);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				item.setItemId(rs.getInt("item_id"));
+				item.setCatId(rs.getInt("item_id"));
+				item.setItemName(rs.getString("item_name"));
+				item.setItemDesc(rs.getString("item_desc"));
+				item.setItemDatetime(rs.getString("item_datetime").substring(0,
+						19));
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+
+		return item;
+	}
+
 }

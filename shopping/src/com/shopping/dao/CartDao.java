@@ -83,11 +83,20 @@ public interface CartDao {
 	 * @return
 	 */
 	public CartVo findCartByUserIdAndProId(int userId, int proId);
-	
+
 	/**
 	 * 按商品的id查询出此条记录的商品信息
+	 * 
 	 * @param id
 	 * @return
 	 */
 	public ProductVo findProductByCatId(int id);
+
+	/**
+	 * 看一个商品是否被添加到购物车
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public boolean findCartByProId(int id);
 }

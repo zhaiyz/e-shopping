@@ -68,4 +68,8 @@ public class ItemServiceImpl implements ItemService {
 		return itemDao.findAllItem();
 	}
 
+	public ItemVo findItemByName(String name) {
+		return itemDao.findItemByName(name);
+	}
+
 }
