@@ -35,4 +35,8 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 		return dao.removeOrderInfoById(id);
 	}
 
+	public boolean findOrderInfoByProId(int proId) {
+		return dao.findOrderInfoByProId(proId);
+	}
+
 }

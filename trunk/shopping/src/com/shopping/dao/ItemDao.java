@@ -118,4 +118,12 @@ public interface ItemDao {
 	 * @return
 	 */
 	public List<ItemVo> findAllItem();
+
+	/**
+	 * 通过小类的名称查询出小类
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public ItemVo findItemByName(String name);
 }

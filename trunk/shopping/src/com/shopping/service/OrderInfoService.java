@@ -60,4 +60,12 @@ public interface OrderInfoService {
 	 * @return
 	 */
 	public List<OrderInfoVo> findOrderInfoByOrderId(int id);
+
+	/**
+	 * 用来判断一个商品是否被购买过
+	 * 
+	 * @param proId
+	 * @return
+	 */
+	public boolean findOrderInfoByProId(int proId);
 }

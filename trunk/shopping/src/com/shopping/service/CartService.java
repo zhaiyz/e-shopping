@@ -75,4 +75,12 @@ public interface CartService {
 	 * @return
 	 */
 	public ProductVo findProductByCatId(int id);
+
+	/**
+	 * 看一个商品是否被添加到购物车
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public boolean findCartByProId(int id);
 }

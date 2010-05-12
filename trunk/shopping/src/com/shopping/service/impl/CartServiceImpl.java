@@ -51,4 +51,8 @@ public class CartServiceImpl implements CartService {
 		return dao.findProductByCatId(id);
 	}
 
+	public boolean findCartByProId(int id) {
+		return dao.findCartByProId(id);
+	}
+
 }

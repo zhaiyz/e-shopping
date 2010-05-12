@@ -163,4 +163,26 @@ public class OrderInfoDaoImpl implements OrderInfoDao {
 		return flag;
 	}
 
+	public boolean findOrderInfoByProId(int proId) {
+		boolean flag = false;
+		String sql = "SELECT * FROM orderinfo WHERE pro_id = ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, proId);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				flag = true;
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return flag;
+	}
+
 }
