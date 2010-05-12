@@ -246,6 +246,79 @@
 	                ]
 	            });
 	            
+	            var add = new Ext.form.FormPanel({
+                                labelWidth: 60,
+		                        fileUpload: true,
+		                        method:"POST",
+		                        labelAlign:"right",
+		                        items: [{
+		                            fieldLabel: "商品小类",
+		                            xtype: "combo",
+		                            mode: 'remote',
+		                        	readOnly: true,
+		                        	store: iStore,
+		                        	displayField:'itemName',
+		                       	 	valueField:'itemId',
+		                        	triggerAction: 'all',
+		                        	name: 'itemId',
+		                        	id: 'itemId'
+		                        },{
+		                            fieldLabel:"商品名称",
+		                            xtype:"textfield",
+		                            allowBlank:false,
+		                            blankText:"商品名称不能为空",
+		                            name:"proName",
+		                            id:"proName"
+		                        },{
+		                            fieldLabel:"商品图片",
+		                            xtype:"textfield",
+		                            allowBlank:false,
+		                            inputType: 'file',
+		                            name:"imageUrl",
+		                            id:"imageUrl"
+		                        },{
+		                            fieldLabel:"商品描述",
+		                            xtype:"textarea",
+		                            allowBlank:false,
+		                            blankText:"商品描述不能为空",
+		                            name:"proDesc",
+		                            id:"proDesc"
+		                        },{
+		                            fieldLabel:"商品进价",
+		                            xtype:"textfield",
+		                            allowBlank:false,
+		                            blankText:"商品进价不能为空",
+		                            name:"purPrice",
+		                            id:"purPrice"
+		                        },{
+		                            fieldLabel:"商品原价",
+		                            xtype:"textfield",
+		                            allowBlank:false,
+		                            blankText:"商品原价不能为空",
+		                            name:"oriPrice",
+		                            id:"oriPrice"
+		                        },{
+		                            fieldLabel:"会员价",
+		                            xtype:"textfield",
+		                            allowBlank:false,
+		                            blankText:"会员价不能为空",
+		                            name:"disPrice",
+		                            id:"disPrice"
+		                        },{
+		                            fieldLabel:"是否推荐",
+		                            xtype:"checkbox",
+		                            fieldLabel: '是否推荐',
+	                                boxLabel: '推荐',
+	                                name: 'recommendation',
+	                                id: 'recommendation'
+		                        }],
+		                        buttons: [{
+		                            text: "添加",
+		                            handler: addP,
+		                            formBind:true
+		                        }]
+                    });
+	            
 	            //添加小类方法
 	            function addPro() {
 	               var win = new Ext.Window({
@@ -253,100 +326,26 @@
                         width: 300,
                         height: 430,
                         modal: true,
-                        layout: 'form',
                         bodyStyle: 'padding:10px 10px 10px 10px',
-                        labelWidth: 60,
-                        fileUpload: true,
                         items: [
-                            new Ext.form.ComboBox({
-                                fieldLabel: '所属小类',
-	                            width: 150,
-	                        	mode: 'remote',
-	                        	readOnly: true,
-	                        	store: iStore,
-	                        	displayField:'itemName',
-	                       	 	valueField:'itemId',
-	                        	triggerAction: 'all'
-                            }),
-                            new Ext.form.TextField({
-                                fieldLabel: '商品名称',
-                                width: 200,
-                                name: 'proName',
-                                id: 'proName'
-                            }),
-                            new Ext.form.TextField({
-                                fieldLabel: '商品图片',
-                                width: 200,
-                                inputType: 'file',
-                                name: 'imageUrl',
-                                id: 'imageUrl'
-                            }),
-                            new Ext.form.TextArea({
-                                fieldLabel: '商品介绍',
-                                width: 200,
-                                height:100,
-                                name: 'proDesc',
-                                id: 'proDesc'
-                            }),
-                            new Ext.form.TextField({
-                                fieldLabel: '商品进价',
-                                width: 50,
-                                name: 'purPrice',
-                                id: 'purPrice'
-                            }),
-                            new Ext.form.TextField({
-                                fieldLabel: '商品原价',
-                                width: 50,
-                                name: 'oriPrice',
-                                id: 'oriPrice'
-                            }),
-                            new Ext.form.TextField({
-                                fieldLabel: '会员价',
-                                width: 50,
-                                name: 'disPrice',
-                                id: 'disPrice'
-                            }),
-                            new Ext.form.TextField({
-                                fieldLabel: '商品库存',
-                                width: 50,
-                                name: 'stock',
-                                id: 'stock'
-                            }),
-                            new Ext.form.TextField({
-                                fieldLabel: '商品售量',
-                                width: 50,
-                                name: 'sales',
-                                id: 'sales'
-                            }),
-                            new Ext.form.Checkbox({
-                                fieldLabel: '是否推荐',
-                                boxLabel: '推荐',
-                                name: 'recommendation',
-                                id: 'recommendation'
-                            })
-                        ],
-                        buttons: [{
-                            text: '添加',
-                            icon: '../resources/images/Icon_113.ico',
-                            width: 85,
-                            height: 27
-                        },{
-                            text: '重置',
-                            icon: '../resources/images/Icon_106.ico',
-                            width: 85,
-                            height: 27
-                        },{
-                            text: '关闭',
-                            icon: '../resources/images/Icon_043.ico',
-                            width: 85,
-                            height: 27,
-                            handler: function(){
-                                win.close();
-                            }
-                        }]
+                            add
+                        ]
                     });
                     
                     win.show(); 
+	            }
+	            
+	            function addP() {
+	                var f = add.form;
+		            if (f.isValid()) {
+		                f.doAction('submit',{
+			                url: '/shopping/product?action=add',
+			                method: 'post',
+			                success: function() {
+			                    Ext.Msg.alert("提示","好了");
+			                }
+		               });
+		            }
 	            }
 	            
 	            //编辑小类方法

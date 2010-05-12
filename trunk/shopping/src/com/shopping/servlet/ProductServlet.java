@@ -1,16 +1,23 @@
 package com.shopping.servlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.shopping.factory.ServiceFactory;
 import com.shopping.util.JSONUtil;
@@ -27,6 +34,7 @@ public class ProductServlet extends HttpServlet {
 		this.doPost(request, response);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 设置字符编码
@@ -151,26 +159,88 @@ public class ProductServlet extends HttpServlet {
 				// 没有查询条件，就是查询出全部
 
 				// 商品总数
-				total = ServiceFactory.getProductServiceInstance().getTotalNum();
+				total = ServiceFactory.getProductServiceInstance()
+						.getTotalNum();
 
-				list = ServiceFactory.getProductServiceInstance().findAllProduct(start, limit);
+				list = ServiceFactory.getProductServiceInstance()
+						.findAllProduct(start, limit);
 			} else if (key != null && itemId == 0) {
 				// 有查询条件，就是按条件查询，此处是按商品名称进行模糊查询
-				total = ServiceFactory.getProductServiceInstance().getTotalProductByLike(key);
+				total = ServiceFactory.getProductServiceInstance()
+						.getTotalProductByLike(key);
 
-				list = ServiceFactory.getProductServiceInstance().findProductByLike(key, start, limit);
+				list = ServiceFactory.getProductServiceInstance()
+						.findProductByLike(key, start, limit);
 
 				request.setAttribute("query", null);
 			} else if (key == null && itemId > 0) {
 				// 按商品小类进行查询
-				total = ServiceFactory.getProductServiceInstance().getTotalNumber(itemId);
+				total = ServiceFactory.getProductServiceInstance()
+						.getTotalNumber(itemId);
 
-				list = ServiceFactory.getProductServiceInstance().findAllProduct(itemId, start, limit);
+				list = ServiceFactory.getProductServiceInstance()
+						.findAllProduct(itemId, start, limit);
 			}
 
 			// 组织要返回的json
 			json += "{total:" + total + ",list:" + JSONUtil.list2json(list)
 					+ "}";
+
+			// 这个是不进行跳转的
+			flag = false;
+		} else if ("add".equals(action)) {
+			// 添加商品信息，这个的难度主要是有个图片上传，看看今天能不能搞定
+
+			String basePath = getServletContext().getRealPath("/") + "images";
+
+			// 判断是否是文件上传，这个有点问题，因为不是一个FormPanel
+			boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+
+			// 先手动设置成true，看看
+			isMultipart = true;
+
+			if (isMultipart == true) {
+				try {
+					FileItemFactory factory = new DiskFileItemFactory();
+					ServletFileUpload upload = new ServletFileUpload(factory);
+
+					// 得到所有的表单域，它们目前都被当作FileItem
+					List<FileItem> fileItems = upload.parseRequest(request);
+					Iterator<FileItem> iter = fileItems.iterator();
+
+					// 依次处理每个表单域
+					while (iter.hasNext()) {
+						FileItem item = (FileItem) iter.next();
+
+						if (item.isFormField()) {
+							// 如果是正常的表单域
+							String name = item.getFieldName();
+							String value = item.getString();
+
+							System.out.println("表单域名为:" + name + ",表单值为:"
+									+ value);
+						} else {
+							// 如果是个文件上传域
+
+							// 获得文件名及路径
+							String fileName = item.getName();
+
+							if (fileName != null) {
+								File fullFile = new File(item.getName());
+
+								File fileOnServer = new File(basePath, fullFile
+										.getName());
+
+								item.write(fileOnServer);
+
+								System.out.println("图片上传成功");
+							}
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 
 			// 这个是不进行跳转的
 			flag = false;
