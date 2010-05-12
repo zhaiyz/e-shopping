@@ -61,7 +61,7 @@
                 <td>
                     <a href="/shopping/product?action=show&id=<%=product.getProId() %>">详细信息</a>
                        |
-                    <a href="/shopping/product?action=buy&id=<%=product.getProId() %> &amount=1">加入到购物车</a>
+                    <a href="/shopping/product?action=buy&id=<%=product.getProId() %>&amount=1">加入到购物车</a>
                 </td>
     		</tr>
     		<%} %>
