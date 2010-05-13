@@ -310,8 +310,6 @@ public class ProductServlet extends HttpServlet {
 				json += "{success:false}";
 			}
 			
-			System.out.println(json);
-
 			// 不进行页面跳转
 			flag = false;
 		}
