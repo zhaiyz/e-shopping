@@ -4,12 +4,12 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<title>管理员首页</title>
 	<body>
-	    <script type="text/javascript">
+		<script type="text/javascript">
 	        Ext.onReady(function(){
 	             //定义orderStore里面的成员
 	            var orderMember = Ext.data.Record.create([
 	                {name: 'orderId', type: 'int'},
-                    {name: 'userId', type: 'int'},
+                    {name: 'userName', type: 'string'},
                     {name: 'conId', type: 'int'},
                     {name: 'orderNum', type: 'string'},
                     {name: 'payment', type: 'int'},
@@ -41,12 +41,12 @@
                     height: Ext.getBody().getHeight() - 160,
                     columns:[
                         new Ext.grid.RowNumberer({header:'序号',width:35}),
-                        {header:"订单号", dataIndex:"orderNum"},
-                        {header:"用户名", dataIndex:"userId"},
-                        {header:"付款方式", dataIndex:"payment"},
-                        {header:"邮递方式", dataIndex:"post"},
-                        {header:"总费用", dataIndex:"totalPrice"},
-                        {header:"订单状态", dataIndex:"orderState"},
+                        {header:"订单号", dataIndex:"orderNum", width:120, renderer: orderNum},
+                        {header:"用户名", dataIndex:"userName"},
+                        {header:"付款方式", dataIndex:"payment", renderer: payment},
+                        {header:"邮递方式", dataIndex:"post", renderer: post},
+                        {header:"总费用", dataIndex:"totalPrice", renderer: totalPrice},
+                        {header:"订单状态", dataIndex:"orderState", renderer: orderState},
                         {
                             id: 'orderDatetome',
                             header:"订货时间",
@@ -67,6 +67,52 @@
                         emptyMsg:"没有记录"
                     })
                 });
+                
+                //用户名显示，这个有点复杂，我看能不能实现出来
+                function userName(value) {
+                    var userName;
+                    
+                    return userName;
+                }
+                
+                //订单号
+                function orderNum(value) {
+                    return "<font color='red'>TM</font>" + value;
+                }
+                
+                //付款方式
+                function payment(value) {
+                    if (value == 0) {
+                        return "先付款后发货";
+                    } else {
+                        return "货到付款";
+                    }
+                }
+                
+                //邮递方式
+                function post(value) {
+                    if (value == 0) {
+                        return "平邮";
+                    } else {
+                        return "快递";
+                    }
+                }
+                
+                //总价格
+                function totalPrice(value) {
+                    return value + " 元";
+                }
+                
+                //订单状态
+                function orderState(value) {
+                    if (value == 0) {
+                        return "未发货";
+                    } else if (value == 1) {
+                        return "已发货";
+                    } else {
+                        return "已收货";
+                    }
+                }
                 
                 var stateDate = [
                     ['-1', '全部'],
@@ -107,6 +153,19 @@
                 orderGrid.addListener('celldblclick',function(grid, rowIndex, columnIndex, e){
                     var s=grid.getStore();
                     var x=s.getAt(rowIndex);
+                    //把一些数量转换成内容
+                        var payment = x.get('payment') == 0 ? '先货款后发贷' : '货到付款';
+                        
+                        var post = x.get('post') == 0 ? '平邮' : '快递';
+                        
+                        var orderState;
+                        if (x.get('orderState') == 0) {
+                            orderState = "未发货";
+                        } else if (x.get('orderState') == 1) {
+                            orderState = "已发货";
+                        } else {
+                            orderState = "已收货";
+                        }
                     var win = new Ext.Window({
                         title: '订单',
                         width: 300,
@@ -120,25 +179,25 @@
                                 fieldLabel: '订单号',
                                 width: 200,
                                 name: 'orderNum',
-                                value: x.get("orderNum")
+                                value: 'TM' + x.get("orderNum")
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '用户名',
                                 width: 200,
-                                name: 'userId',
-                                value: x.get("userId")
+                                name: 'userName',
+                                value: x.get("userName")
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '付款方式',
                                 width: 200,
                                 name: 'payment',
-                                value: x.get("payment")
+                                value: payment
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '邮递方式',
                                 width: 200,
                                 name: 'post',
-                                value: x.get("post")
+                                value: payment
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '总费用',
@@ -150,7 +209,7 @@
                                 fieldLabel: '订单状态',
                                 width: 200,
                                 name: 'orderState',
-                                value: x.get("orderState")
+                                value: orderState
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '订货时间',
@@ -162,7 +221,7 @@
                         ],
                         buttons: [{
                             text: '订单明细',
-                            icon: '../resources/images/Icon_007.ico',
+                            icon: '../resources/images/Icon_001.ico',
                             width: 85,
                             height: 27,
 	                        handler: function() {
@@ -170,15 +229,15 @@
 	                        }
                         },{
                             text: '寄送信息',
-                            icon: '../resources/images/Icon_106.ico',
+                            icon: '../resources/images/Icon_008.ico',
                             width: 85,
                             height: 27,
                             handler: function() {
 	                            showContact(x.get("orderId"));
 	                        }
                         },{
-                            text: '修改状态',
-                            icon: '../resources/images/Icon_043.ico',
+                            text: '订单发货',
+                            icon: '../resources/images/Icon_120.ico',
                             width: 85,
                             height: 27
                         }]
@@ -194,7 +253,20 @@
                         Ext.MessageBox.alert('提示', '至少选择一行');
                         return false;
                     } else {
-                        //通过recordtoedit 取值了 比如说有id这个直接
+                        //把一些数量转换成内容
+                        var payment = x.get('payment') == 0 ? '先货款后发贷' : '货到付款';
+                        
+                        var post = x.get('post') == 0 ? '平邮' : '快递';
+                        
+                        var orderState;
+                        if (x.get('orderState') == 0) {
+                            orderState = "未发货";
+                        } else if (x.get('orderState') == 1) {
+                            orderState = "已发货";
+                        } else {
+                            orderState = "已收货";
+                        }
+                    
                         var win = new Ext.Window({
 	                        title: '订单',
 	                        width: 300,
@@ -208,25 +280,25 @@
 	                                fieldLabel: '订单号',
 	                                width: 200,
 	                                name: 'orderNum',
-	                                value: x.get("orderNum")
+	                                value: 'TM' + x.get("orderNum")
 	                            }),
 	                            new Ext.form.TextField({
 	                                fieldLabel: '用户名',
 	                                width: 200,
-	                                name: 'userId',
-	                                value: x.get("userId")
+	                                name: 'userName',
+	                                value: x.get("userName")
 	                            }),
 	                            new Ext.form.TextField({
 	                                fieldLabel: '付款方式',
 	                                width: 200,
 	                                name: 'payment',
-	                                value: x.get("payment")
+	                                value: payment
 	                            }),
 	                            new Ext.form.TextField({
 	                                fieldLabel: '邮递方式',
 	                                width: 200,
 	                                name: 'post',
-	                                value: x.get("post")
+	                                value: post
 	                            }),
 	                            new Ext.form.TextField({
 	                                fieldLabel: '总费用',
@@ -238,7 +310,7 @@
 	                                fieldLabel: '订单状态',
 	                                width: 200,
 	                                name: 'orderState',
-	                                value: x.get("orderState")
+	                                value: orderState
 	                            }),
 	                            new Ext.form.TextField({
 	                                fieldLabel: '订货时间',
@@ -250,7 +322,7 @@
 	                        ],
 	                        buttons: [{
 	                            text: '订单明细',
-	                            icon: '../resources/images/Icon_007.ico',
+	                            icon: '../resources/images/Icon_001.ico',
 	                            width: 85,
 	                            height: 27,
 	                            handler: function() {
@@ -258,15 +330,15 @@
 	                            }
 	                        },{
 	                            text: '寄送信息',
-	                            icon: '../resources/images/Icon_106.ico',
+	                            icon: '../resources/images/Icon_008.ico',
 	                            width: 85,
 	                            height: 27,
 	                            handler: function() {
 	                                showContact(x.get("userId"));
 	                            }
 	                        },{
-	                            text: '修改状态',
-	                            icon: '../resources/images/Icon_043.ico',
+	                            text: '订单发货',
+	                            icon: '../resources/images/Icon_120.ico',
 	                            width: 85,
 	                            height: 27
 	                        }]
@@ -278,7 +350,7 @@
 	            
 	            function showInfo(orderId) {
 	                var mem = Ext.data.Record.create([
-	                    {name: 'proId', type: 'int'},
+	                    {name: 'proName', type: 'string'},
 	                    {name: 'amount', type: 'int'},
 	                    {name: 'price', type: 'float'}
                     ]); 
@@ -293,6 +365,14 @@
 	                });
 	                
 	                s.load();
+	                
+	                function price(value) {
+	                    return value + " 元";
+	                }
+	                
+	                function amount(value) {
+	                    return value + " 件";
+	                }
                     
 	                var win = new Ext.Window({
 	                    title: '订单明细',
@@ -304,9 +384,9 @@
 	                        new Ext.grid.GridPanel({
 	                            columns:[
                                    new Ext.grid.RowNumberer({header:'序号',width:35}),
-                                   {header:"商品名称", dataIndex:"proId"},
-                                   {header:"商品数量", dataIndex:"amount", width: 70},
-                                   {id: 'price', header:"商品总价", dataIndex:"price"}
+                                   {id: 'proName', header:"商品名称", dataIndex:"proName"},
+                                   {header:"商品数量", dataIndex:"amount", width: 70, renderer: amount},
+                                   {id: 'price', header:"商品总价", dataIndex:"price", renderer: price}
                                 ],
                                 ds:s,
                                 sm: new Ext.grid.RowSelectionModel({ singleSelect: true }),
@@ -327,6 +407,14 @@
 	                    method: 'post',
 	                    success: function(response, options) {
 	                        var con = Ext.util.JSON.decode(response.responseText).list;
+	                        var freetime;
+	                        if (con.freetime == 0) {
+	                            freetime = "全周";
+	                        } else if (con.freetime == 1) {
+	                            freetime = "周一至周五";
+	                        } else {
+	                            freetime = "周末";
+	                        }
 	                        var win = new Ext.Window({
 	                            title: '寄送信息',
 	                            width: 300,
@@ -364,7 +452,7 @@
 		                                fieldLabel: '空闲时间',
 		                                width: 200,
 		                                name: 'freetime',
-		                                value: con.freetime
+		                                value: freetime
 	                                })
 	                            ]
 	                        });
@@ -376,7 +464,7 @@
 	            
 	        });
 	    </script>
-	    <div id="orderPanel"></div>
-	    <div id="orderGrid"></div>
+		<div id="orderPanel"></div>
+		<div id="orderGrid"></div>
 	</body>
 </html>

@@ -14,9 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.shopping.factory.ServiceFactory;
 import com.shopping.util.GetTotalPrice;
 import com.shopping.util.JSONUtil;
+import com.shopping.util.OrderUtil;
 import com.shopping.vo.CartVo;
 import com.shopping.vo.ContactVo;
 import com.shopping.vo.MyOrderVo;
+import com.shopping.vo.NewOrderVo;
 import com.shopping.vo.OrderInfoVo;
 import com.shopping.vo.ProductVo;
 import com.shopping.vo.UserVo;
@@ -436,10 +438,6 @@ public class OrderServlet extends HttpServlet {
 
 				list = ServiceFactory.getOrderServiceInstance().findAllMyOrder(
 						start, limit);
-
-				// 组织要返回的json
-				json += "{total:" + total + ",list:" + JSONUtil.list2json(list)
-						+ "}";
 			} else {
 				// 如果订单状态不是为-1，那么就按订单状态进行查询
 				total = ServiceFactory.getOrderServiceInstance().getTotalNum(
@@ -447,11 +445,23 @@ public class OrderServlet extends HttpServlet {
 
 				list = ServiceFactory.getOrderServiceInstance()
 						.findOrderByState(state, start, limit);
-
-				// 组织要返回的json
-				json += "{total:" + total + ",list:" + JSONUtil.list2json(list)
-						+ "}";
 			}
+
+			List<NewOrderVo> l = new ArrayList<NewOrderVo>();
+
+			Iterator<MyOrderVo> iter = list.iterator();
+			while (iter.hasNext()) {
+				MyOrderVo order = new MyOrderVo();
+				NewOrderVo n = new NewOrderVo();
+				order = iter.next();
+
+				n = OrderUtil.toNewOrder(order);
+
+				l.add(n);
+			}
+
+			// 组织要返回的json
+			json += "{total:" + total + ",list:" + JSONUtil.list2json(l) + "}";
 
 			// 这个不需要进行页面跳转
 			flag = false;
