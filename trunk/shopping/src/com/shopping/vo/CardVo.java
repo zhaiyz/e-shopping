@@ -1,6 +1,5 @@
 package com.shopping.vo;
 
-import java.util.Date;
 
 public class CardVo {
 
@@ -17,16 +16,16 @@ public class CardVo {
 	private float cardValue;
 
 	/** 卡片加入时间 */
-	private Date cardDateTime;
+	private String cardDateTime;
 
 	/** 充值卡状态，0为未使用，1为已使用 */
 	private int cardFlag;
 
-	public Date getCardDateTime() {
+	public String getCardDateTime() {
 		return cardDateTime;
 	}
 
-	public void setCardDateTime(Date cardDateTime) {
+	public void setCardDateTime(String cardDateTime) {
 		this.cardDateTime = cardDateTime;
 	}
 

@@ -38,4 +38,8 @@ public class CardServiceImpl implements CardService{
 		return dao.findCardByCardName(cardNo, cardPassword);
 	}
 
+	public int getTotalNum() {
+		return dao.getTotalNum();
+	}
+
 }

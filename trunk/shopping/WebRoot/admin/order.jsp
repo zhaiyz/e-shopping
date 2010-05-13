@@ -239,7 +239,31 @@
                             text: '订单发货',
                             icon: '../resources/images/Icon_120.ico',
                             width: 85,
-                            height: 27
+                            height: 27,
+                            handler: function() {
+	                                Ext.Ajax.request({
+					                    url: '/shopping/order?action=update',
+					                    params: {
+					                        orderId: x.get("orderId")
+					                    },
+					                    method: 'post',
+					                    success: function(response, options) {
+					                        var obj = Ext.util.JSON.decode(response.responseText);
+					                        if (obj.success = true) {
+					                            Ext.Msg.alert("提示","发货成功");
+					                            orderStore.load();
+					                            win.close();
+					                        } else {
+					                            Ext.Msg.alert("提示", "发货失败");
+					                            win.close();
+					                        }
+					                    },
+					                    failure: function(response, options) {
+					                        Ext.Msg.alert("提示", "发货失败");
+					                        win.close();
+					                    }
+					                });
+	                            }
                         }]
                     });
                     
@@ -276,6 +300,11 @@
 	                        bodyStyle: 'padding:10px 10px 10px 10px',
 	                        labelWidth: 60,
 	                        items: [
+	                            new Ext.form.Hidden({
+	                                fieldLabel: '订单主键',
+	                                name: 'orderId',
+	                                value: x.get("orderId")
+	                            }),
 	                            new Ext.form.TextField({
 	                                fieldLabel: '订单号',
 	                                width: 200,
@@ -340,7 +369,31 @@
 	                            text: '订单发货',
 	                            icon: '../resources/images/Icon_120.ico',
 	                            width: 85,
-	                            height: 27
+	                            height: 27,
+	                            handler: function() {
+	                                Ext.Ajax.request({
+					                    url: '/shopping/order?action=update',
+					                    params: {
+					                        orderId: x.get("orderId")
+					                    },
+					                    method: 'post',
+					                    success: function(response, options) {
+					                        var obj = Ext.util.JSON.decode(response.responseText);
+					                        if (obj.success = true) {
+					                            Ext.Msg.alert("提示","发货成功");
+					                            orderStore.load();
+					                            win.close();
+					                        } else {
+					                            Ext.Msg.alert("提示", "发货失败");
+					                            win.close();
+					                        }
+					                    },
+					                    failure: function(response, options) {
+					                        Ext.Msg.alert("提示", "发货失败");
+					                        win.close();
+					                    }
+					                });
+	                            }
 	                        }]
 	                    });
 	                    
@@ -419,7 +472,7 @@
 	                            title: '寄送信息',
 	                            width: 300,
 	                            height: 200,
-	                            modal: false,
+	                            modal: true,
 	                            layout: 'form',
 	                            bodyStyle: 'padding:10px 10px 10px 10px',
 	                            labelWidth: 60,
@@ -461,7 +514,6 @@
 	                    }
 	                });
 	            }
-	            
 	        });
 	    </script>
 		<div id="orderPanel"></div>
