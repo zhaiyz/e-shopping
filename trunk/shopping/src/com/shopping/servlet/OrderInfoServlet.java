@@ -3,6 +3,7 @@ package com.shopping.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.shopping.factory.ServiceFactory;
+import com.shopping.util.InfoUtil;
 import com.shopping.util.JSONUtil;
 import com.shopping.vo.MyOrderVo;
+import com.shopping.vo.NewInfoVo;
 import com.shopping.vo.OrderInfoVo;
 
 public class OrderInfoServlet extends HttpServlet {
@@ -72,11 +75,25 @@ public class OrderInfoServlet extends HttpServlet {
 			orderId = Integer.parseInt(request.getParameter("orderId"));
 
 			List<OrderInfoVo> list = new ArrayList<OrderInfoVo>();
+			
+			List<NewInfoVo> l = new ArrayList<NewInfoVo>();
 
 			list = ServiceFactory.getOrderInfoServiceInstance()
 					.findOrderInfoByOrderId(orderId);
+			
+			Iterator<OrderInfoVo> iter = list.iterator();
+			while(iter.hasNext()) {
+				OrderInfoVo info = new OrderInfoVo();
+				NewInfoVo n = new NewInfoVo();
+				
+				info = iter.next();
+				
+				n = InfoUtil.toNewInfo(info);
+				
+				l.add(n);
+			}
 
-			json += "{success:true,list:" + JSONUtil.list2json(list) + "}";
+			json += "{success:true,list:" + JSONUtil.list2json(l) + "}";
 
 			flag = false;
 		}
