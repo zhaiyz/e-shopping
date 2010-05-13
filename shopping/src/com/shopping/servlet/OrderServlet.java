@@ -465,6 +465,24 @@ public class OrderServlet extends HttpServlet {
 
 			// 这个不需要进行页面跳转
 			flag = false;
+		} else if ("update".equals(action)) {
+			// 订单发货，更改订单状态
+			int orderId = Integer.parseInt(request.getParameter("orderId"));
+
+			MyOrderVo order = new MyOrderVo();
+
+			order = ServiceFactory.getOrderServiceInstance()
+					.findMyOrderById(orderId);
+
+			order.setOrderState(1);
+
+			if (ServiceFactory.getOrderServiceInstance().modifyMyOrder(order)) {
+				json += "{success:true}";
+			} else {
+				json += "{success:false}";
+			}
+
+			flag = false;
 		}
 
 		// 根据path进行跳转

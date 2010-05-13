@@ -12,7 +12,7 @@
                     {name: 'cardPassword', type: 'string'},
                     {name: 'cardValue', type: 'float'},
                     {name: 'cardFlag', type: 'int'},
-                    {name: 'cardDatetime', type: 'date' ,dateFormat:"Y-m-d H:i:s"}
+                    {name: 'cardDateTime', type: 'date' ,dateFormat:"Y-m-d H:i:s"}
                 ]);
                 
                 //定义store
@@ -40,12 +40,12 @@
                         new Ext.grid.RowNumberer({header:'序号',width:35}),
                         {header:"卡号", dataIndex:"cardNo"},
                         {header:"卡密码", dataIndex:"cardPassword"},
-                        {header:"面值", dataIndex:"cardValue"},
-                        {header:"卡状态", dataIndex:"cardFlag"},
+                        {header:"面值", dataIndex:"cardValue", renderer: cardValue},
+                        {header:"卡状态", dataIndex:"cardFlag", renderer: cardFlag},
                         {
-                            id: 'cardDatetime',
+                            id: 'cardDateTime',
                             header:"制卡时间",
-                            dataIndex:"cardDatetime",
+                            dataIndex:"cardDateTime",
                             width: 130,
                             sortable: true,
                             renderer:Ext.util.Format.dateRenderer('Y-m-d H:i:s')
@@ -53,7 +53,7 @@
                     ],
                     ds:cardStore,
                     sm: new Ext.grid.RowSelectionModel({ singleSelect: true }),
-                    autoExpandColumn: 'cardDatetime',
+                    autoExpandColumn: 'cardDateTime',
                     bbar: new Ext.PagingToolbar({
                         pageSize:10,
                         store:cardStore,
@@ -63,24 +63,87 @@
                     })
                 });
                 
+                //面值
+                function cardValue(value) {
+                    return value + " 元";
+                }
+                
+                //卡状态
+                function cardFlag(value) {
+                    if (value == 0) {
+                        return "未使用";
+                    } else {
+                        return "已使用";
+                    }
+                }
+                
+                //给这个数据框添加事件
+                cardGrid.addListener('celldblclick',function(grid, rowIndex, columnIndex, e){
+                    var s=grid.getStore();
+                    var x=s.getAt(rowIndex);
+                    var flag = x.get("cardFlag") == 0 ? "未使用" : "已使用";
+                    var win = new Ext.Window({
+                        title: '充值卡信息',
+                        width: 300,
+                        height: 180,
+                        modal: true,
+                        layout: 'form',
+                        bodyStyle: 'padding:10px 10px 10px 10px',
+                        labelWidth: 60,
+                        items: [
+                            new Ext.form.TextField({
+                                fieldLabel: '卡号',
+                                width: 200,
+                                name: 'cardNo',
+                                id: 'cardNo',
+                                value: x.get("cardNo")
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '卡密码',
+                                width: 200,
+                                name: 'cardPassword',
+                                id: 'cardPassword',
+                                value: x.get("cardPassword")
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '面值',
+                                width: 200,
+                                name: 'cardValue',
+                                id: 'cardValue',
+                                value: x.get("cardValue")
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '卡状态',
+                                width: 200,
+                                name: 'cardFlag',
+                                id: 'cardFlag',
+                                value: flag
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '创建时间',
+                                width: 200,
+                                name: 'cardDateTime',
+                                id: 'cardDateTime',
+                                readOnly: true,
+                                value: x.get("cardDateTime").dateFormat('Y-m-d H:i:s')
+                            })
+                        ]
+                    });
+                    
+                    win.show();  
+                });
+                
                 var cardState = [
                     ['-1', '全部'],
                     ['0', '未使用'],
                     ['1', '已使用']
                 ];
                 
-                var cardValue = [
-                    ['-1', '全部'],
-                    ['0', '50'],
-                    ['1', '100'],
-                    ['2', '200']
-                ];
-                
                 //主面板
 	            var cardPane = new Ext.Panel({
 	                renderTo: "cardPanel",
 	                tbar: [
-	                    {text: "添加"},
+	                    {text: "添加", handler: addCard},
 	                    {xtype:"tbseparator"},
 	                    '卡状态:', ' ',
 	                    new Ext.form.ComboBox({
@@ -95,23 +158,92 @@
 	                        valueField:'value',
 	                        emptyText:'请选择',
 	                        triggerAction: 'all'
-	                    }),
-	                    '面值:', ' ',
-	                    new Ext.form.ComboBox({
-	                        emptyText:'请选择',
-	                        width: 70,
-	                        mode: 'local',
-	                        readOnly: true,
-	                        store: new Ext.data.SimpleStore({
-	                            fields: ['value', 'text'],
-	                            data: cardValue
-	                        }),
-	                        displayField:'text',
-	                        valueField:'value',
-	                        triggerAction: 'all'
-	                    }),
+	                    })
 	                ]
 	            });
+	            
+	            function addCard() {
+	                var win = new Ext.Window({
+                        title: '充值卡',
+                        width: 300,
+                        height: 180,
+                        modal: true,
+                        layout: 'form',
+                        bodyStyle: 'padding:10px 10px 5px 5px',
+                        labelWidth: 60,
+                        items: [
+                            new Ext.form.TextField({
+                                fieldLabel: '充值卡号',
+                                width: 200,
+                                name: 'cardNo',
+                                id: 'cardNo'
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '充值密码',
+                                width: 200,
+                                name: 'cardPassword',
+                                id: 'cardPassword'
+                            }),
+                            new Ext.form.TextField({
+                                fieldLabel: '面值',
+                                width: 200,
+                                name: 'cardValue',
+                                id: 'cardValue'
+                            })
+                        ],
+                        buttons: [{
+                            text: '添加',
+                            icon: '../resources/images/Icon_113.ico',
+                            width: 85,
+                            height: 27,
+                            handler: function() {
+                                Ext.Ajax.request({
+                                    url: '/shopping/card?action=add',
+                                    params: {
+                                        cardNo: Ext.getCmp('cardNo').getValue(),
+                                        cardPassword: Ext.getCmp('cardPassword').getValue(),
+                                        cardValue: Ext.getCmp('cardValue').getValue()
+                                    },
+                                    success: function(response, options) {
+                                        var obj = Ext.util.JSON.decode(response.responseText);
+                                        if (obj.success == true) {
+                                            Ext.Msg.alert("提示","添加充值卡成功");
+                                            cardStore.load();
+                                            win.close();
+                                        } else {
+                                            Ext.Msg.alert("提示", "添加充值卡失败");
+                                            win.close();
+                                        }
+                                    },
+                                    failure: function(response, options) {
+                                        Ext.Msg.alert("提示", "添加充值卡失败");
+                                        win.close();
+                                    }
+                                });
+                            }
+                        },{
+                            text: '重置',
+                            icon: '../resources/images/Icon_106.ico',
+                            width: 85,
+                            height: 27,
+                            handler: function () {
+                                Ext.getCmp("cardNo").setValue("");
+                                Ext.getCmp("cardPassword").setValue("");
+                                Ext.getCmp("cardValue").setValue("");
+                            }
+                        },{
+                            text: '关闭',
+                            icon: '../resources/images/Icon_043.ico',
+                            width: 85,
+                            height: 27,
+                            handler: function(){
+                                win.close();
+                            }
+                        }]
+                    });
+                    
+                    win.show(); 
+	            }
 	        });
 	    </script>
 		<div id="cardPanel"></div>

@@ -68,4 +68,11 @@ public interface CardDao {
 	 * @return 查询出的充值卡
 	 */
 	public CardVo findCardByCardName(String cardNo, String cardPassword);
+
+	/**
+	 * 取得全部卡的数量，用于分页
+	 * 
+	 * @return
+	 */
+	public int getTotalNum();
 }
