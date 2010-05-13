@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8"%>
+<jsp:directive.page import="com.shopping.vo.ProductVo"/>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file = "header.jsp" %>
 <center>
@@ -12,6 +13,9 @@
         </td>
         <td>
             ${pro.proName}
+            <c:if test="${pro.recommendation == 1}">
+                * 推荐
+            </c:if>
         </td>
     </tr>
     <tr>
@@ -19,12 +23,12 @@
               商品图片:
         </td>
         <td>
-           <img src="<%=request.getContextPath()%>/images/${pro.imageUrl}" title="${pro.proDesc}" />
+           <img src="<%=request.getContextPath()%>/images/${pro.imageUrl}" title="${pro.proDesc}" width="360" height="380" />
         </td>
     </tr>
     <tr>
         <td>商品描述:</td>
-        <td><textarea> ${pro.proDesc}</textarea></td>
+        <td><textarea readonly="readonly" > ${pro.proDesc}</textarea></td>
     </tr>
     <tr>
         <td>库存量:</td>
@@ -44,7 +48,7 @@
     </tr>
     <tr>
         <td>购买数量:</td>
-        <td><input type="text" name="amount" /></td>
+        <td><input type="text" name="amount" value="1" /></td>
     </tr>
     <tr>
         <td>操作:</td>

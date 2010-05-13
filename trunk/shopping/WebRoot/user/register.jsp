@@ -10,7 +10,6 @@
 	var tRpwd = false;
 	var tEmial = false;
 	function validateName() {
-	alert("1");
 	var name = document.getElementById("username").value;
 		var info = document.getElementById("sName");
 		if(name=="") {
@@ -31,7 +30,12 @@
 			document.getElementById("username").focus();
 			tName = false;
 			return;
+		}else{
+		info.innerHTML="*";
+		info.style.color="red";
+		tName = true;
 		}
+	}
 	   
 	function validatePwd() {
 		if(!tName) {
