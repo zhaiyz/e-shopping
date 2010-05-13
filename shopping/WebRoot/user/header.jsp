@@ -12,7 +12,7 @@
         <table width="100%" height="100%" border="1">
             <!-- 头部显示信息开始 -->
             <tr height="10%">
-                <td colspan="2" width="40%">
+                <td colspan="2" width="50%">
                 <%
                     //通过session判断用户是否登录
                     if (session.getAttribute("userName") == null) {
