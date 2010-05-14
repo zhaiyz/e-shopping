@@ -60,10 +60,12 @@ public class CardServelt extends HttpServlet {
 				ServiceFactory.getUserServiceInstance().modifyUser(user);
 				newCard.setCardFlag(1);
 				ServiceFactory.getCardServiceInstance().modifyCard(newCard);
-				path = "index.jsp";
+				path = "error.jsp";
+				request.setAttribute("op_error", "恭喜您，充值成功!");
 			} else {
 				error = "充值失败";
-				path = "/user/account.jsp";
+				path = "error.jsp";
+				request.setAttribute("op_error", "不好意思，您充值失败啦!");
 			}
 		} else if ("list".equals(action)) {
 			// 查询出全部的卡
