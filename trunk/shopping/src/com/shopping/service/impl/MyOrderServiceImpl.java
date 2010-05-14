@@ -51,4 +51,12 @@ public class MyOrderServiceImpl implements MyOrderService {
 		return dao.getTotalNum(state);
 	}
 
+	public List<MyOrderVo> findByTime(String start, String end) {
+		return dao.findByTime(start, end);
+	}
+
+	public List<MyOrderVo> findAllOrder() {
+		return dao.findAllOrder();
+	}
+
 }

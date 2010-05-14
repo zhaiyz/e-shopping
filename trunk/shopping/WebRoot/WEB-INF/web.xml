@@ -83,6 +83,11 @@
 			<param-value>true</param-value>
 		</init-param>
 	</servlet>
+  <servlet>
+    <servlet-name>BenefitServlet</servlet-name>
+    <servlet-class>com.shopping.servlet.BenefitServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -130,6 +135,10 @@
 		<servlet-name>contactServlet</servlet-name>
 		<url-pattern>/contact</url-pattern>
 	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>BenefitServlet</servlet-name>
+    <url-pattern>/benefit</url-pattern>
+  </servlet-mapping>
 
 	<filter>
 		<filter-name>login</filter-name>
