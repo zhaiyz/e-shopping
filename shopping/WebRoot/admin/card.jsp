@@ -157,7 +157,12 @@
 	                        displayField:'text',
 	                        valueField:'value',
 	                        emptyText:'请选择',
-	                        triggerAction: 'all'
+	                        triggerAction: 'all',
+	                        listeners: {
+	                            'select': function (combo, record, index){
+	                                cardStore.load({params:{state: record.get("value"), start: 0, limit: 10}});
+	                            }
+	                        }
 	                    })
 	                ]
 	            });

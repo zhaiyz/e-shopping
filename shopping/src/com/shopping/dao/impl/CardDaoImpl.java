@@ -48,7 +48,8 @@ public class CardDaoImpl implements CardDao {
 				card.setCardNo(rs.getString("card_no"));
 				card.setCardPassword(rs.getString("card_password"));
 				card.setCardValue(rs.getFloat("card_value"));
-				card.setCardDateTime(rs.getString("card_datetime").substring(0, 19));
+				card.setCardDateTime(rs.getString("card_datetime").substring(0,
+						19));
 				card.setCardFlag(rs.getInt("card_flag"));
 				list.add(card);
 			}
@@ -74,7 +75,8 @@ public class CardDaoImpl implements CardDao {
 				card.setCardNo(rs.getString("card_no"));
 				card.setCardPassword(rs.getString("card_password"));
 				card.setCardValue(rs.getFloat("card_value"));
-				card.setCardDateTime(rs.getString("card_datetime").substring(0, 19));
+				card.setCardDateTime(rs.getString("card_datetime").substring(0,
+						19));
 				card.setCardFlag(rs.getInt("card_flag"));
 			}
 			rs.close();
@@ -165,7 +167,8 @@ public class CardDaoImpl implements CardDao {
 				card.setCardNo(rs.getString("card_no"));
 				card.setCardPassword(rs.getString("card_password"));
 				card.setCardValue(rs.getFloat("card_value"));
-				card.setCardDateTime(rs.getString("card_datetime").substring(0, 19));
+				card.setCardDateTime(rs.getString("card_datetime").substring(0,
+						19));
 				card.setCardFlag(rs.getInt("card_flag"));
 			}
 			rs.close();
@@ -196,6 +199,56 @@ public class CardDaoImpl implements CardDao {
 			dbc.close();
 		}
 		return total;
+	}
+
+	public int getTotalNum(int state) {
+		int total = 0;
+		String sql = "SELECT COUNT(*) FROM card WHERE card_flag = ?";
+		DBUtil dbc = new DBUtil();
+		try {
+			PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
+			pst.setInt(1, state);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				total = rs.getInt(1);
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return total;
+	}
+
+	public List<CardVo> findAllCard(int state, int start, int limit) {
+		List<CardVo> list = new ArrayList<CardVo>();
+		String sql = "SELECT * FROM card WHERE card_flag = ? LIMIT " + start
+				+ "," + limit;
+		DBUtil dbc = new DBUtil();
+		try {
+			PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
+			pst.setInt(1, state);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				CardVo card = new CardVo();
+				card.setCardNo(rs.getString("card_no"));
+				card.setCardPassword(rs.getString("card_password"));
+				card.setCardValue(rs.getFloat("card_value"));
+				card.setCardDateTime(rs.getString("card_datetime").substring(0,
+						19));
+				card.setCardFlag(rs.getInt("card_flag"));
+				list.add(card);
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return list;
 	}
 
 }

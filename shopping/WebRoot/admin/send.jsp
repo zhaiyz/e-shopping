@@ -6,8 +6,8 @@
 	<body>
 		<script type="text/javascript">
 	        Ext.onReady(function(){
-	             //定义orderStore里面的成员
-	            var orderMember = Ext.data.Record.create([
+	             //定义sendStore里面的成员
+	            var sendMember = Ext.data.Record.create([
 	                {name: 'orderId', type: 'int'},
                     {name: 'userName', type: 'string'},
                     {name: 'conId', type: 'int'},
@@ -19,23 +19,24 @@
                     {name: 'orderDatetime', type: 'date' ,dateFormat:"Y-m-d H:i:s"}
                 ]);
                 
-                //定义orderStore
-                var orderStore = new Ext.data.JsonStore({
+                //定义sendStore
+                var sendStore = new Ext.data.JsonStore({
                     url:"/shopping/order?action=all",
                     root:'list',
-                    fields:orderMember,
+                    fields:sendMember,
                     baseParams: {
+                        state: 0,
                         start: 0,
                         limit: 10
                     }
                 });
                 
                 //数据加载
-                orderStore.load();
+                sendStore.load();
                 
                 //定义一个数据面板
-                var orderGrid = new Ext.grid.GridPanel({
-                    renderTo:"orderGrid",
+                var sendGrid = new Ext.grid.GridPanel({
+                    renderTo:"sendGrid",
                     title:"订单列表",
                     layout: "fit",
                     height: Ext.getBody().getHeight() - 160,
@@ -56,12 +57,12 @@
                             renderer:Ext.util.Format.dateRenderer('Y-m-d H:i:s')
                         }
                     ],
-                    ds: orderStore,
+                    ds: sendStore,
                     sm: new Ext.grid.RowSelectionModel({ singleSelect: true }),
                     autoExpandColumn: 'orderDatetome',
                     bbar: new Ext.PagingToolbar({
                         pageSize:10,
-                        store:orderStore,
+                        store:sendStore,
                         displayInfo:true,
                         displayMsg:'显示第{0}条到{1}条记录，一共{2}条',
                         emptyMsg:"没有记录"
@@ -122,35 +123,15 @@
                 ];
                 
                 //定义一个面板
-                var orderPane = new Ext.Panel({
-	                renderTo: "orderPanel",
+                var sendPane = new Ext.Panel({
+	                renderTo: "sendPanel",
 	                tbar: [
-	                    {text: "查看", handler: editOrder},
-	                    {xtype:"tbseparator"},
-	                    '订单状态:', ' ',
-	                    new Ext.form.ComboBox({
-	                        emptyText:'订单状态',
-	                        width: 80,
-	                        mode: 'local',
-	                        readOnly: true,
-	                        store: new Ext.data.SimpleStore({
-	                            fields: ['value', 'text'],
-	                            data: stateDate
-	                        }),
-	                        displayField:'text',
-	                        valueField:'value',
-	                        triggerAction: 'all',
-	                        listeners: {
-	                            'select': function (combo, record, index){
-	                                orderStore.load({params:{state: record.get("value"), start: 0, limit: 10}});
-	                            }
-	                        }
-	                    })
+	                    {text: "查看", handler: editOrder}
 	                ]
 	            });
 	            
 	            //给这个数据框添加事件
-                orderGrid.addListener('celldblclick',function(grid, rowIndex, columnIndex, e){
+                sendGrid.addListener('celldblclick',function(grid, rowIndex, columnIndex, e){
                     var s=grid.getStore();
                     var x=s.getAt(rowIndex);
                     //把一些数量转换成内容
@@ -235,6 +216,35 @@
                             handler: function() {
 	                            showContact(x.get("orderId"));
 	                        }
+                        },{
+                            text: '订单发货',
+                            icon: '../resources/images/Icon_120.ico',
+                            width: 85,
+                            height: 27,
+                            handler: function() {
+	                                Ext.Ajax.request({
+					                    url: '/shopping/order?action=update',
+					                    params: {
+					                        orderId: x.get("orderId")
+					                    },
+					                    method: 'post',
+					                    success: function(response, options) {
+					                        var obj = Ext.util.JSON.decode(response.responseText);
+					                        if (obj.success = true) {
+					                            Ext.Msg.alert("提示","发货成功");
+					                            sendStore.load();
+					                            win.close();
+					                        } else {
+					                            Ext.Msg.alert("提示", "发货失败");
+					                            win.close();
+					                        }
+					                    },
+					                    failure: function(response, options) {
+					                        Ext.Msg.alert("提示", "发货失败");
+					                        win.close();
+					                    }
+					                });
+	                            }
                         }]
                     });
                     
@@ -243,7 +253,7 @@
 	            
 	            //定义编辑订单函数
 	            function editOrder() {
-	                var x = orderGrid.getSelectionModel().getSelected();
+	                var x = sendGrid.getSelectionModel().getSelected();
                     if (x == null) {
                         Ext.MessageBox.alert('提示', '至少选择一行');
                         return false;
@@ -335,6 +345,35 @@
 	                            height: 27,
 	                            handler: function() {
 	                                showContact(x.get("userId"));
+	                            }
+	                        },{
+	                            text: '订单发货',
+	                            icon: '../resources/images/Icon_120.ico',
+	                            width: 85,
+	                            height: 27,
+	                            handler: function() {
+	                                Ext.Ajax.request({
+					                    url: '/shopping/order?action=update',
+					                    params: {
+					                        orderId: x.get("orderId")
+					                    },
+					                    method: 'post',
+					                    success: function(response, options) {
+					                        var obj = Ext.util.JSON.decode(response.responseText);
+					                        if (obj.success = true) {
+					                            Ext.Msg.alert("提示","发货成功");
+					                            sendStore.load();
+					                            win.close();
+					                        } else {
+					                            Ext.Msg.alert("提示", "发货失败");
+					                            win.close();
+					                        }
+					                    },
+					                    failure: function(response, options) {
+					                        Ext.Msg.alert("提示", "发货失败");
+					                        win.close();
+					                    }
+					                });
 	                            }
 	                        }]
 	                    });
@@ -458,7 +497,7 @@
 	            }
 	        });
 	    </script>
-		<div id="orderPanel"></div>
-		<div id="orderGrid"></div>
+		<div id="sendPanel"></div>
+		<div id="sendGrid"></div>
 	</body>
 </html>

@@ -48,7 +48,7 @@ public interface CardService {
 	 * @return 修改是否成功
 	 */
 	public boolean modifyCard(CardVo card);
-	
+
 	/**
 	 * 判断用户输入的卡号密码是否匹配
 	 * 
@@ -57,7 +57,7 @@ public interface CardService {
 	 * @return 是否匹配
 	 */
 	public boolean accountManage(CardVo card);
-	
+
 	/**
 	 * 按卡号、密码查询充值卡
 	 * 
@@ -68,11 +68,29 @@ public interface CardService {
 	 * @return 查询出的充值卡
 	 */
 	public CardVo findCardByCardName(String cardNo, String cardPassword);
-	
+
 	/**
 	 * 取得全部卡的数量，用于分页
 	 * 
 	 * @return
 	 */
 	public int getTotalNum();
+
+	/**
+	 * 按状态获得数量
+	 * 
+	 * @param state
+	 * @return
+	 */
+	public int getTotalNum(int state);
+
+	/**
+	 * 按状态查询出卡
+	 * 
+	 * @param state
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List<CardVo> findAllCard(int state, int start, int limit);
 }

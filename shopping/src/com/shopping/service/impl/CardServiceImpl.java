@@ -42,4 +42,12 @@ public class CardServiceImpl implements CardService{
 		return dao.getTotalNum();
 	}
 
+	public int getTotalNum(int state) {
+		return dao.getTotalNum(state);
+	}
+
+	public List<CardVo> findAllCard(int state, int start, int limit) {
+		return dao.findAllCard(state, start, limit);
+	}
+
 }

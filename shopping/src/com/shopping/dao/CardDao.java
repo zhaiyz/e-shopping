@@ -75,4 +75,22 @@ public interface CardDao {
 	 * @return
 	 */
 	public int getTotalNum();
+
+	/**
+	 * 按状态获得数量
+	 * 
+	 * @param state
+	 * @return
+	 */
+	public int getTotalNum(int state);
+
+	/**
+	 * 按状态查询出卡
+	 * 
+	 * @param state
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List<CardVo> findAllCard(int state, int start, int limit);
 }
