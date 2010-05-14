@@ -1,5 +1,6 @@
 package com.shopping.dao.impl;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -268,6 +269,76 @@ public class MyOrderDaoImpl implements MyOrderDao {
 		try {
 			pstmt = dbc.getConnection().prepareStatement(sql);
 			pstmt.setInt(1, state);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				MyOrderVo order = new MyOrderVo();
+				order.setOrderId(rs.getInt("order_id"));
+				order.setUserId(rs.getInt("user_id"));
+				order.setConId(rs.getInt("con_id"));
+				order.setOrderNum(rs.getString("order_num"));
+				order.setOrderDatetime(rs.getString("order_datetime")
+						.substring(0, 19));
+				order.setPayment(rs.getInt("payment"));
+				order.setPost(rs.getInt("post"));
+				order.setTotalPrice(rs.getFloat("total_price"));
+				order.setOrderState(rs.getInt("order_state"));
+				list.add(order);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return list;
+	}
+
+	public List<MyOrderVo> findByTime(String start, String end) {
+		List<MyOrderVo> list = new ArrayList<MyOrderVo>();
+		String sql = "SELECT * FROM myorder WHERE order_datetime BETWEEN ? AND ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			Date s = Date.valueOf(start);
+			Date e = Date.valueOf(end);
+			System.out.println(s);
+			System.out.println(e);
+			pstmt.setDate(1, s);
+			pstmt.setDate(2, e);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				MyOrderVo order = new MyOrderVo();
+				order.setOrderId(rs.getInt("order_id"));
+				order.setUserId(rs.getInt("user_id"));
+				order.setConId(rs.getInt("con_id"));
+				order.setOrderNum(rs.getString("order_num"));
+				order.setOrderDatetime(rs.getString("order_datetime")
+						.substring(0, 19));
+				order.setPayment(rs.getInt("payment"));
+				order.setPost(rs.getInt("post"));
+				order.setTotalPrice(rs.getFloat("total_price"));
+				order.setOrderState(rs.getInt("order_state"));
+				list.add(order);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return list;
+	}
+
+	public List<MyOrderVo> findAllOrder() {
+		List<MyOrderVo> list = new ArrayList<MyOrderVo>();
+		String sql = "SELECT * FROM myorder WHERE 1 = 1";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				MyOrderVo order = new MyOrderVo();

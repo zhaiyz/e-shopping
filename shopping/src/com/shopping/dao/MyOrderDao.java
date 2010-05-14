@@ -96,4 +96,20 @@ public interface MyOrderDao {
 	 * @return
 	 */
 	public List<MyOrderVo> findOrderByState(int state, int start, int limit);
+
+	/**
+	 * 查询出所有的这个时间段的订单
+	 * 
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<MyOrderVo> findByTime(String start, String end);
+
+	/**
+	 * 查询出全部的订单
+	 * 
+	 * @return
+	 */
+	public List<MyOrderVo> findAllOrder();
 }
