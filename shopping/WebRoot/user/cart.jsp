@@ -13,7 +13,7 @@ function testisNum(id){
 	var s = obj.value;
     if(s!=""){
 		if(isNaN(s)){
-			alert("请输入数字");
+			alert("商品数量，请输入数字");
 			//obj.value=s;
 			obj.focus();
         }
