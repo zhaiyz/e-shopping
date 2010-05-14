@@ -7,6 +7,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <title>E网情深─网上商城</title>
+<script type="text/javascript">
+	function validateKeyword(){
+		var keyWord = document.getElementById("keyword").value;
+		if(keyWord==""){
+			return false;
+		}else{
+			return true;
+		}
+	}
+</script>
     </head>
     <body>
         <table width="100%" height="100%" border="1">
@@ -45,10 +55,10 @@
                                          商品名称:
                                 </td>
                                 <td>
-                                    <input type="text" name="keyword" />
+                                    <input type="text" name="keyword" id="keyword" />
                                 </td>
                                 <td>
-                                    <input type="submit" name="submit" value="搜索" />
+                                    <input type="submit" name="submit" value="搜索" onclick="return validateKeyword();"/>
                                 </td>
                             </tr>
                         </table>
