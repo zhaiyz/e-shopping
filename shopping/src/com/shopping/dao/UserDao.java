@@ -75,4 +75,29 @@ public interface UserDao {
 	 * @return 一个用户对象
 	 */
 	public UserVo findUserByName(String name);
+
+	/**
+	 * 取得会员数量
+	 * 
+	 * @return
+	 */
+	public int getTotalNum();
+
+	/**
+	 * 按条件进行查询
+	 * 
+	 * @param name
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List<UserVo> findByLike(String name, int start, int limit);
+
+	/**
+	 * 按条件查询出总数
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public int getTotalNum(String name);
 }

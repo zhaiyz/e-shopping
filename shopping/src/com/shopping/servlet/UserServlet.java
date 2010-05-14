@@ -2,6 +2,8 @@ package com.shopping.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.shopping.factory.ServiceFactory;
+import com.shopping.util.JSONUtil;
 import com.shopping.vo.UserVo;
 
 public class UserServlet extends HttpServlet {
@@ -32,7 +35,7 @@ public class UserServlet extends HttpServlet {
 		String path = "";
 		String error = "";
 		String json = "";
-		
+
 		PrintWriter out = response.getWriter();
 
 		// 定义一个变量，来标志是否进行跳转，这次默认为跳转
@@ -141,15 +144,68 @@ public class UserServlet extends HttpServlet {
 				path = "/user/personal.jsp";
 			}
 		} else if ("name".equals(action)) {
-			//这个有点晕啊，设计复杂了点，按用户主键查询出用户名
+			// 这个有点晕啊，设计复杂了点，按用户主键查询出用户名
 			int userId = Integer.parseInt(request.getParameter("userId"));
-			
+
 			UserVo user = new UserVo();
-			
+
 			user = ServiceFactory.getUserServiceInstance().findUserById(userId);
-			
+
 			json += "{success:true,userName:" + user.getUserName() + "}";
-			
+
+			flag = false;
+		} else if ("all".equals(action)) {
+			// 关键字
+			String key = request.getParameter("query");
+
+			int total = 0;
+			int start = 0;
+			int limit = 10;
+
+			List<UserVo> list = new ArrayList<UserVo>();
+
+			start = Integer.parseInt(request.getParameter("start"));
+			limit = Integer.parseInt(request.getParameter("limit"));
+
+			if (key == null) {
+				// 如果为空那么就查询出全部
+				total = ServiceFactory.getUserServiceInstance().getTotalNum();
+
+				list = ServiceFactory.getUserServiceInstance().findAllUser(
+						start, limit);
+			} else {
+				// 如果不为空就按条件进行查询
+				total = ServiceFactory.getUserServiceInstance()
+						.getTotalNum(key);
+				list = ServiceFactory.getUserServiceInstance().findByLike(key,
+						start, limit);
+			}
+
+			json += "{total:" + total + ",list:" + JSONUtil.list2json(list)
+					+ "}";
+
+			// 不进行跳转
+			flag = false;
+		} else if ("update".equals(action)) {
+			// 主要是对用户禁言，解禁进行操作
+			int userId = Integer.parseInt(request.getParameter("userId"));
+
+			// 根据用户主键查询出用户
+			UserVo user = new UserVo();
+			user = ServiceFactory.getUserServiceInstance().findUserById(userId);
+
+			if (user.getUserState() == 0) {
+				user.setUserState(1);
+			} else {
+				user.setUserState(0);
+			}
+
+			if (ServiceFactory.getUserServiceInstance().modifyUser(user)) {
+				json += "{success:true}";
+			} else {
+				json += "{success:false}";
+			}
+            
 			flag = false;
 		}
 

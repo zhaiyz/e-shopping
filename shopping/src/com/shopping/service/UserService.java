@@ -60,14 +60,15 @@ public interface UserService {
 	 * @return Boolean 是否存在此用户
 	 */
 	public Boolean isLogin(UserVo user);
-	
+
 	/**
 	 * 按用户名查询用户
+	 * 
 	 * @param name
 	 * @return Boolean 是否存在此用户名的用户
 	 */
 	public Boolean findByName(String name);
-	
+
 	/**
 	 * 通过用户名查询出用户所有的信息
 	 * 
@@ -75,4 +76,29 @@ public interface UserService {
 	 * @return 一个用户对象
 	 */
 	public UserVo findUserByName(String name);
+
+	/**
+	 * 取得会员数量
+	 * 
+	 * @return
+	 */
+	public int getTotalNum();
+
+	/**
+	 * 按条件进行查询
+	 * 
+	 * @param name
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List<UserVo> findByLike(String name, int start, int limit);
+
+	/**
+	 * 按条件查询出总数
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public int getTotalNum(String name);
 }
