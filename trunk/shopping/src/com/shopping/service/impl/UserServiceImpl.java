@@ -41,4 +41,16 @@ public class UserServiceImpl implements UserService {
 	public UserVo findUserByName(String name) {
 		return userDao.findUserByName(name);
 	}
+
+	public int getTotalNum() {
+		return userDao.getTotalNum();
+	}
+
+	public List<UserVo> findByLike(String name, int start, int limit) {
+		return userDao.findByLike(name, start, limit);
+	}
+
+	public int getTotalNum(String name) {
+		return userDao.getTotalNum(name);
+	}
 }
