@@ -6,6 +6,21 @@
 <form action="/shopping/product" method="post">
 <input type="hidden" name="action" value="buy">
 <input type="hidden" name="id" value="${pro.proId}">
+
+<script type="text/javascript">
+	function testisNum(){
+	var obj = document.getElementById("amount");
+	var s = obj.value;
+    if(s!=""){
+		if(isNaN(s)){
+			alert("商品数量，请输入数字");
+			//obj.value=s;
+			obj.focus();
+        }
+    }
+}
+</script>
+
 <table>
     <tr>
         <td>
@@ -48,7 +63,7 @@
     </tr>
     <tr>
         <td>购买数量:</td>
-        <td><input type="text" name="amount" value="1" /></td>
+        <td><input type="text" name="amount" id="amount" value="1" onblur="testisNum();" maxlength="2" /></td>
     </tr>
     <tr>
         <td>操作:</td>
