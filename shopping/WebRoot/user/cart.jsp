@@ -5,6 +5,22 @@
 <%@ page import="com.shopping.vo.ProductVo" %>
 <%@ page import="java.util.*" %>
 <%@ include file = "header.jsp" %>
+
+<script type="text/javascript">
+<!--
+function testisNum(id){
+	var obj = document.getElementById(id);
+	var s = obj.value;
+    if(s!=""){
+		if(isNaN(s)){
+			alert("请输入数字");
+			//obj.value=s;
+			obj.focus();
+        }
+    }
+}
+//-->
+</script>
 <form action="/shopping/cart?action=update" method="post">
     <table width="100%">
         <tr>
@@ -30,9 +46,9 @@
                 allTotal += total;
         %>
         <tr align="center">
-            <td><%=product.getProName()%></td>
+            <td><%=product.getProName()%></td>    
             <td>
-                <input type="text" name="<%=cart.getCartId()%>" value="<%=cart.getProAmount()%>" size="5"/>
+                <input type="text" name="<%=cart.getCartId()%>" id="<%=cart.getCartId()%>" onblur="testisNum(<%=cart.getCartId() %>);" value="<%=cart.getProAmount()%>" size="5" maxlength="2" />
             </td>
             <td><%=product.getDisPrice()%>元</td>
             <td><%=total%>元</td>
