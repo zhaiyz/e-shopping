@@ -52,7 +52,8 @@
                         text: "订单管理",
                         expanded: true,
                         children: [
-                            {id: "order.jsp", text: "订单管理", leaf: true}
+                            {id: "order.jsp", text: "订单查看", leaf: true},
+                            {id: "send.jsp", text: "订单发货", leaf: true}
                         ]
                     })
                 });
