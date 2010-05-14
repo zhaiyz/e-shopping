@@ -70,17 +70,35 @@ public class CardServelt extends HttpServlet {
 			int start = 0;
 			int limit = 10;
 
+			// 当state为-1时，查询出全部卡
+			int state = -1;
+
 			int total = 0;
+
+			try {
+				state = Integer.parseInt(request.getParameter("state"));
+			} catch (NumberFormatException e) {
+                state = -1;
+			}
 
 			start = Integer.parseInt(request.getParameter("start"));
 			limit = Integer.parseInt(request.getParameter("limit"));
 
 			List<CardVo> list = new ArrayList<CardVo>();
 
-			total = ServiceFactory.getCardServiceInstance().getTotalNum();
+			if (state == -1) {
+				total = ServiceFactory.getCardServiceInstance().getTotalNum();
 
-			list = ServiceFactory.getCardServiceInstance().findAllCard(start,
-					limit);
+				list = ServiceFactory.getCardServiceInstance().findAllCard(
+						start, limit);
+			} else {
+				// 按状态进行查询
+				total = ServiceFactory.getCardServiceInstance().getTotalNum(
+						state);
+
+				list = ServiceFactory.getCardServiceInstance().findAllCard(
+						state, start, limit);
+			}
 
 			json += "{total:" + total + ",list:" + JSONUtil.list2json(list)
 					+ "}";
@@ -116,5 +134,4 @@ public class CardServelt extends HttpServlet {
 			out.println(json);
 		}
 	}
-
 }
