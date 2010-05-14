@@ -3,9 +3,11 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<title>管理员首页</title>
-		<link rel="stylesheet" type="text/css" href="../resources/css/ext-all.css" />
-		<link rel="stylesheet" type="text/css" href="../resources/css/ext-patch.css" />
-		
+		<link rel="stylesheet" type="text/css"
+			href="../resources/css/ext-all.css" />
+		<link rel="stylesheet" type="text/css"
+			href="../resources/css/ext-patch.css" />
+
 		<script type="text/javascript" src="../js/ext-base.js"></script>
 		<script type="text/javascript" src="../js/ext-all.js"></script>
 		<!--
@@ -13,7 +15,7 @@
 		<script type="text/javascript" src="../js/ext-all-debug.js"></script>
 		-->
 		<script type="text/javascript" src="../js/ext-lang-zh_CN.js"></script>
-		
+
 		<script type="text/javascript" src="../js/SearchField.js"></script>
 		<script type="text/javascript" src="../js/tabCloseMenu.js"></script>
 		<script type="text/javascript" src="../js/FileUploadField.js"></script>
@@ -71,6 +73,32 @@
                     })
                 });
                 
+                //营业状况
+                var t4 = new Ext.tree.TreePanel({
+                    border: false,
+                    rootVisible: false,
+                    root: new Ext.tree.AsyncTreeNode({
+                        text: "收益情况",
+                        expended: true,
+                        children: [
+                            {id: "benefit.jsp", text: "收益情况", leaf: true}
+                        ]
+                    })
+                });
+                
+                //会员管理
+                var t5 = new Ext.tree.TreePanel({
+                    border: false,
+                    rootVisible: false,
+                    root: new Ext.tree.AsyncTreeNode({
+                        text: "会员管理",
+                        expended: true,
+                        children: [
+                            {id: "member.jsp", text: "会员管理", leaf: true}
+                        ]
+                    })
+                });
+                
                 //左部菜单部分
                 var leftPanel = new Ext.Panel({
                     title: "菜单",
@@ -82,7 +110,9 @@
                     items: [
                         {title:'商品管理', items: [t1]},
                         {title:'订单管理', items: [t2]},
-                        {title:'充值卡管理', items: [t3]}
+                        {title:'充值卡管理', items: [t3]},
+                        {title:'营业状况', items: [t4]},
+                        {title:'会员管理', items: [t5]}
                     ]
                 });
                 
@@ -117,6 +147,12 @@
                 
                 //为t3树的添加事件监听
                 t3.addListener("click",function(node){addTab(node);});
+                
+                //为t4树的添加事件监听
+                t4.addListener("click",function(node){addTab(node);});
+                
+                //为t5树的添加事件监听
+                t5.addListener("click",function(node){addTab(node);});
             
 	            //定义方法addTab
 	            function addTab(node) {
