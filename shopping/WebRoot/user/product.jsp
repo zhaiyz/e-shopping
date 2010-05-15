@@ -9,15 +9,18 @@
 
 <script type="text/javascript">
 	function testisNum(){
-	var obj = document.getElementById("amount");
-	var s = obj.value;
-    if(s!=""){
-		if(isNaN(s)){
-			alert("商品数量，请输入数字");
-			//obj.value=s;
-			obj.focus();
-        }
-    }
+		var obj = document.getElementById("amount");
+		var s = obj.value;
+	    if(s!=""){
+			if(isNaN(s)){
+				alert("商品数量，请输入数字");
+				//obj.value=s;
+				obj.focus();
+				return false;
+	        }else{
+	        return true;
+	    	}
+		}
 }
 </script>
 
@@ -63,11 +66,11 @@
     </tr>
     <tr>
         <td>购买数量:</td>
-        <td><input type="text" name="amount" id="amount" value="1" onblur="testisNum();" maxlength="2" /></td>
+        <td><input type="text" name="amount" id="amount" value="1" maxlength="2" /></td>
     </tr>
     <tr>
         <td>操作:</td>
-        <td><input type="submit" value="添加到购物车" /></td>
+        <td><input type="submit" value="添加到购物车" onclick="return testisNum();" /></td>
     </tr>
 </table>
 </form>
