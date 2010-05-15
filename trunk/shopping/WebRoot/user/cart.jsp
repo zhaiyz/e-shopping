@@ -8,6 +8,7 @@
 
 <script type="text/javascript">
 <!--
+var isNum=false;
 function testisNum(id){
 	var obj = document.getElementById(id);
 	var s = obj.value;
@@ -16,6 +17,9 @@ function testisNum(id){
 			alert("商品数量，请输入数字");
 			//obj.value=s;
 			obj.focus();
+			isNum=false;
+        }else{
+        	isNum=true;
         }
     }
 }
@@ -48,7 +52,7 @@ function testisNum(id){
         <tr align="center">
             <td><%=product.getProName()%></td>    
             <td>
-                <input type="text" name="<%=cart.getCartId()%>" id="<%=cart.getCartId()%>" onblur="testisNum(<%=cart.getCartId() %>);" value="<%=cart.getProAmount()%>" size="5" maxlength="2" />
+                <input type="text" name="<%=cart.getCartId()%>" id="<%=cart.getCartId()%>" onkeyup="testisNum(<%=cart.getCartId()%>);" value="<%=cart.getProAmount()%>" size="5" maxlength="2" />
             </td>
             <td><%=product.getDisPrice()%>元</td>
             <td><%=total%>元</td>
@@ -73,7 +77,7 @@ function testisNum(id){
         </tr>
         <tr>
             <td colspan="6" align="center">
-                <a href="/shopping/forward?page=order">
+                <a href="/shopping/forward?page=order" onclick="return isAllNum();" >
                       确认购买
                 </a>
             </td>
