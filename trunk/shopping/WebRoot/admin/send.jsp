@@ -126,6 +126,8 @@
                 var sendPane = new Ext.Panel({
 	                renderTo: "sendPanel",
 	                tbar: [
+	                    {text: "刷新", handler: function() {sendStore.load()}},
+	                    {xtype:"tbseparator"},
 	                    {text: "查看", handler: editOrder}
 	                ]
 	            });
@@ -160,41 +162,48 @@
                                 fieldLabel: '订单号',
                                 width: 200,
                                 name: 'orderNum',
+                                readOnly: true,
                                 value: 'TM' + x.get("orderNum")
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '用户名',
                                 width: 200,
                                 name: 'userName',
+                                readOnly: true,
                                 value: x.get("userName")
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '付款方式',
                                 width: 200,
+                                readOnly: true,
                                 name: 'payment',
                                 value: payment
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '邮递方式',
                                 width: 200,
+                                readOnly: true,
                                 name: 'post',
                                 value: post
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '总费用',
                                 width: 200,
+                                readOnly: true,
                                 name: 'totalPrice',
                                 value: x.get("totalPrice")
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '订单状态',
                                 width: 200,
+                                readOnly: true,
                                 name: 'orderState',
                                 value: orderState
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '订货时间',
                                 width: 200,
+                                readOnly: true,
                                 name: 'orderDatetime',
                                 readOnly: true,
                                 value: x.get("orderDatetime").dateFormat('Y-m-d H:i:s')

@@ -49,6 +49,8 @@
 	                        format: 'Y-m-d',
 	                        emptyText: '开始时间',
 	                        name: 'starttime',
+	                        readOnly: true,
+	                        allowBlank: false,
 	                        id: 'starttime'
 	                    }),
 	                    {xtype:"tbseparator"},
@@ -56,6 +58,8 @@
 	                    new Ext.form.DateField({
 	                        format: 'Y-m-d',
 	                        emptyText: '结束时间',
+	                        readOnly: true,
+	                        allowBlank: false,
 	                        name: 'end',
 	                        id: 'end'
 	                    }),
@@ -63,7 +67,10 @@
 	                    {
 	                        text: '查看',
 	                        handler: function() {
-	                            benStore.load({params:{start: Ext.getCmp('starttime').getRawValue(), end: Ext.getCmp('end').getRawValue(), state: 1 }});
+	                            var start = Ext.getCmp('starttime').getRawValue();
+	                            var end = Ext.getCmp('end').getRawValue();
+	                            if (start != "" && end != "")
+	                                benStore.load({params:{start: start, end: end, state: 1 }});
 	                        }
 	                    }
 	                ]

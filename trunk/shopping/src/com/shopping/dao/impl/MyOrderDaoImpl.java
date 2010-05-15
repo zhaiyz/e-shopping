@@ -303,8 +303,6 @@ public class MyOrderDaoImpl implements MyOrderDao {
 			pstmt = dbc.getConnection().prepareStatement(sql);
 			Date s = Date.valueOf(start);
 			Date e = Date.valueOf(end);
-			System.out.println(s);
-			System.out.println(e);
 			pstmt.setDate(1, s);
 			pstmt.setDate(2, e);
 			ResultSet rs = pstmt.executeQuery();

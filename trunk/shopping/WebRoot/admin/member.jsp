@@ -96,6 +96,7 @@
                                 width: 200,
                                 name: 'userName',
                                 id: 'userName',
+                                readOnly: true,
                                 value: x.get("userName")
                             }),
                             new Ext.form.TextField({
@@ -103,6 +104,7 @@
                                 width: 200,
                                 name: 'payed',
                                 id: 'payed',
+                                readOnly: true,
                                 value: x.get("payed")
                             }),
                             new Ext.form.TextField({
@@ -110,18 +112,21 @@
                                 width: 200,
                                 name: 'email',
                                 id: 'email',
+                                readOnly: true,
                                 value: x.get("email")
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '电话',
                                 width: 200,
                                 name: 'phone',
+                                readOnly: true,
                                 id: 'phone',
                                 value: x.get("phone")
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '状态',
                                 width: 200,
+                                readOnly: true,
                                 name: 'userState',
                                 id: 'userState',
                                 value: state
@@ -129,6 +134,7 @@
                             new Ext.form.TextField({
                                 fieldLabel: '注册时间',
                                 width: 200,
+                                readOnly: true,
                                 name: 'regDatetime',
                                 id: 'regDatetime',
                                 readOnly: true,
@@ -172,6 +178,8 @@
 	            var memPanel = new Ext.Panel({
 	                renderTo: "memPanel",
 	                tbar: [
+	                    {text: "刷新", handler: function() {memStore.load()}},
+	                    {xtype:"tbseparator"},
 	                    '会员名称:', ' ',
                         new Ext.ux.form.SearchField({
                           store: memStore,
