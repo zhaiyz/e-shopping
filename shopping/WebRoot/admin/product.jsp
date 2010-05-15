@@ -121,6 +121,9 @@
 	                            new Ext.form.TextField({
 	                                fieldLabel: '商品名称',
 	                                width: 200,
+	                                allowBlank: false,
+	                                blankText: '请填写商品名称',
+	                                emptyText: '商品商品名称',
 	                                name: 'proName',
 	                                id: 'proName',
 	                                value: x.get("proName")
@@ -143,35 +146,47 @@
 	                                fieldLabel: '商品介绍',
 	                                width: 200,
 	                                height:100,
+	                                allowBlank: false,
+	                                blankText: '请填写大类描述',
+	                                emptyText: '商品大类描述',
 	                                name: 'proDesc',
 	                                id: 'proDesc',
 	                                value: x.get("proDesc")
 	                            }),
-	                            new Ext.form.TextField({
+	                            new Ext.form.NumberField({
 	                                fieldLabel: '商品进价',
 	                                width: 50,
 	                                name: 'purPrice',
 	                                id: 'purPrice',
+	                                allowBlank: false,
+	                                allowNegative: false,
 	                                value: x.get("purPrice")
 	                            }),
-	                            new Ext.form.TextField({
+	                            new Ext.form.NumberField({
 	                                fieldLabel: '商品原价',
 	                                width: 50,
 	                                name: 'oriPrice',
 	                                id: 'oriPrice',
+	                                allowBlank: false,
+	                                allowNegative: false,
 	                                value: x.get("oriPrice")
 	                            }),
-	                            new Ext.form.TextField({
+	                            new Ext.form.NumberField({
 	                                fieldLabel: '会员价',
 	                                width: 50,
+	                                allowBlank: false,
+	                                allowNegative: false,
 	                                name: 'disPrice',
 	                                id: 'disPrice',
 	                                value: x.get("disPrice")
 	                            }),
-	                            new Ext.form.TextField({
+	                            new Ext.form.NumberField({
 	                                fieldLabel: '商品库存',
 	                                width: 50,
 	                                name: 'stock',
+	                                allowBlank: false,
+	                                allowDecimals:false,
+	                                allowNegative: false,
 	                                id: 'stock',
 	                                value: x.get("stock")
 	                            }),
@@ -180,6 +195,9 @@
 	                                width: 50,
 	                                name: 'sales',
 	                                id: 'sales',
+	                                allowBlank: false,
+	                                allowDecimals:false,
+	                                allowNegative: false,
 	                                readOnly: true,
 	                                value: x.get("sales")
 	                            }),
@@ -269,6 +287,8 @@
 	            var proPane = new Ext.Panel({
 	                renderTo: "proPanel",
 	                tbar: [
+	                    {text: "刷新", handler: function() {pStore.load()}},
+	                    {xtype:"tbseparator"},
 	                    {text: "添加", handler: addPro},
 	                    {xtype:"tbseparator"},
 	                    {text: "编辑", handler: editPro},
@@ -344,32 +364,37 @@
 		                            id:"proDesc"
 		                        },{
 		                            fieldLabel:"商品进价",
-		                            xtype:"textfield",
+		                            xtype:"numberfield",
 		                            width: 50,
 		                            allowBlank:false,
+		                            allowNegative: false,
 		                            blankText:"商品进价不能为空",
 		                            name:"purPrice",
 		                            id:"purPrice"
 		                        },{
 		                            fieldLabel:"商品原价",
-		                            xtype:"textfield",
+		                            xtype:"numberfield",
 		                            width: 50,
+		                            allowNegative: false,
 		                            allowBlank:false,
 		                            blankText:"商品原价不能为空",
 		                            name:"oriPrice",
 		                            id:"oriPrice"
 		                        },{
 		                            fieldLabel:"会员价",
-		                            xtype:"textfield",
+		                            xtype:"numberfield",
 		                            width: 50,
+		                            allowNegative: false,
 		                            allowBlank:false,
 		                            blankText:"会员价不能为空",
 		                            name:"disPrice",
 		                            id:"disPrice"
 		                        },{
 		                            fieldLabel:"库存",
-		                            xtype:"textfield",
+		                            xtype:"numberfield",
 		                            width: 50,
+		                            allowDecimals:false,
+	                                allowNegative: false,
 		                            allowBlank:false,
 		                            blankText:"库存",
 		                            name:"stock",
@@ -462,6 +487,9 @@
 	                            new Ext.form.TextField({
 	                                fieldLabel: '商品名称',
 	                                width: 200,
+	                                allowBlank: false,
+	                                blankText: '请填写商品名称',
+                                    emptyText: '商品商品名称',
 	                                name: 'proName',
 	                                id: 'proName',
 	                                value: x.get("proName")
@@ -486,41 +514,51 @@
 	                                height:100,
 	                                name: 'proDesc',
 	                                id: 'proDesc',
+	                                allowBlank: false,
+	                                blankText: '请填写商品介绍',
+                                    emptyText: '商品商品介绍',
 	                                value: x.get("proDesc")
 	                            }),
-	                            new Ext.form.TextField({
+	                            new Ext.form.NumberField({
 	                                fieldLabel: '商品进价',
 	                                width: 50,
 	                                name: 'purPrice',
 	                                id: 'purPrice',
+	                                allowNegative: false,
 	                                value: x.get("purPrice")
 	                            }),
-	                            new Ext.form.TextField({
+	                            new Ext.form.NumberField({
 	                                fieldLabel: '商品原价',
 	                                width: 50,
 	                                name: 'oriPrice',
 	                                id: 'oriPrice',
+	                                allowNegative: false,
 	                                value: x.get("oriPrice")
 	                            }),
-	                            new Ext.form.TextField({
+	                            new Ext.form.NumberField({
 	                                fieldLabel: '会员价',
 	                                width: 50,
 	                                name: 'disPrice',
 	                                id: 'disPrice',
+	                                allowNegative: false,
 	                                value: x.get("disPrice")
 	                            }),
-	                            new Ext.form.TextField({
+	                            new Ext.form.NumberField({
 	                                fieldLabel: '商品库存',
 	                                width: 50,
 	                                name: 'stock',
 	                                id: 'stock',
+	                                allowDecimals:false,
+	                                allowNegative: false,
 	                                value: x.get("stock")
 	                            }),
-	                            new Ext.form.TextField({
+	                            new Ext.form.NumberField({
 	                                fieldLabel: '商品售量',
 	                                width: 50,
 	                                name: 'sales',
 	                                id: 'sales',
+	                                allowDecimals:false,
+	                                allowNegative: false,
 	                                readOnly: true,
 	                                value: x.get("sales")
 	                            }),

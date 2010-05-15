@@ -95,12 +95,14 @@
                                 fieldLabel: '卡号',
                                 width: 200,
                                 name: 'cardNo',
+                                readOnly: true,
                                 id: 'cardNo',
                                 value: x.get("cardNo")
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '卡密码',
                                 width: 200,
+                                readOnly: true,
                                 name: 'cardPassword',
                                 id: 'cardPassword',
                                 value: x.get("cardPassword")
@@ -108,6 +110,7 @@
                             new Ext.form.TextField({
                                 fieldLabel: '面值',
                                 width: 200,
+                                readOnly: true,
                                 name: 'cardValue',
                                 id: 'cardValue',
                                 value: x.get("cardValue")
@@ -115,6 +118,7 @@
                             new Ext.form.TextField({
                                 fieldLabel: '卡状态',
                                 width: 200,
+                                readOnly: true,
                                 name: 'cardFlag',
                                 id: 'cardFlag',
                                 value: flag
@@ -122,6 +126,7 @@
                             new Ext.form.TextField({
                                 fieldLabel: '创建时间',
                                 width: 200,
+                                readOnly: true,
                                 name: 'cardDateTime',
                                 id: 'cardDateTime',
                                 readOnly: true,
@@ -143,6 +148,8 @@
 	            var cardPane = new Ext.Panel({
 	                renderTo: "cardPanel",
 	                tbar: [
+	                    {text: "刷新", handler: function() {cardStore.load()}},
+	                    {xtype:"tbseparator"},
 	                    {text: "添加", handler: addCard},
 	                    {xtype:"tbseparator"},
 	                    '卡状态:', ' ',
@@ -180,18 +187,26 @@
                             new Ext.form.TextField({
                                 fieldLabel: '充值卡号',
                                 width: 200,
+                                allowBlank: false,
+                                blankText: '请填写卡号',
+                                emptyText: '充值卡号',
                                 name: 'cardNo',
                                 id: 'cardNo'
                             }),
                             new Ext.form.TextField({
                                 fieldLabel: '充值密码',
                                 width: 200,
+                                allowBlank: false,
+                                blankText: '请填写密码',
+                                emptyText: '充值卡密码',
                                 name: 'cardPassword',
                                 id: 'cardPassword'
                             }),
-                            new Ext.form.TextField({
+                            new Ext.form.NumberField({
                                 fieldLabel: '面值',
                                 width: 200,
+                                allowBlank: false,
+                                allowNegative: false,
                                 name: 'cardValue',
                                 id: 'cardValue'
                             })

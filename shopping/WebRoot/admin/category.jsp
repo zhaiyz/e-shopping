@@ -83,6 +83,9 @@
                             new Ext.form.TextField({
                                 fieldLabel: '大类名称',
                                 width: 200,
+                                allowBlank: false,
+                                blankText: '请填写大类名称',
+                                emptyText: '商品大类名称',
                                 name: 'catName',
                                 id: 'catName',
                                 value: x.get("catName")
@@ -91,6 +94,9 @@
                                 fieldLabel: '大类说明',
                                 width: 200,
                                 height:100,
+                                allowBlank: false,
+                                blankText: '请填写大类描述',
+                                emptyText: '商品大类描述',
                                 name: 'catDesc',
                                 id: 'catDesc',
                                 value: x.get("catDesc")
@@ -163,6 +169,8 @@
 	                items: [
 	                ],
 	                tbar: [
+	                    {text: "刷新", handler: function() {store.load()}},
+	                    {xtype:"tbseparator"},
 	                    {text: "添加", handler: addCategory},
 	                    {xtype:"tbseparator"},
 	                    {text: "编辑", handler: editCategory},
@@ -191,6 +199,9 @@
                             new Ext.form.TextField({
                                 fieldLabel: '大类名称',
                                 width: 200,
+                                allowBlank: false,
+                                blankText: '请填写大类名称',
+                                emptyText: '商品大类名称',
                                 name: 'catName',
                                 id: 'catName'
                             }),
@@ -198,6 +209,9 @@
                                 fieldLabel: '大类说明',
                                 width: 200,
                                 height:120,
+                                allowBlank: false,
+                                blankText: '请填写大类描述',
+                                emptyText: '商品大类描述',
                                 name: 'catDesc',
                                 id: 'catDesc'
                             })
@@ -282,6 +296,9 @@
                                 new Ext.form.TextField({
                                     fieldLabel: '大类名称',
                                     width: 200,
+                                    allowBlank: false,
+	                                blankText: '请填写大类名称',
+	                                emptyText: '商品大类名称',
                                     name: 'catName',
                                     id: 'catName',
                                     value: x.get("catName")
@@ -290,6 +307,9 @@
                                     fieldLabel: '大类说明',
                                     width: 200,
                                     height:100,
+                                    allowBlank: false,
+	                                blankText: '请填写大类描述',
+	                                emptyText: '商品大类描述',
                                     name: 'catDesc',
                                     id: 'catDesc',
                                     value: x.get("catDesc")

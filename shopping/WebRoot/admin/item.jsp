@@ -98,6 +98,8 @@
 	                        	mode: 'remote',
 	                        	readOnly: true,
 	                        	store: catStore,
+	                        	orceSelection: true,
+	                        	blankText: '选择大类',
 	                        	displayField:'catName',
 	                       	 	valueField:'catId',
 	                       	 	id: 'catId',
@@ -106,6 +108,9 @@
                             new Ext.form.TextField({
                                 fieldLabel: '小类名称',
                                 width: 200,
+                                allowBlank: false,
+                                blankText: '请填写小类名称',
+                                emptyText: '商品小类名称',
                                 name: 'itemName',
                                 id: 'itemName',
                                 value: x.get("itemName")
@@ -114,6 +119,9 @@
                                 fieldLabel: '小类说明',
                                 width: 200,
                                 height:100,
+                                allowBlank: false,
+                                blankText: '请填写小类描述',
+                                emptyText: '商品大类描述',
                                 name: 'itemDesc',
                                 id: 'itemDesc',
                                 value: x.get("itemDesc")
@@ -187,6 +195,8 @@
 	                items: [
 	                ],
 	                tbar: [
+	                    {text: "刷新", handler: function() {itemStore.load()}},
+	                    {xtype:"tbseparator"},
 	                    {text: "添加", handler: addItem},
 	                    {xtype:"tbseparator"},
 	                    {text: "编辑", handler: editItem},
@@ -237,6 +247,8 @@
 		                        width: 150,
 		                        mode: 'remote',
 		                        readOnly: true,
+		                        forceSelection: true,
+	                        	blankText: '选择大类',
 		                        store: catStore,
 		                        displayField:'catName',
 		                        valueField:'catId',
@@ -246,6 +258,9 @@
                             new Ext.form.TextField({
                                 fieldLabel: '小类名称',
                                 width: 200,
+                                allowBlank: false,
+                                blankText: '请填写小类名称',
+                                emptyText: '商品小类名称',
                                 name: 'itemName',
                                 id: 'itemName'
                             }),
@@ -253,6 +268,9 @@
                                 fieldLabel: '小类说明',
                                 width: 200,
                                 height:120,
+                                allowBlank: false,
+                                blankText: '请填写小类描述',
+                                emptyText: '商品小类描述',
                                 name: 'itemDesc',
                                 id: 'itemDesc'
                             })
@@ -320,7 +338,7 @@
                     } else {
                         //通过recordtoedit 取值了 比如说有id这个直接
                         var win = new Ext.Window({
-                            title: '商品大类',
+                            title: '商品小类',
                             width: 300,
                             height: 280,
                             modal: true,
@@ -336,19 +354,29 @@
 		                        	store: catStore,
 		                        	displayField:'catName',
 		                       	 	valueField:'catId',
-		                        	triggerAction: 'all'
+		                        	triggerAction: 'all',
+		                        	id: 'catId',
+		                        	name: 'catName'
 		                        }).setValue(x.get("catId")),
 	                            new Ext.form.TextField({
 	                                fieldLabel: '小类名称',
 	                                width: 200,
+	                                allowBlank: false,
+	                                blankText: '请填写小类名称',
+	                                emptyText: '商品小类名称',
 	                                name: 'itemName',
+	                                id: 'itemName',
 	                                value: x.get("itemName")
 	                            }),
 	                            new Ext.form.TextArea({
 	                                fieldLabel: '小类说明',
 	                                width: 200,
 	                                height:100,
+	                                allowBlank: false,
+	                                blankText: '请填写小类描述',
+	                                emptyText: '商品小类描述',
 	                                name: 'itemDesc',
+	                                id: 'itemDesc',
 	                                value: x.get("itemDesc")
 	                            }),new Ext.form.TextField({
 	                                fieldLabel: '创建时间',
