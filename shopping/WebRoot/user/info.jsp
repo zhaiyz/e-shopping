@@ -17,7 +17,74 @@
 			tName = false;
 			return;
 		}else{
+			info.innerHTML="";
 			tName=true;
+		}
+	}
+	
+	function validateAddress(){
+	if(!tName){
+		return;
+	}
+	var name = document.getElementById("address").value;
+		var info = document.getElementById("sAddress");
+		if(name=="") {
+			info.innerHTML="地址不能为空";
+			info.style.color="red";
+			document.getElementById("address").focus();
+			tAddress = false;
+			return;
+		}else{
+			info.innerHTML="";
+			tAddress=true;
+		}
+	}
+	
+	function validatePostCode(){
+		if(!tName||!tAddress){
+			return;
+		}
+		var name=document.getElementById("postcode").value;
+		var info=document.getElementById("sPostcode");
+		if(name==""){
+			info.innerHTML="邮编不能为空";
+			info.style.color="red";
+			document.getElementById("postcode").focus();
+			tPostcode=false;
+		}else{
+			if(isNaN(name)){
+				info.innerHTML="请填写正确邮编";
+				info.style.clolor="red";
+				document.getElementById("postcode").focus();
+				tPostcode=false;
+			}else{
+				info.innerHTML="";
+				tPostcode=true;
+			}
+		}
+	}
+	
+	function validatePhone(){
+		if(!tName||!tAddress||!tPostcode){
+			return;
+		}
+		var name=document.getElementById("telphone").value;
+		var info=document.getElementById("sPhone");
+		if(name==""){
+			info.innerHTML="电话不能为空";
+			info.style.color="red";
+			document.getElementById("telphone").focus();
+			tPhone=false;
+		}else{
+			if(isNaN(name)){
+				info.innerHTML="请填写正确电话";
+				info.style.clolor="red";
+				document.getElementById("telphone").focus();
+				tPhone=false;
+			}else{
+				info.innerHTML="";
+				tPhone=true;
+			}
 		}
 	}
 </script>
@@ -41,21 +108,21 @@
         </tr>
         <tr>
             <td>收货地址:</td>
-            <td><input type="text" name="address" id="address" /></td>
+            <td><input type="text" name="address" id="address" onblur="validateAddress();" /></td>
             <td>
 		   		<span  style="color:red">*</span>  <span id="sAddress"></span>
 		    </td>
         </tr>
         <tr>
-            <td>邮箱编码:</td>
-            <td><input type="text" name="postcode" id="postcode" /></td>
+            <td>邮政编码:</td>
+            <td><input type="text" name="postcode" id="postcode" onblur="validatePostCode();" /></td>
             <td>
 		   		<span  style="color:red">*</span>  <span id="sPostcode"></span>
 		    </td>
         </tr>
         <tr>
             <td>移动电话:</td>
-            <td><input type="text" name="telphone" id="telphone"/></td>
+            <td><input type="text" name="telphone" id="telphone" onblur="validatePhone();" /></td>
             <td>
 		   		<span  style="color:red">*</span>  <span id="sPhone"></span>
 		    </td>
