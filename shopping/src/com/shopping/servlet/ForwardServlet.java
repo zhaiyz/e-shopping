@@ -41,8 +41,10 @@ public class ForwardServlet extends HttpServlet {
 		} else if ("index".equals(page)) {
 			List<ProductVo> recommenList = new ArrayList<ProductVo>();
 			List<ProductVo> newProductList = new ArrayList<ProductVo>();
-			recommenList = ServiceFactory.getProductServiceInstance().getRecommenProduct();
-			newProductList = ServiceFactory.getProductServiceInstance().getNewProduct();
+			recommenList = ServiceFactory.getProductServiceInstance()
+					.getRecommenProduct();
+			newProductList = ServiceFactory.getProductServiceInstance()
+					.getNewProduct();
 			request.setAttribute("recommenList", recommenList);
 			request.setAttribute("newProductList", newProductList);
 			path = "/homepage.jsp";
@@ -64,14 +66,16 @@ public class ForwardServlet extends HttpServlet {
 			path = "user/cart.jsp";
 		} else if ("order".equals(page)) {
 			path = "/user/info.jsp";
-		}else if("personal".equals(page)){
-			int id = (Integer)request.getSession().getAttribute("userId");
-			UserVo user = ServiceFactory.getUserServiceInstance().findUserById(id);
+		} else if ("personal".equals(page)) {
+			int id = (Integer) request.getSession().getAttribute("userId");
+			UserVo user = ServiceFactory.getUserServiceInstance().findUserById(
+					id);
 			request.setAttribute("user", user);
 			path = "/user/personal.jsp";
-		}else if("account".equals(page)){
-			int id = (Integer)request.getSession().getAttribute("userId");
-			UserVo user = ServiceFactory.getUserServiceInstance().findUserById(id);
+		} else if ("account".equals(page)) {
+			int id = (Integer) request.getSession().getAttribute("userId");
+			UserVo user = ServiceFactory.getUserServiceInstance().findUserById(
+					id);
 			request.setAttribute("user", user);
 			path = "/user/account.jsp";
 		}

@@ -1,5 +1,6 @@
 package com.shopping.factory;
 
+import com.shopping.service.AdminService;
 import com.shopping.service.CardService;
 import com.shopping.service.CartService;
 import com.shopping.service.CategoryService;
@@ -9,6 +10,7 @@ import com.shopping.service.MyOrderService;
 import com.shopping.service.OrderInfoService;
 import com.shopping.service.ProductService;
 import com.shopping.service.UserService;
+import com.shopping.service.impl.AdminServiceImpl;
 import com.shopping.service.impl.CardServiceImpl;
 import com.shopping.service.impl.CartServiceImpl;
 import com.shopping.service.impl.CategoryServiceImpl;
@@ -100,5 +102,14 @@ public class ServiceFactory {
 	 */
 	public static CardService getCardServiceInstance() {
 		return new CardServiceImpl();
+	}
+
+	/**
+	 * 取得AdminService接口的实例
+	 * 
+	 * @return
+	 */
+	public static AdminService getAdminServiceInstance() {
+		return new AdminServiceImpl();
 	}
 }

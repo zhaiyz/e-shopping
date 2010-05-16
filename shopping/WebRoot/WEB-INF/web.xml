@@ -87,6 +87,11 @@
     <servlet-name>BenefitServlet</servlet-name>
     <servlet-class>com.shopping.servlet.BenefitServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>com.shopping.servlet.AdminServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -139,6 +144,10 @@
     <servlet-name>BenefitServlet</servlet-name>
     <url-pattern>/benefit</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/admin</url-pattern>
+  </servlet-mapping>
 
 	<filter>
 		<filter-name>login</filter-name>
@@ -148,6 +157,10 @@
 		<filter-name>encoding</filter-name>
 		<filter-class>com.shopping.filter.EncodingFilter</filter-class>
 	</filter>
+	<filter>
+		<filter-name>admin</filter-name>
+		<filter-class>com.shopping.filter.AdminFilter</filter-class>
+	</filter>
 
 	<filter-mapping>
 		<filter-name>encoding</filter-name>
@@ -156,6 +169,18 @@
 	<filter-mapping>
 		<filter-name>login</filter-name>
 		<url-pattern>/product</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>admin</filter-name>
+		<url-pattern>/admin/adminhome.jsp</url-pattern>
+		<url-pattern>/admin/benefit.jsp</url-pattern>
+		<url-pattern>/admin/card.jsp</url-pattern>
+		<url-pattern>/admin/category.jsp</url-pattern>
+		<url-pattern>/admin/item.jsp</url-pattern>
+		<url-pattern>/admin/memeber.jsp</url-pattern>
+		<url-pattern>/admin/order.jsp</url-pattern>
+		<url-pattern>/admin/product.jsp</url-pattern>
+		<url-pattern>/admin/send.jsp</url-pattern>
 	</filter-mapping>
 
 	<welcome-file-list>

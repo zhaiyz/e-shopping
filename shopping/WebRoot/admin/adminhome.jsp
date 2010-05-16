@@ -7,13 +7,13 @@
 			href="../resources/css/ext-all.css" />
 		<link rel="stylesheet" type="text/css"
 			href="../resources/css/ext-patch.css" />
-
+        <!--
 		<script type="text/javascript" src="../js/ext-base.js"></script>
 		<script type="text/javascript" src="../js/ext-all.js"></script>
-		<!--
+		-->
 		<script type="text/javascript" src="../js/ext-base-debug.js"></script>
 		<script type="text/javascript" src="../js/ext-all-debug.js"></script>
-		-->
+		
 		<script type="text/javascript" src="../js/ext-lang-zh_CN.js"></script>
 
 		<script type="text/javascript" src="../js/SearchField.js"></script>
@@ -21,13 +21,32 @@
 		<script type="text/javascript" src="../js/FileUploadField.js"></script>
 		<script type="text/javascript">
             Ext.BLANK_IMAGE_URL='../resources/images/default/s.gif';
+            
+            Ext.QuickTips.init();
+            
+            Ext.form.Field.prototype.msgTarget='qtip';
                     
             Ext.onReady(function(){
             
                 //顶部面板
                 var topPanel = new Ext.Panel({
-                    title: "顶部面板",
                     region: "north",
+                    tbar:[
+                        '欢迎你' + '<%=session.getAttribute("adminName") %>',
+                        {xtype:"tbseparator"},
+                        {text: '退出', handler: function() {
+                            Ext.Ajax.request({
+                                url: '/shopping/admin?action=logout',
+                                method: 'post',
+                                success: function(response, options) {
+                                    var obj = Ext.util.JSON.decode(response.responseText);
+                                    if (obj.success == true) {
+                                        document.location = obj.url;
+                                    }
+                                }
+                            });
+                        }}
+                    ],
                     height: 100
                 });
                 
