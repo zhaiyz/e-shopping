@@ -177,7 +177,7 @@ public class UserDaoImpl implements UserDao {
 
 	public boolean isLogin(UserVo user) {
 		boolean flag = false;
-		String sql = "SELECT * FROM user WHERE user_name = ? AND user_password = ?";
+		String sql = "SELECT * FROM user WHERE user_name = ? AND user_password = ? AND user_state = 0";
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
 		try {
