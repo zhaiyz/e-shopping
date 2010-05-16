@@ -31,8 +31,6 @@ public class AdminFilter implements Filter {
 		} else {
 			chain.doFilter(request, response);
 		}
-
-		chain.doFilter(request, response);
 	}
 
 	public void init(FilterConfig arg0) throws ServletException {
