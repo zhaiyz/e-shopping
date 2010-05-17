@@ -186,7 +186,7 @@ public class MyOrderDaoImpl implements MyOrderDao {
 
 	public List<MyOrderVo> findOrderByUserId(int id) {
 		List<MyOrderVo> list = new ArrayList<MyOrderVo>();
-		String sql = "SELECT * FROM myorder WHERE user_id = ?";
+		String sql = "SELECT * FROM myorder WHERE user_id = ? ORDER BY order_datetime DESC";
 		PreparedStatement pstmt = null;
 		DBUtil dbc = new DBUtil();
 		try {
