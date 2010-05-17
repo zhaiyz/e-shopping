@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.shopping.dao.CardDao;
 import com.shopping.util.DBUtil;
+import com.shopping.vo.CardAnalysisVo;
 import com.shopping.vo.CardVo;
 
 public class CardDaoImpl implements CardDao {
@@ -249,6 +250,29 @@ public class CardDaoImpl implements CardDao {
 			dbc.close();
 		}
 		return list;
+	}
+
+	public CardAnalysisVo CardAnalysis(int state) {
+		CardAnalysisVo ca = new CardAnalysisVo();
+		String sql = "SELECT COUNT(*), SUM(card_value) FROM card WHERE card_flag = ?";
+		DBUtil dbc = new DBUtil();
+		try {
+			PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
+			pst.setInt(1, state);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				ca.setState(state);
+				ca.setNumber(rs.getInt(1));
+				ca.setValue(rs.getFloat(2));
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return ca;
 	}
 
 }

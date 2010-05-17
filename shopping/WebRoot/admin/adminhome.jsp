@@ -87,7 +87,8 @@
                         text: "充值卡管理",
                         expended: true,
                         children: [
-                            {id: "card.jsp", text: "充值卡管理", leaf: true}
+                            {id: "card.jsp", text: "充值卡管理", leaf: true},
+                            {id: "card2.jsp", text: "充值卡统计", leaf: true}
                         ]
                     })
                 });

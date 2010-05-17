@@ -5,6 +5,7 @@ import java.util.List;
 import com.shopping.dao.CardDao;
 import com.shopping.dao.impl.CardDaoImpl;
 import com.shopping.service.CardService;
+import com.shopping.vo.CardAnalysisVo;
 import com.shopping.vo.CardVo;
 
 public class CardServiceImpl implements CardService{
@@ -48,6 +49,10 @@ public class CardServiceImpl implements CardService{
 
 	public List<CardVo> findAllCard(int state, int start, int limit) {
 		return dao.findAllCard(state, start, limit);
+	}
+
+	public CardAnalysisVo CardAnalysis(int state) {
+		return dao.CardAnalysis(state);
 	}
 
 }

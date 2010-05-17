@@ -2,6 +2,7 @@ package com.shopping.dao;
 
 import java.util.List;
 
+import com.shopping.vo.CardAnalysisVo;
 import com.shopping.vo.CardVo;
 
 public interface CardDao {
@@ -93,4 +94,12 @@ public interface CardDao {
 	 * @return
 	 */
 	public List<CardVo> findAllCard(int state, int start, int limit);
+
+	/**
+	 * 按卡状态进行相关的统计
+	 * 
+	 * @param state
+	 * @return
+	 */
+	public CardAnalysisVo CardAnalysis(int state);
 }
