@@ -50,11 +50,28 @@
                     baseParams: {
                         start: 0,
                         limit: 10
-                    }
+                    },
+                    getGroupState: Ext.emptyFn
                 });
                 
                 //加载Item数据
                 pStore.load();
+                
+                var gridView = new Ext.grid.GroupingView({
+				    getRowClass : function (record, index) {
+				        if(!record){
+				            return '';
+				        }
+				        if( record.data.stock <=20 ){
+				            return 'x-grid-record-red';
+				        } else if (record.data.stock > 20 && record.data.stock <=50 ) {
+				            return 'x-grid-record-yellow';
+				        } else {
+				            return '';
+				        }
+				    },
+				    groupTextTpl: '{text} ({[values.rs.length]} {[values.rs.length > 1 ? "Items" : "Item"]})'
+				});
                 
                 //定义一个itemGrid
                 var proGrid = new Ext.grid.GridPanel({
@@ -81,6 +98,10 @@
                         }
                     ],
                     ds:pStore,
+                    viewConfig:/*BEGIN*/ { 
+                        forceFit: true 
+                    }/*END*/, 
+                    view: gridView,
                     sm: new Ext.grid.RowSelectionModel({ singleSelect: true }),
                     autoExpandColumn: 'proDesc',
                     bbar: new Ext.PagingToolbar({

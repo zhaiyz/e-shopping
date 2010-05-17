@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shopping.factory.ServiceFactory;
 import com.shopping.util.JSONUtil;
+import com.shopping.vo.CardAnalysisVo;
 import com.shopping.vo.CardVo;
 import com.shopping.vo.UserVo;
 
@@ -80,7 +81,7 @@ public class CardServelt extends HttpServlet {
 			try {
 				state = Integer.parseInt(request.getParameter("state"));
 			} catch (NumberFormatException e) {
-                state = -1;
+				state = -1;
 			}
 
 			start = Integer.parseInt(request.getParameter("start"));
@@ -125,6 +126,41 @@ public class CardServelt extends HttpServlet {
 			} else {
 				json += "{success:false}";
 			}
+
+			flag = false;
+		} else if ("analysis".equals(action)) {
+			// 充值卡统计
+
+			// 未使用的
+			int state0 = 0;
+			// 已使用
+			int state1 = 1;
+
+			// 未使用的张数
+			int num0 = 0;
+			// 使用的张数
+			int num1 = 0;
+
+			// 总金额
+			float value0 = 0.0f;
+			float value1 = 0.0f;
+
+			CardAnalysisVo ca0 = new CardAnalysisVo();
+			CardAnalysisVo ca1 = new CardAnalysisVo();
+
+			// 未使用的
+			ca0 = ServiceFactory.getCardServiceInstance().CardAnalysis(state0);
+
+			// 已使用的
+			ca1 = ServiceFactory.getCardServiceInstance().CardAnalysis(state1);
+
+			List<CardAnalysisVo> list = new ArrayList<CardAnalysisVo>();
+
+			list.add(ca0);
+			list.add(ca1);
+
+			// 返回的字符串
+			json += "{total:" + 2 + ",list:" + JSONUtil.list2json(list) + "}";
 
 			flag = false;
 		}
