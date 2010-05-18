@@ -65,9 +65,9 @@ public class ItemServlet extends HttpServlet {
 			}
 
 			list = ServiceFactory.getProductServiceInstance().findAllProduct(
-					id, offset, limit);
-			total = ServiceFactory.getProductServiceInstance().getTotalNumber(
-					id);
+					id, 0, offset, limit);
+			total = ServiceFactory.getProductServiceInstance().getTotalNum(
+					id, 0);
 
 			PageModel pm = new PageModel();
 			pm.setTotal(total);

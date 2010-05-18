@@ -103,9 +103,9 @@ public class ProductServlet extends HttpServlet {
 			}
 
 			list = ServiceFactory.getProductServiceInstance()
-					.findProductByLike(key, offset, limit);
+					.findProductByLikeName(key, 0, offset, limit);
 			total = ServiceFactory.getProductServiceInstance()
-					.getTotalProductByLike(key);
+					.getTotalNum(key, 0);
 
 			PageModel pm = new PageModel();
 			pm.setTotal(total);
@@ -309,8 +309,36 @@ public class ProductServlet extends HttpServlet {
 			} else {
 				json += "{success:false}";
 			}
-			
+
 			// 不进行页面跳转
+			flag = false;
+		} else if ("down".equals(action)) {
+			// 商品下架
+			int id = 0;
+
+			try {
+				id = Integer.parseInt(request.getParameter("proId"));
+			} catch (NumberFormatException e) {
+				// 错误
+			}
+
+			// 按商品主键
+			ProductVo product = new ProductVo();
+			product = ServiceFactory.getProductServiceInstance()
+					.findProductById(id);
+
+			// 设置为下架
+			product.setProductFlag(1);
+
+			if (ServiceFactory.getProductServiceInstance().modifyProduct(
+					product)) {
+				// 商品下架成功
+				json += "{success:true}";
+			} else {
+				// 商品下架失败
+				json += "{success:false}";
+			}
+
 			flag = false;
 		}
 

@@ -60,13 +60,15 @@ public class ProductDaoImp implements ProductDao {
 				product.setProName(rs.getString("pro_name"));
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
-				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
+				product.setProDatetime(rs.getString("pro_datetime").substring(
+						0, 19));
 				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
 				product.setStock(rs.getInt("stock"));
 				product.setSales(rs.getInt("sales"));
 				product.setRecommendation(rs.getInt("recommendation"));
+				product.setProductFlag(rs.getInt("product_flag"));
 				list.add(product);
 			}
 			rs.close();
@@ -95,13 +97,15 @@ public class ProductDaoImp implements ProductDao {
 				product.setProName(rs.getString("pro_name"));
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
-				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
+				product.setProDatetime(rs.getString("pro_datetime").substring(
+						0, 19));
 				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
 				product.setStock(rs.getInt("stock"));
 				product.setSales(rs.getInt("sales"));
 				product.setRecommendation(rs.getInt("recommendation"));
+				product.setProductFlag(rs.getInt("product_flag"));
 				list.add(product);
 			}
 			rs.close();
@@ -130,13 +134,15 @@ public class ProductDaoImp implements ProductDao {
 				product.setProName(rs.getString("pro_name"));
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
-				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
+				product.setProDatetime(rs.getString("pro_datetime").substring(
+						0, 19));
 				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
 				product.setStock(rs.getInt("stock"));
 				product.setSales(rs.getInt("sales"));
 				product.setRecommendation(rs.getInt("recommendation"));
+				product.setProductFlag(rs.getInt("product_flag"));
 			}
 			rs.close();
 			pst.close();
@@ -165,13 +171,15 @@ public class ProductDaoImp implements ProductDao {
 				product.setProName(rs.getString("pro_name"));
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
-				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
+				product.setProDatetime(rs.getString("pro_datetime").substring(
+						0, 19));
 				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
 				product.setStock(rs.getInt("stock"));
 				product.setSales(rs.getInt("sales"));
 				product.setRecommendation(rs.getInt("recommendation"));
+				product.setProductFlag(rs.getInt("product_flag"));
 			}
 			rs.close();
 			pst.close();
@@ -187,7 +195,7 @@ public class ProductDaoImp implements ProductDao {
 		boolean flag = false;
 		String sql = "UPDATE product SET item_id = ?, pro_name = ?, imageurl = ?, "
 				+ "pro_desc = ?, pur_price = ?, ori_price = ?, dis_price = ?,stock = ?,"
-				+ " sales = ?,recommendation = ? WHERE pro_id = ?";
+				+ " sales = ?,recommendation = ?, product_flag = ? WHERE pro_id = ?";
 		PreparedStatement pst = null;
 		DBUtil dbc = new DBUtil();
 		try {
@@ -202,7 +210,8 @@ public class ProductDaoImp implements ProductDao {
 			pst.setInt(8, product.getStock());
 			pst.setInt(9, product.getSales());
 			pst.setInt(10, product.getRecommendation());
-			pst.setInt(11, product.getProId());
+			pst.setInt(11, product.getProductFlag());
+			pst.setInt(12, product.getProId());
 			if (pst.executeUpdate() == 0 || pst.executeUpdate() == 1) {
 				flag = true;
 			}
@@ -275,13 +284,15 @@ public class ProductDaoImp implements ProductDao {
 				product.setProName(rs.getString("pro_name"));
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
-				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
+				product.setProDatetime(rs.getString("pro_datetime").substring(
+						0, 19));
 				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
 				product.setStock(rs.getInt("stock"));
 				product.setSales(rs.getInt("sales"));
 				product.setRecommendation(rs.getInt("recommendation"));
+				product.setProductFlag(rs.getInt("product_flag"));
 				list.add(product);
 			}
 			rs.close();
@@ -344,27 +355,29 @@ public class ProductDaoImp implements ProductDao {
 		try {
 			PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
-			while(rs.next()){
+			while (rs.next()) {
 				ProductVo product = new ProductVo();
 				product.setProId(rs.getInt("pro_id"));
 				product.setItemId(rs.getInt("item_id"));
 				product.setProName(rs.getString("pro_name"));
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
-				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
+				product.setProDatetime(rs.getString("pro_datetime").substring(
+						0, 19));
 				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
 				product.setStock(rs.getInt("stock"));
 				product.setSales(rs.getInt("sales"));
 				product.setRecommendation(rs.getInt("recommendation"));
+				product.setProductFlag(rs.getInt("product_flag"));
 				list.add(product);
 			}
 			rs.close();
 			pst.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			dbc.close();
 		}
 		return list;
@@ -377,27 +390,192 @@ public class ProductDaoImp implements ProductDao {
 		try {
 			PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
-			while(rs.next()){
+			while (rs.next()) {
 				ProductVo product = new ProductVo();
 				product.setProId(rs.getInt("pro_id"));
 				product.setItemId(rs.getInt("item_id"));
 				product.setProName(rs.getString("pro_name"));
 				product.setImageUrl(rs.getString("imageurl"));
 				product.setProDesc(rs.getString("pro_desc"));
-				product.setProDatetime(rs.getString("pro_datetime").substring(0, 19));
+				product.setProDatetime(rs.getString("pro_datetime").substring(
+						0, 19));
 				product.setPurPrice(rs.getFloat("pur_price"));
 				product.setOriPrice(rs.getFloat("ori_price"));
 				product.setDisPrice(rs.getFloat("dis_price"));
 				product.setStock(rs.getInt("stock"));
 				product.setSales(rs.getInt("sales"));
 				product.setRecommendation(rs.getInt("recommendation"));
+				product.setProductFlag(rs.getInt("product_flag"));
 				list.add(product);
 			}
 			rs.close();
 			pst.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
+			dbc.close();
+		}
+		return list;
+	}
+
+	public List<ProductVo> findAllProduct(int itemId, int flag, int start,
+			int limit) {
+		List<ProductVo> list = new ArrayList<ProductVo>();
+		String sql = "SELECT * FROM product WHERE item_id = ? AND product_flag = ? LIMIT "
+				+ start + "," + limit;
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, itemId);
+			pstmt.setInt(2, flag);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductVo product = new ProductVo();
+				product.setProId(rs.getInt("pro_id"));
+				product.setItemId(rs.getInt("item_id"));
+				product.setProName(rs.getString("pro_name"));
+				product.setImageUrl(rs.getString("imageurl"));
+				product.setProDesc(rs.getString("pro_desc"));
+				product.setProDatetime(rs.getString("pro_datetime").substring(
+						0, 19));
+				product.setPurPrice(rs.getFloat("pur_price"));
+				product.setOriPrice(rs.getFloat("ori_price"));
+				product.setDisPrice(rs.getFloat("dis_price"));
+				product.setStock(rs.getInt("stock"));
+				product.setSales(rs.getInt("sales"));
+				product.setRecommendation(rs.getInt("recommendation"));
+				product.setProductFlag(rs.getInt("product_flag"));
+				list.add(product);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return list;
+	}
+
+	public int getTotalNum(int itemId, int flag) {
+		int total = 0;
+		String sql = "SELECT COUNT(*) FROM product WHERE item_id = ? AND product_flag = ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, itemId);
+			pstmt.setInt(2, flag);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				total = rs.getInt(1);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return total;
+	}
+
+	public List<ProductVo> findProductByLikeName(String name, int flag,
+			int start, int limit) {
+		List<ProductVo> list = new ArrayList<ProductVo>();
+		String sql = "SELECT * FROM product WHERE pro_name LIKE ? AND product_flag = ? LIMIT "
+				+ start + "," + limit;
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setString(1, "%" + name + "%");
+			pstmt.setInt(2, flag);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductVo product = new ProductVo();
+				product.setProId(rs.getInt("pro_id"));
+				product.setItemId(rs.getInt("item_id"));
+				product.setProName(rs.getString("pro_name"));
+				product.setImageUrl(rs.getString("imageurl"));
+				product.setProDesc(rs.getString("pro_desc"));
+				product.setProDatetime(rs.getString("pro_datetime").substring(
+						0, 19));
+				product.setPurPrice(rs.getFloat("pur_price"));
+				product.setOriPrice(rs.getFloat("ori_price"));
+				product.setDisPrice(rs.getFloat("dis_price"));
+				product.setStock(rs.getInt("stock"));
+				product.setSales(rs.getInt("sales"));
+				product.setRecommendation(rs.getInt("recommendation"));
+				product.setProductFlag(rs.getInt("product_flag"));
+				list.add(product);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return list;
+	}
+
+	public int getTotalNum(String name, int flag) {
+		int total = 0;
+		String sql = "SELECT COUNT(*) FROM product WHERE pro_name LIKE ? AND product_flag = ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setString(1, "%" + name + "%");
+			pstmt.setInt(2, flag);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				total = rs.getInt(1);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbc.close();
+		}
+		return total;
+	}
+
+	public List<ProductVo> findAllProduct(int itemId) {
+		List<ProductVo> list = new ArrayList<ProductVo>();
+		String sql = "SELECT * FROM product WHERE item_id = ?";
+		PreparedStatement pstmt = null;
+		DBUtil dbc = new DBUtil();
+		try {
+			pstmt = dbc.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, itemId);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductVo product = new ProductVo();
+				product.setProId(rs.getInt("pro_id"));
+				product.setItemId(rs.getInt("item_id"));
+				product.setProName(rs.getString("pro_name"));
+				product.setImageUrl(rs.getString("imageurl"));
+				product.setProDesc(rs.getString("pro_desc"));
+				product.setProDatetime(rs.getString("pro_datetime").substring(
+						0, 19));
+				product.setPurPrice(rs.getFloat("pur_price"));
+				product.setOriPrice(rs.getFloat("ori_price"));
+				product.setDisPrice(rs.getFloat("dis_price"));
+				product.setStock(rs.getInt("stock"));
+				product.setSales(rs.getInt("sales"));
+				product.setRecommendation(rs.getInt("recommendation"));
+				product.setProductFlag(rs.getInt("product_flag"));
+				list.add(product);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			dbc.close();
 		}
 		return list;

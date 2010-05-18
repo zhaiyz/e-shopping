@@ -136,15 +136,6 @@ public class CardServelt extends HttpServlet {
 			// 已使用
 			int state1 = 1;
 
-			// 未使用的张数
-			int num0 = 0;
-			// 使用的张数
-			int num1 = 0;
-
-			// 总金额
-			float value0 = 0.0f;
-			float value1 = 0.0f;
-
 			CardAnalysisVo ca0 = new CardAnalysisVo();
 			CardAnalysisVo ca1 = new CardAnalysisVo();
 

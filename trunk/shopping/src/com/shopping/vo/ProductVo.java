@@ -1,6 +1,5 @@
 package com.shopping.vo;
 
-
 /**
  * @author Administrator 商品VO类
  */
@@ -41,6 +40,17 @@ public class ProductVo {
 
 	/** 商品是否推荐 */
 	private int recommendation;
+
+	/** 是否显示 */
+	private int productFlag;
+
+	public int getProductFlag() {
+		return productFlag;
+	}
+
+	public void setProductFlag(int productFlag) {
+		this.productFlag = productFlag;
+	}
 
 	public float getDisPrice() {
 		return disPrice;

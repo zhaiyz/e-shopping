@@ -6996,3 +6996,7 @@ body.x-body-masked .x-window-plain .x-window-mc {
 .x-grid-record-yellow {
 	background: #FFFF00;
 }
+
+.x-grid-record-blue {
+	background: #0000FF;
+}
