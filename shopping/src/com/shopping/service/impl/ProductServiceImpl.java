@@ -74,4 +74,26 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getRecommenProduct();
 	}
 
+	public List<ProductVo> findAllProduct(int itemId, int flag, int start,
+			int limit) {
+		return productDao.findAllProduct(itemId, flag, start, limit);
+	}
+
+	public int getTotalNum(int itemId, int flag) {
+		return productDao.getTotalNum(itemId, flag);
+	}
+
+	public List<ProductVo> findProductByLikeName(String name, int flag,
+			int start, int limit) {
+		return productDao.findProductByLikeName(name, flag, start, limit);
+	}
+
+	public int getTotalNum(String name, int flag) {
+		return productDao.getTotalNum(name, flag);
+	}
+
+	public List<ProductVo> findAllProduct(int itemId) {
+		return productDao.findAllProduct(itemId);
+	}
+
 }

@@ -99,14 +99,14 @@ public interface ProductService {
 	 * @return
 	 */
 	public int getTotalProductByLike(String name);
-	
+
 	/**
 	 * 获得商品总数
 	 * 
 	 * @return
 	 */
 	public int getTotalNum();
-	
+
 	/**
 	 * 获得推荐商品
 	 * 
@@ -121,4 +121,54 @@ public interface ProductService {
 	 * @return
 	 */
 	public List<ProductVo> getNewProduct();
+
+	/**
+	 * 前台显示的时候只查询那个没下架的，也就是product_flag = 0的那些
+	 * 
+	 * @param itemId
+	 * @param flag
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List<ProductVo> findAllProduct(int itemId, int flag, int start,
+			int limit);
+
+	/**
+	 * 没下架的总数，一个小类里面的
+	 * 
+	 * @param itemId
+	 * @param flag
+	 * @return
+	 */
+	public int getTotalNum(int itemId, int flag);
+
+	/**
+	 * 模糊查询上架的商品
+	 * 
+	 * @param start
+	 * @param limit
+	 * @param name
+	 * @param flag
+	 * @return
+	 */
+	public List<ProductVo> findProductByLikeName(String name, int flag,
+			int start, int limit);
+
+	/**
+	 * 计算一个总数，模糊查询的时候用的
+	 * 
+	 * @param name
+	 * @param flag
+	 * @return
+	 */
+	public int getTotalNum(String name, int flag);
+
+	/**
+	 * 查询出所有的商品
+	 * 
+	 * @param itemId
+	 * @return
+	 */
+	public List<ProductVo> findAllProduct(int itemId);
 }

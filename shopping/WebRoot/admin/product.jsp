@@ -38,6 +38,7 @@
                     {name: 'stock', type: 'int'},
                     {name: 'sales', type: 'int'},
                     {name: 'recommendation', type: 'int'},
+                    {name: 'productFlag', type: 'int'},
                     {name: 'proDatetime', type: 'date', dateFormat:"Y-m-d H:i:s"}
                 ]); 
                 
@@ -64,7 +65,7 @@
 				        }
 				        if( record.data.stock <=20 ){
 				            return 'x-grid-record-red';
-				        } else if (record.data.stock > 20 && record.data.stock <=50 ) {
+				        } else if (record.data.productFlag > 0) {
 				            return 'x-grid-record-yellow';
 				        } else {
 				            return '';
@@ -89,6 +90,7 @@
                         {header:"商品库存", dataIndex:"stock", renderer: stock},
                         {header:"商品售量", dataIndex:"sales", renderer: stock},
                         {header:"是否推荐", dataIndex:"recommendation", renderer: recommend},
+                        {header:"是否下架", dataIndex:"productFlag", renderer: productFlag},
                         {
                             header:"创建时间",
                             dataIndex:"proDatetime",
@@ -112,6 +114,15 @@
                         emptyMsg:"没有记录"
                     })
                 });
+                
+                // 商品下价
+                function productFlag(value) {
+                    if (value == 0) {
+                        return "否";
+                    } else {
+                        return "是";
+                    }
+                }
                 
                 //给这个数据框添加事件
                 proGrid.addListener('celldblclick',function(grid, rowIndex, columnIndex, e){
@@ -313,6 +324,8 @@
 	                    {text: "添加", handler: addPro},
 	                    {xtype:"tbseparator"},
 	                    {text: "编辑", handler: editPro},
+	                    {xtype:"tbseparator"},
+	                    {text: "下架", handler: downPro},
 	                    {xtype:"tbseparator"},
 	                    {text: "删除", handler: delPro},
 	                    {xtype:"tbseparator"},
@@ -664,6 +677,38 @@
 	                    
 	                    win.show(); 
                     } 
+	            }
+	            
+	            //商品下架
+	            function downPro() {
+	                var x = proGrid.getSelectionModel().getSelected();
+                    if (x == null) {
+                        Ext.MessageBox.alert('提示', '至少选择一行');
+                        return false;
+                    } else {
+                        Ext.MessageBox.confirm("提示","你确定要下架这个商品吗?",function(btn){
+                            if (btn == 'yes') {
+                                Ext.Ajax.request({
+                                    url: '/shopping/product?action=down',
+                                    params: {
+                                        proId: x.get("proId")
+                                    },
+                                    success: function(response, options) {
+                                        var obj = Ext.util.JSON.decode(response.responseText);
+                                        if(obj.success == true) {
+                                            Ext.Msg.alert("提示","商品下架成功");
+                                            pStore.load();
+                                        } else {
+                                            Ext.Msg.alert("提示","商品下架失败");
+                                        }
+                                    },
+                                    failure: function(response, options) {
+                                        Ext.Msg.alert("提示","商品下架失败");
+                                    }
+                                });
+                            }
+	                    });
+                    }
 	            }
 	            
 	            //删除小类方法

@@ -1,4 +1,4 @@
-#Sun May 16 14:03:23 CST 2010
+#Tue May 18 18:14:40 CST 2010
 eclipse.preferences.version=1
 encoding//WebRoot/js/Login.js=UTF-8
 encoding//WebRoot/js/SearchField.js=UTF-8
@@ -24,6 +24,9 @@ encoding//src/com/shopping/servlet/ProductServlet.java=UTF-8
 encoding//src/com/shopping/servlet/UserServlet.java=gbk
 encoding//src/com/shopping/util/DBUtil.java=gbk
 encoding//src/com/shopping/vo/AdminVo.java=gbk
+encoding//src/com/shopping/vo/BenefitAllVo.java=UTF-8
+encoding//src/com/shopping/vo/BenefitItemVo.java=UTF-8
+encoding//src/com/shopping/vo/BenefitVo.java=UTF-8
 encoding//src/com/shopping/vo/CardVo.java=UTF-8
 encoding//src/com/shopping/vo/CartVo.java=UTF-8
 encoding//src/com/shopping/vo/CategoryVo.java=UTF-8
