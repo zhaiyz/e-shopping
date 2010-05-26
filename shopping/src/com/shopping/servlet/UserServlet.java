@@ -56,11 +56,10 @@ public class UserServlet extends HttpServlet {
 
 				if (ServiceFactory.getUserServiceInstance().isLogin(user)) {
 					// 登录成功，把userName放入session
+					int userId = ServiceFactory.getUserServiceInstance().findUserByName(userName).getUserId();
+					
 					request.getSession().setAttribute("userName", userName);
-					request.getSession().setAttribute(
-							"userId",
-							ServiceFactory.getUserServiceInstance()
-									.findUserByName(userName).getUserId());
+					request.getSession().setAttribute("userId",	userId);
 
 					path = "index.jsp";
 				} else {
@@ -205,7 +204,7 @@ public class UserServlet extends HttpServlet {
 			} else {
 				json += "{success:false}";
 			}
-            
+
 			flag = false;
 		}
 
@@ -219,5 +218,4 @@ public class UserServlet extends HttpServlet {
 			out.print(json);
 		}
 	}
-
 }

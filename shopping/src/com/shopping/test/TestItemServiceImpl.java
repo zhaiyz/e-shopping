@@ -19,9 +19,9 @@ public class TestItemServiceImpl extends TestCase {
 	public void testAddItem() {
 		ItemVo item = new ItemVo();
 
-		int catId = 1;
-		String itemName = "itemName";
-		String itemDesc = "itemDesc";
+		int catId = 3;
+		String itemName = "手表";
+		String itemDesc = "各种手表";
 
 		item.setCatId(catId);
 		item.setItemName(itemName);

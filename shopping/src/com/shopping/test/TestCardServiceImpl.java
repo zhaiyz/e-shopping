@@ -17,9 +17,9 @@ public class TestCardServiceImpl {
 	@Test
 	public void testAddCard() {
 		CardVo card = new CardVo();
-		card.setCardNo("0");
-		card.setCardPassword("123");
-		card.setCardValue(10.0f);
+		card.setCardNo("6");
+		card.setCardPassword("6");
+		card.setCardValue(6000000.0f);
 		card.setCardFlag(1);
 		
 		assertTrue(service.addCard(card));

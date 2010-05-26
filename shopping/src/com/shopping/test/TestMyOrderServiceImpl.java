@@ -16,6 +16,16 @@ public class TestMyOrderServiceImpl extends TestCase {
 	private MyOrderService service = new MyOrderServiceImpl();
 
 	@Test
+	public void testFindByTime() {
+		String start = "2010-05-01";
+		String end = "2010-05-06";
+		
+		List<MyOrderVo> list = new ArrayList<MyOrderVo>();
+		list = service.findByTime(start, end);
+		
+		assertEquals(4, list.size());
+	}
+	 @Test
 	public void testAddMyOrder() {
 		MyOrderVo order = new MyOrderVo();
 		order.setUserId(1);

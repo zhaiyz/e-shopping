@@ -66,8 +66,8 @@ public class ItemServlet extends HttpServlet {
 
 			list = ServiceFactory.getProductServiceInstance().findAllProduct(
 					id, 0, offset, limit);
-			total = ServiceFactory.getProductServiceInstance().getTotalNum(
-					id, 0);
+			total = ServiceFactory.getProductServiceInstance().getTotalNum(id,
+					0);
 
 			PageModel pm = new PageModel();
 			pm.setTotal(total);
@@ -147,13 +147,31 @@ public class ItemServlet extends HttpServlet {
 			// 这个是不进行跳转的
 			flag = false;
 		} else if ("display".equals(action)) {
+
+			int catId = 0;
+
+			try {
+				catId = Integer.parseInt(request.getParameter("catId"));
+			} catch (NumberFormatException e) {
+				catId = 0;
+			}
+
 			int total = 0;
 
 			List<ItemVo> list = new ArrayList<ItemVo>();
 
-			total = ServiceFactory.getItemServiceInstance().getTotalNum();
+			if (catId == 0) {
+				// 查询全部
+				total = ServiceFactory.getItemServiceInstance().getTotalNum();
 
-			list = ServiceFactory.getItemServiceInstance().findAllItem();
+				list = ServiceFactory.getItemServiceInstance().findAllItem();
+			} else {
+				total = ServiceFactory.getItemServiceInstance().getTotalNum(
+						catId);
+
+				list = ServiceFactory.getItemServiceInstance()
+						.findItemByCategoryId(catId);
+			}
 
 			// 组织要返回的json
 			json += "{total:" + total + ",list:" + JSONUtil.list2json(list)

@@ -18,8 +18,8 @@ public class TestCategoryServiceImpl extends TestCase {
 	@Test
 	public void testAddCategory() {
 		CategoryVo category = new CategoryVo();
-		String catName = "category";
-		String catDesc = "catDesc";
+		String catName = "首饰";
+		String catDesc = "各种首饰";
 		
 		category.setCatName(catName);
 		category.setCatDesc(catDesc);

@@ -17,15 +17,15 @@ public class TestUserServiceImpl extends TestCase {
 	 @Test
 	public void testAddUser() {
 		UserVo user = new UserVo();
-		String userName = "userName";
-		String userPassword = "userPassword";
+		String userName = "wolf";
+		String userPassword = "123";
 		int gender = 0;
 		int grade = 0;
-		float balance = 100.0f;
-		String prompt = "prompt";
-		String answer = "answer";
-		String favor = "favor";
-		float payed = 100.0f;
+		float balance = 1000.0f;
+		String prompt = "你上的大学的名称是什么";
+		String answer = "重庆交通大学";
+		String favor = "";
+		float payed = 500.0f;
 		int userState = 0;
 		String email = "hanxue_lang@foxmail.com";
 		String phone = "13658366487";
@@ -66,17 +66,17 @@ public class TestUserServiceImpl extends TestCase {
 	@Test
 	public void testModifyUser() {
 		UserVo user = new UserVo();
-		int userId = 3;
-		String userName = "userName2";
-		String userPassword = "userPassword2";
+		int userId = 1;
+		String userName = "awp";
+		String userPassword = "123";
 		int gender = 1;
 		int grade = 1;
-		float balance = 120.0f;
-		String prompt = "prompt3";
-		String answer = "answer3";
-		String favor = "favor3";
+		float balance = 1000.0f;
+		String prompt = "你的大学名称是什么";
+		String answer = "重庆交通大学";
+		String favor = "好多";
 		float payed = 300.0f;
-		int userState = 3;
+		int userState = 0;
 		String email = "hanxue_lang@foxmail.com3";
 		String phone = "136583664873";
 		
