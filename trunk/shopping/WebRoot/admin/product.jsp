@@ -5,7 +5,28 @@
 		<title>管理员首页</title>
 	<body>
 	    <script type="text/javascript">
+	        
+	    
 	        Ext.onReady(function(){
+	            //定义catStore里面的成员
+	            var cMember = Ext.data.Record.create([
+	                {name: 'itemId', type: 'int'},
+	                {name: 'catId', type: 'int'},
+                    {name: 'catName', type: 'string'},
+                    {name: 'catDesc', type: 'string'},
+                    {name: 'catDatetime', type: 'date' ,dateFormat:"Y-m-d H:i:s"}
+                ]);
+                
+                //定义cStore
+                var cStore = new Ext.data.JsonStore({
+                    url:"/shopping/category?action=all",
+                    root:'list',
+                    fields:cMember
+                });
+                
+                //加载数据
+                cStore.load();
+	        
 	            //定义iStore里面的成员
 	            var iMember = Ext.data.Record.create([
 	                {name: 'itemId', type: 'int'},
@@ -19,7 +40,10 @@
                 var iStore = new Ext.data.JsonStore({
                     url:"/shopping/item?action=display",
                     root:'list',
-                    fields:iMember
+                    fields:iMember,
+                    baseParams: {
+                        catId: 0
+                    }
                 });
                 
                 //加载数据
@@ -329,16 +353,37 @@
 	                    {xtype:"tbseparator"},
 	                    {text: "删除", handler: delPro},
 	                    {xtype:"tbseparator"},
+	                    '商品大类:', ' ',
+	                    new Ext.form.ComboBox({
+	                     //   emptyText:'选择个大类',
+	                        width: 100,
+	                        mode: 'local',
+	                        autoLoad: true,
+	                        readOnly: true,
+	                        store: cStore,
+	                        displayField:'catName',
+	                        valueField:'catId',
+	                        triggerAction: 'all',
+	                        forceSelection: true,
+	                        lazyInit: false,
+	                        listeners: {
+	                            'select': function (combo, record, index){
+	                                iStore.load({params:{catId: record.get("catId")}});
+	                            }
+	                        }
+	                    }),
+	                    {xtype:"tbseparator"},
 	                    '商品小类:', ' ',
 	                    new Ext.form.ComboBox({
-	                        emptyText:'请选择个小类',
-	                        width: 150,
-	                        mode: 'remote',
+	                        emptyText:'选择个小类',
+	                        width: 100,
+	                        mode: 'local',
 	                        readOnly: true,
 	                        store: iStore,
+	                        lazyInit: false,
 	                        displayField:'itemName',
 	                        valueField:'itemId',
-	                        emptyText:'请选择一个小类',
+	                        autoLoad: true,
 	                        triggerAction: 'all',
 	                        listeners: {
 	                            'select': function (combo, record, index){
@@ -363,9 +408,27 @@
 		                        method:"POST",
 		                        labelAlign:"right",
 		                        items: [{
+		                            fieldLabel: "商品大类",
+		                            xtype: "combo",
+		                            autoLoad: true,
+		                            mode: 'local',
+		                        	readOnly: true,
+		                        	store: cStore,
+		                        	displayField:'catName',
+		                       	 	valueField:'catId',
+		                        	triggerAction: 'all',
+		                        	name: 'catId',
+		                        	id: 'catId',
+		                        	listeners: {
+			                            'select': function (combo, record, index){
+			                                iStore.load({params:{catId: record.get("catId")}});
+			                            }
+			                        }
+		                        },{
 		                            fieldLabel: "商品小类",
 		                            xtype: "combo",
-		                            mode: 'remote',
+		                            mode: 'local',
+		                            autoLoad: true,
 		                        	readOnly: true,
 		                        	store: iStore,
 		                        	displayField:'itemName',
@@ -478,7 +541,7 @@
 	               var win = new Ext.Window({
                         title: '商品信息',
                         width: 300,
-                        height: 350,
+                        height: 380,
                         modal: true,
                         bodyStyle: 'padding:10px 10px 10px 10px',
                         items: [
@@ -744,7 +807,7 @@
 	            }
 	            
 	            function proStoreLoad(combo, record,index) {
-	                pStore.load({params:{itemId: record.get("itemId"), start: 0, limit: 10, query: null }});
+	                proGrid.store.reload({params:{itemId: record.get("itemId"), start: 0, limit: 10, query: null }});
 	            }
 	            
 	            function price(value) {
