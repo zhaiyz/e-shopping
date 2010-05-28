@@ -4,12 +4,9 @@
 <%@ include file = "header.jsp" %>
 <center>
     <table width="100%">
-        <tr align="center">
-            <td>订单号:</td>
-            <td colspan="2">
-                <font color="red">TM</font><%=(String)request.getAttribute("num")%>
-            </td>
-        </tr>
+        <caption>
+             订单号:<font color="red">TM</font><%=(String)request.getAttribute("num")%>
+        </caption>
         <tr align="center">
             <th>商品名称</th>
             <th>商品单价</th>
@@ -38,14 +35,14 @@
                 <td><%=product.getProName()%></td>
                 <td><%=product.getDisPrice()%></td>
                 <td><%=info.getAmount()%></td>
-                <td><%=info.getPrice()%></td>
+                <td><%=info.getPrice()%>元</td>
             </tr>
         <%
             }
         %>
         <tr>
             <td align="center">邮递方式:</td>
-            <td colspan="2" align="center">
+            <td colspan="3" align="center">
                 <%
                     int post = (Integer) request.getAttribute("post");
                     
@@ -67,7 +64,7 @@
             <td align="center">
                   小结:
             </td>
-            <td colspan="2" align="center">
+            <td colspan="3" align="center">
                   共<font color="red"><%=total%></font>元
             </td>
         </tr>

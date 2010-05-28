@@ -69,17 +69,11 @@ function testisNum(id){
         <tr>
             <td colspan="3" align="center">
                 <input type="submit" value="更新购物车" />
+                <input type="button" value="确认购买" onClick="location.href='/shopping/forward?page=order'"/>
             </td>
             
             <td colspan="3" align="right">
                   总价格为:<%=allTotal%>元
-            </td>
-        </tr>
-        <tr>
-            <td colspan="6" align="center">
-                <a href="/shopping/forward?page=order" onclick="return isAllNum();" >
-                      确认购买
-                </a>
             </td>
         </tr>
     </table>
