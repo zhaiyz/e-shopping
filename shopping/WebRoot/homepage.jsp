@@ -12,26 +12,51 @@
 			List<ProductVo> newProductList = (ArrayList)request.getAttribute("newProductList");
 		 %>
 		 
-		 <table>
+		 <table width="100%">
 		 	<tr>
 		 		<td>推荐商品</td>
 		 	</tr>
 		 	<tr>
-	
-		 	<td  id="header_demo1" style="border:1px solid blue;" nowrap>
-		 	<marquee scrollamount=1 scrolldelay=3 valign=middle behavior="scroll" onmouseover=this.stop() onmouseout=this.start()>
-		 	
-		 	<%for(int i=0;i<recommenList.size();i++){
-		 		ProductVo product = recommenList.get(i);
-		 		%>		 			 	
-		 		
-		 		<a href="/shopping/product?action=show&id=<%=product.getProId()%>" >
-	<img src="<%=request.getContextPath()%>/images/<%=product.getImageUrl() %>" title="<%=product.getProDesc() %>" width="120" height="120" border="0" />
-		 		</a>
-		 		
-		 	<% } %>		 	
-		 	</marquee>
-		 	</td>	
+			 	<td style="border:1px solid blue;" align="center">
+				 	<div id="demo">
+						<div id="indemo">
+							<div id="demo1">
+						 	<%
+						 	    for(int i=0;i<recommenList.size();i++){
+						 		    ProductVo product = recommenList.get(i);
+						    %>		 			 	
+						 		
+						 		<a href="/shopping/product?action=show&id=<%=product.getProId()%>" >
+					                <img src="<%=request.getContextPath()%>/images/<%=product.getImageUrl() %>" title="<%=product.getProDesc() %>" width="120" height="120" border="0" />
+						 		</a>
+						 		
+						 	<%
+						 	    }
+						 	%>		 	
+						 	</div>
+					 		<div id="demo2"></div>
+					 	</div>
+				 	</div>
+				 	<script>
+						<!--
+						var speed=10; //数字越大速度越慢
+						var tab=document.getElementById("demo");
+						var tab1=document.getElementById("demo1");
+						var tab2=document.getElementById("demo2");
+						tab2.innerHTML=tab1.innerHTML;
+						function Marquee(){
+							if(tab2.offsetWidth-tab.scrollLeft<=0)
+								tab.scrollLeft-=tab1.offsetWidth
+							else{
+								tab.scrollLeft++;
+							}
+						}
+						var MyMar=setInterval(Marquee,speed);
+						tab.onmouseover=function() {clearInterval(MyMar)};
+						tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
+						-->
+					</script>
+			 	</td>	
 		 	</tr>
 		 </table>
 	
