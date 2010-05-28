@@ -97,6 +97,26 @@
 			li {
 			    margin: 10px 3px 3px 3px;
 			}
+			
+			#demo {
+				background: #FFF;
+				overflow:hidden;
+				border: 1px dashed #CCC;
+				width: 100%;
+			}
+			#demo img {
+				border: 3px solid #F2F2F2;
+			}
+			#indemo {
+				float: left;
+				width: 800%;
+			}
+			#demo1 {
+				float: left;
+			}
+			#demo2 {
+				float: left;
+			}
 		</style>
     </head>
     <body>
