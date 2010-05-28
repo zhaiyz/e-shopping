@@ -1,16 +1,10 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <jsp:directive.page import="com.shopping.vo.UserVo"/>
 <%@ include file = "header.jsp" %>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<title>E网情深─网上商城</title>
-	</head>
-	<body>
-	<%
-		UserVo user = new  UserVo();
-		user = (UserVo)request.getAttribute("user");
-	%>
+		<%
+			UserVo user = new  UserVo();
+			user = (UserVo)request.getAttribute("user");
+		%>
 		<center>
 		<form action="/shopping/card?action=show" method="post">
 			<table>
@@ -60,6 +54,4 @@
 			</table>
 			</form>
 		</center>
-	</body>
-</html>
 <%@ include file = "footer.jsp" %>

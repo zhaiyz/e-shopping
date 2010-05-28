@@ -350,7 +350,7 @@ public class ProductDaoImp implements ProductDao {
 
 	public List<ProductVo> getNewProduct() {
 		List<ProductVo> list = new ArrayList<ProductVo>();
-		String sql = "SELECT * FROM product ORDER BY pro_datetime DESC LIMIT 0, 10";
+		String sql = "SELECT * FROM product ORDER BY pro_datetime DESC LIMIT 0, 5";
 		DBUtil dbc = new DBUtil();
 		try {
 			PreparedStatement pst = dbc.getConnection().prepareStatement(sql);

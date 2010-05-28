@@ -105,7 +105,7 @@
 						<td>
 							 用户名：
 						</td>
-						<td>
+						<td colspan="2">
 							<%=user.getUserName() %>
 						</td>
 					</tr>
@@ -136,7 +136,7 @@
 							性别：
 						</td>
 						
-						<td>
+						<td colspan="2">
 							<input type="radio" name="gender" value="0" <%if(user.getGender() == 0) {%> checked <%}%>>保密
 							<input type="radio" name="gender" value="1" <%if(user.getGender() == 1) {%> checked <%}%>>男
 							<input type="radio" name="gender" value="2" <%if(user.getGender() == 2) {%> checked <%}%>>女
@@ -146,7 +146,7 @@
 						<td>
 							密码提示
 						</td>
-						<td>
+						<td colspan="2">
 							<select name="prompt">
 								<option value="none">===请选择===
 								<option value="你上的大学是什么">你上的大学是什么
@@ -158,7 +158,7 @@
 						<td>
 							密码答案：
 						</td>
-						<td>
+						<td colspan="2">
 							<input type="text" name="answer" />
 						</td>
 					</tr>
@@ -177,7 +177,7 @@
 						<td>
 							电话：
 						</td>
-						<td>
+						<td colspan="2">
 							<input type="text" name="phone" value="<%=user.getPhone() %>">
 						</td>
 					</tr>
@@ -185,7 +185,7 @@
 						<td>
 							账户余额：
 						</td>
-						<td>
+						<td colspan="2">
 							<%=user.getBalance() %>元
 						</td>
 					</tr>
@@ -193,7 +193,7 @@
 						<td>
 							消费额度：
 						</td>
-						<td>
+						<td colspan="2">
 							<%=user.getPayed() %>元
 						</td>
 					</tr>
@@ -201,7 +201,7 @@
 						<td>
 							验证码:
 						</td>
-						<td>
+						<td colspan="2">
 							<input type="text" name="checkCode" />
 							<img src="<%=request.getContextPath()%>/checkCode.jsp" />
 						</td>

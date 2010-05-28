@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shopping.factory.ServiceFactory;
 import com.shopping.util.JSONUtil;
+import com.shopping.util.MD5Util;
 import com.shopping.vo.UserVo;
 
 public class UserServlet extends HttpServlet {
@@ -52,7 +53,10 @@ public class UserServlet extends HttpServlet {
 			if (checkCode1.equals(checkCode2)) {
 				UserVo user = new UserVo();
 				user.setUserName(userName);
-				user.setUserPassword(userPassword);
+				
+				MD5Util md = new MD5Util();
+				
+				user.setUserPassword(md.getMD5ofStr(userPassword));
 
 				if (ServiceFactory.getUserServiceInstance().isLogin(user)) {
 					// 登录成功，把userName放入session
@@ -77,6 +81,9 @@ public class UserServlet extends HttpServlet {
 
 			String userName = request.getParameter("username");
 			String password = request.getParameter("password");
+			
+			MD5Util md = new MD5Util();
+			password = md.getMD5ofStr(password);
 
 			user.setUserName(userName);
 			user.setUserPassword(password);
@@ -125,6 +132,10 @@ public class UserServlet extends HttpServlet {
 			UserVo user = ServiceFactory.getUserServiceInstance().findUserById(
 					id);
 			String userPassword = request.getParameter("password");
+			
+			MD5Util md = new MD5Util();
+		    userPassword = md.getMD5ofStr(userPassword);
+			
 			int gender = Integer.parseInt(request.getParameter("gender"));
 			String prompt = request.getParameter("prompt");
 			String answer = request.getParameter("answer");
